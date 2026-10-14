@@ -4,7 +4,8 @@ Ignacio Peyrano
 
 **Working draft, 14 October 2026. Not submission-ready.**
 This draft describes a synthetic executable benchmark and an exploratory
-HTTP/PostgreSQL case study on another implementation by the same author. It does not claim that a
+HTTP/PostgreSQL case study and a newly authored HTTP/SQLite salon backend,
+all implemented within the same project. It does not claim that a
 deployed agent system has been formally verified or that the proposed abstraction
 outperforms alternatives in general. Measured results are in `results.md`.
 
@@ -33,8 +34,14 @@ backend with PostgreSQL: 120 campaigns target reviewed natural discrepancies.
 Seed mutation detects repeated cancellation in 10/10 runs versus 0/10 for random
 programs, while random programs more often detect store/unit scope violations.
 Matched coarse and enriched feedback shows no clear overall enrichment advantage.
-Both studies are authored within the same project, without independent held-out
-evaluation, language models or real MCP transport.
+A further authored salon service transfers the frozen search algorithm to
+transactional HTTP/SQLite appointment, payment and refund workflows. Across
+640 campaigns, workflow mutation detects unpaid confirmation in 13/20 and
+repeated refund in 9/20 runs versus 0/20 for random programs; random programs
+more often detect cross-scope reads. All 134 detected campaigns have original
+and minimized witnesses reverified. Fixed controls show no observed discrepancy
+in 38,400 search calls. These authored evaluations do not supply independent
+held-out evidence, language models or real MCP transport.
 
 ## 1. Introduction
 
@@ -339,6 +346,58 @@ compatibility or broader application security. The public source, patch, evidenc
 and reproduction commands are documented in mitigation-results.md and
 case_studies/aoristo/README.md.
 
+## 7.3 Newly authored appointment/payment backend
+
+TurnoSalon adds a different business contract and persistence mechanism:
+two salon branches, customers and staff, capacity-limited slots, reservations,
+synthetic-credit payments, confirmation, cancellation and refunds. The service
+uses FastAPI, database-resolved identities from signed sessions and file-backed
+SQLite WAL transactions with independent connections and committed writes.
+It was created for the experiment rather than taken from a production system.
+
+The v0.3 mutator is copied byte for byte and the campaign implementation changes
+only its module description. Domain declarations, eight legitimate seed programs,
+observations, feedback projections and the separate specification oracle are new.
+The call budget (120), maximum depth (8), corpus capacity (64), operators and
+80% guided-selection rule are retained. The protocol and configuration were
+committed before the first full matrix, with no later tuning of search parameters.
+
+Four isolated deliberate mutants omit reading scope, slot-capacity enforcement,
+payment before staff confirmation, or the already-refunded check. Each mutant
+has one target; the fixed control runs all four targets. Twenty seeds per
+engine/target produce 320 mutant campaigns and 320 controls. As before, only
+the enabled/enriched pair isolates feedback; comparisons to random or uniform
+mutation include other treatment differences.
+
+Uniform workflow mutation detects overbooking in 16/20, unpaid confirmation in
+13/20 and repeated refund in 9/20, versus 2/20, 0/20 and 0/20 for random programs.
+Random detects cross-scope reads in 19/20 versus 6/20 for uniform mutation.
+The matched enriched/coarse pair detects overbooking in 10/20 versus 7/20, unpaid
+confirmation in 11/20 versus 13/20, and ties on read scope and refund at 8/20 and
+6/20. These mixed descriptive differences do not establish general superiority.
+
+All 134 detected campaigns have original and deletion-minimized witnesses
+reexecuted, giving 268 exact response/state revalidations. The fixed control
+executes 38,400 search calls without any observed oracle discrepancy. Total
+HTTP executions across authentication, controls, search, shrinking and witness
+verification are 71,674; contract tests and the TCP smoke are accounted separately.
+Fixed targets reuse seed/mode streams and are not independent replications.
+
+Nineteen additional tests cover HTTP/SQL business rules, identity forgery,
+resource creation, refund rollback and synchronized concurrent requests using
+independent SQL connections. Both last-slot contention and double-refund checks
+return 200/409 with one effect. A separate smoke completes the business lifecycle
+over loopback TCP; the campaign itself uses in-process ASGI HTTP. Another test
+exhibits equal globally enabled-tool sets with different correct decisions for
+confirming the same booking.
+
+This transfers execution and search to a new authored contract. It does not
+provide independent production generalization or held-out discovery. Credits
+are simulated; the finite campaign uses four provisioned bookings and tests
+creation separately. SQLite BEGIN IMMEDIATE serializes writers and is not a
+substitute for PostgreSQL race evaluation. Detailed results and reproduction
+commands are in salon-results.md and case_studies/salon/README.md.
+
 ## 8. Threats to validity
 
 **Construct validity:** lifecycle availability is a deliberately coarse projection;
@@ -356,8 +415,9 @@ Corpus capacity and hand-selected predicates constrain the observed tradeoffs.
 study both use small finite fixtures and are authored within this project.
 They do not represent enterprise deployments. AoristoTech's ORM-schema and
 savepoint isolation further limit transfer to live production behavior.
-No language model, transport MCP implementation, OPA process, concurrency or human
-operator was evaluated. Real attacks may be distributed differently from mutants.
+No language model, transport MCP implementation, OPA process or human
+operator was evaluated. Discovery campaigns are serial; selected mitigation and
+business contract tests separately exercise synchronized concurrent requests. Real attacks may be distributed differently from mutants.
 
 **Conclusion validity:** seed variation is not variation across independent systems.
 Conditional medians are subject to detection selection; capped effort and censoring
@@ -396,7 +456,8 @@ unit/regression tests, configurations, raw experiments, replayable witnesses,
 summaries and this draft. Campaign manifests identify the exact measured source.
 The AoristoTech integration publishes synthetic observations and source hashes;
 the selected public source subset and patch are bundled separately, while the
-complete private backend implementation is not.
+complete private backend implementation is not. The newly authored salon backend,
+frozen protocol, raw observations and replay commands are public.
 
 ## References
 

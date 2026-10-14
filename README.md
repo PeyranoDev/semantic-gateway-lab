@@ -25,7 +25,9 @@ python -m fuzzlab analyze
 python -m fuzzlab run --config configs/smoke.json --out results/local-smoke
 ```
 
-El primer comando ejecuta **65 pruebas**. La demo valida ocho defectos
+La suite base ejecuta **96 pruebas sin dependencias externas**. Al instalar las
+dependencias del backend de salones se habilitan otras 17 pruebas HTTP/SQL:
+**113 pruebas en total**. La demo valida ocho defectos
 deliberados y un flujo legítimo. `analyze` encuentra un contraejemplo a la
 distinguibilidad de llamadas en la abstracción básica dentro de un submodelo
 acotado. Los resultados de campañas anteriores no se sobrescriben.
@@ -114,9 +116,10 @@ No encontrar violaciones en `fixed` no constituye una prueba universal.
 
 ## Alcance
 
-Backend determinista en memoria, reloj fijo y dominio finito de prueba. No se
+El benchmark original usa memoria, reloj fijo y un dominio finito. Las
+integraciones posteriores agregan persistencia SQL y HTTP. No se
 implementa transporte MCP, OPA/Rego, un firewall semántico, modelos de lenguaje,
-una interfaz de aprobación humana ni persistencia durable. La aprobación HMAC
+una interfaz de aprobación humana. La aprobación HMAC
 es una simulación de autoridad externa; no acredita una integración humana real.
 El proyecto estudia la frontera de ejecución de herramientas. La evaluación
 con agentes reales es una fase posterior y deberá conservar su propia evidencia.
@@ -164,3 +167,29 @@ The completed PostgreSQL study contains 120 campaigns, 11 passing controls and 7
 ## Public real-backend original/fixed case (v0.4)
 
 The [AoristoTech source case](case_studies/aoristo/README.md) includes 62 verbatim real backend modules plus explicitly documented bootstrap/registry adaptations. Its 11-module patch also applies to the full application. Both fixed assemblies pass 21 checks and 120 campaigns (14,400 calls each); the original subset reproduces all 150 historical witnesses. See [mitigation evidence](paper/mitigation-results.md). Portable artifact tests now total 94. Validate with `python -m scripts.analyze_aoristo_case`.
+
+## Segundo dominio: reservas de salones (v0.5)
+
+[TurnoSalon](case_studies/salon/README.md) es un backend nuevo del experimento
+con FastAPI, sesiones firmadas y transacciones SQLite. Incluye clientes,
+empleados, reservas por sucursal, cupos, cobros con crédito simulado,
+cancelaciones y reintegros. No es una aplicación en producción ni una
+evaluación independiente.
+
+Se reutilizan el generador y los cuatro motores de v0.3 con un nuevo contrato
+y oráculo. El [protocolo](docs/salon-protocol.md) fija 640 campañas:
+320 sobre cuatro mutantes aislados y 320 controles corregidos.
+
+    python -m pip install -r backends/salon/requirements.lock
+    python -m unittest discover -s tests -p 'test_salon.py' -v
+    python -m scripts.salon_http_smoke
+    python -m integrations.salon.run --out results/local-salon
+    python -m scripts.analyze_salon
+
+La prueba por TCP levanta y termina un servidor local automáticamente.
+Las pruebas SQL comprueban rollback y solicitudes simultáneas para último
+cupo y reintegro. Las campañas usan HTTP ASGI en proceso; la creación de
+reservas se prueba aparte del dominio finito de búsqueda.
+
+[Resultados e interpretación](paper/salon-results.md) ·
+[Datos archivados](results/salon-v05/summary.md).

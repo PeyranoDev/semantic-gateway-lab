@@ -44,3 +44,17 @@ Cuatro errores deliberados se comparan contra un control corregido.
 Los motores y operadores se transfieren de v0.3; se implementan otro contrato,
 programas legítimos y oráculo. Detectar mutantes conocidos en este servicio nuevo
 no demuestra generalización a empresas independientes ni seguridad del control.
+
+## Evidencia medida
+
+La matriz contiene 640 campañas y 71.674 llamadas HTTP contabilizadas.
+La mutación sin corpus detecta confirmación sin pago en 13/20 y reintegro
+repetido en 9/20, mientras random alcanza 0/20 en ambos. Random detecta más
+lecturas ajenas. La versión fixed no presenta discrepancias observadas en
+38.400 llamadas de búsqueda. Ver [resultados](../../paper/salon-results.md).
+
+    python -m scripts.replay_salon
+
+Este comando verifica el archivo de evidencia y vuelve a ejecutar por HTTP los
+268 testigos originales y minimizados, comparando exactamente respuestas y SQL.
+Las 19 pruebas nuevas cubren además rollback, concurrencia y creación real.
