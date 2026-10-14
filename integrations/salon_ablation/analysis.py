@@ -20,7 +20,7 @@ def summarize(rows):
         groups[(row["variant"], row["target"], row["mode"])].append(row)
     return [{"variant":v, "target":t, "mode":m, "runs":len(group),
              "detected":sum(r["detected"] for r in group),
-             "wilson95":wilson(sum(r["detected"] for r in group),len(group)),
+             "wilson95":list(wilson(sum(r["detected"] for r in group),len(group))),
              "mean_capped_calls":sum(r["calls"] for r in group)/len(group),
              "bootstrap_detections":sum(r["detected"] and r["calls"] <= r["bootstrap_calls"]
                                          for r in group),

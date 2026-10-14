@@ -1,5 +1,6 @@
 """Verify treatment separation and exact preservation of the four original engines."""
 import ast
+import json
 from pathlib import Path
 import random
 import unittest
@@ -7,7 +8,7 @@ import unittest
 from fuzzlab.feedback import Corpus
 from integrations.salon.generator import Mutator
 from integrations.salon.model import legitimate_seeds
-from integrations.salon_ablation.analysis import effects, CONTRASTS
+from integrations.salon_ablation.analysis import effects, summarize, CONTRASTS
 from integrations.salon_ablation.programs import MODES, bank, bank_digest, next_program
 
 try:
@@ -59,6 +60,12 @@ class AblationPortableTests(unittest.TestCase):
             self.assertEqual(entry["mean_right_minus_left_capped_calls"],difference)
             self.assertEqual(entry["paired_bootstrap95_capped_calls"],[difference,difference])
             self.assertEqual(entry["paired_bootstrap95_detection_difference"],[0,0])
+
+    def test_summary_survives_json_round_trip_for_offline_verification(self):
+        rows = [{"variant":"read_scope","target":"BOOKING_SCOPE","mode":"random",
+                 "detected":True,"calls":3,"bootstrap_calls":0,"observed_states":1}]
+        summary = summarize(rows)
+        self.assertEqual(json.loads(json.dumps(summary)),summary)
 
 @unittest.skipUnless(HAS_HTTP,"install backends/salon/requirements.lock")
 class AblationHTTPTests(unittest.TestCase):
