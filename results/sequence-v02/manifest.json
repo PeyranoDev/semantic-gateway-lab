@@ -1,0 +1,70 @@
+{
+  "created_utc": "2026-10-14T15:52:51.012385+00:00",
+  "config": {
+    "seeds": [
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209
+    ],
+    "strategies": [
+      "random",
+      "enabled",
+      "enriched",
+      "sequence_uniform",
+      "sequence_enabled",
+      "sequence_enriched",
+      "sequence_no_recipient",
+      "sequence_no_approval",
+      "sequence_enriched_uniform"
+    ],
+    "mutants": [
+      "fixed",
+      "cross_department_read",
+      "wrong_recipient",
+      "sharing_overwrite",
+      "unauthorized_revoke",
+      "approval_scope",
+      "approval_replay",
+      "missing_approval",
+      "deny_audit",
+      "list_scope",
+      "unauthorized_update",
+      "cross_department_share"
+    ],
+    "budget": 3000,
+    "depth": 20,
+    "capacity": 64,
+    "baseline_commit": "eda1e8c2bb8d26f8f7e089f0d9a0d4e2380c6941"
+  },
+  "config_sha256": "5e15df72c8cfbfa31e5582c392cc4066c6a8dcaa3c4e5170268a368806b63a91",
+  "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "source_sha256": {
+    "fuzzlab/__init__.py": "233a7e1c1cb11b5dc9e240a6bdf333da9d95bf35d4180b3c2ed0c1c3a3554381",
+    "fuzzlab/__main__.py": "7fc252630b1433d240681159afeeb00d630e04c25c1b1ceae1e7d49a97f108f6",
+    "fuzzlab/abstraction.py": "5b4cb072add9537d513bc09f923de0244dd7d5969b3b3599bf4b76aa7f42bd39",
+    "fuzzlab/analyze.py": "b62536a83a1b4b506c199942a195837da9b597dc1ce4b6a11ff996c39f1bdeb4",
+    "fuzzlab/backend.py": "6cd9628b75801f4d840199c69d6b4f6bcf91bd90ca70b862604433f83b66fd0f",
+    "fuzzlab/feedback.py": "0242f015efa155d291689fde9a244bb382e88fb0d802e7266a9bb64a8bf2468a",
+    "fuzzlab/fuzzer.py": "0411774a5e32a3291b04e994b8e123ceca8a50884a9c2ed9e24ee695e578bfbd",
+    "fuzzlab/model.py": "6b28d10fba6c9a6e79e706a2e8c2e5342b8ba7f1f7f6d3b572b8853e937b68c7",
+    "fuzzlab/mutation.py": "921288539203fcce9f224cfabae0cf58c0bbf7c82c375b55f67bd10cd7cf27ee",
+    "fuzzlab/oracle.py": "067dab05639a596bc27f320d579c2fd79b2557edded35407005056669fd81e04",
+    "fuzzlab/report.py": "341f7d6d3ce3aea6a579c3006082fc7d96b0a65c05b468b912956ed204252384",
+    "fuzzlab/reserved.py": "89b6ed446fecdbfca0b637208f8ff3c63cbbe049fac949111375bb6faeb7057c",
+    "fuzzlab/scenarios.py": "e3f0d403ffdabb6e564b6554e4ce22b6cea93c7ab6f0ca57da4cf00654ff696a",
+    "fuzzlab/sequence.py": "c03c7db04e794cfd7acd8e4d8c33466a6cdf635f9c76ef10e5501841b1781055",
+    "tests/test_experiments.py": "70b4de659a2113cd362bf133dbef8ed8382ecb1dcf3fc0f8b9435ef754be497e",
+    "tests/test_security.py": "c8e7569fd48144a24e132273b6f397c727d485102584c20a0c9b3724adac2967",
+    "tests/test_sequence_mutation.py": "49b2603a97608f4e2e33f1e034b1872e4ce48f7e74fe827b7a0c89aee70bf49c"
+  },
+  "seed_programs_sha256": "8f6498b5e61c987d98da35dbd82cff50044a585cfc8b8063a5affa2744cb9f50",
+  "scope": "synthetic variants; original baselines unchanged; no LLM; descriptive comparison"
+}

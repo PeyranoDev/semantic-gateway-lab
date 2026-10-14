@@ -1,0 +1,8 @@
+{
+  "runs": 1080,
+  "backend_calls": 1147407,
+  "fixed_runs": 90,
+  "fixed_violations": 0,
+  "verified_witnesses": 829,
+  "raw_sha256": "8e7919724d1c15c06bae31ac8f797e9564bb5c923679b36166643ba9bb0bf117"
+}

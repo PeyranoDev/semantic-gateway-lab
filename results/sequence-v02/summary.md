@@ -1,0 +1,120 @@
+# Descriptive campaign results
+
+Synthetic implementation mutants; finite fixture; first violation per run.
+Misses are right-censored at the call budget. Replays count toward that budget.
+Wilson intervals describe variation over seeds in this benchmark, not real-world breach probability.
+Conditional medians omit misses; use capped effort and detection rate together.
+
+| Variant | Strategy | Hits / seeds | 95% Wilson interval | Mean capped calls | Mean concrete states |
+|---|---|---:|---:|---:|---:|
+| approval_replay | enabled | 0/10 | 0.00-0.28 | 3000.0 | 78.1 |
+| approval_replay | enriched | 0/10 | 0.00-0.28 | 3000.0 | 75.7 |
+| approval_replay | random | 0/10 | 0.00-0.28 | 3000.0 | 61.3 |
+| approval_replay | sequence_enabled | 10/10 | 0.72-1.00 | 595.4 | 38.1 |
+| approval_replay | sequence_enriched | 10/10 | 0.72-1.00 | 198.2 | 30.3 |
+| approval_replay | sequence_enriched_uniform | 10/10 | 0.72-1.00 | 221.1 | 32.6 |
+| approval_replay | sequence_no_approval | 10/10 | 0.72-1.00 | 300.3 | 36.0 |
+| approval_replay | sequence_no_recipient | 10/10 | 0.72-1.00 | 198.2 | 30.3 |
+| approval_replay | sequence_uniform | 10/10 | 0.72-1.00 | 218.4 | 31.5 |
+| approval_scope | enabled | 7/10 | 0.40-0.89 | 1490.9 | 43.1 |
+| approval_scope | enriched | 8/10 | 0.49-0.94 | 1449.1 | 40.9 |
+| approval_scope | random | 4/10 | 0.17-0.69 | 2251.3 | 48.4 |
+| approval_scope | sequence_enabled | 5/10 | 0.24-0.76 | 2246.0 | 80.8 |
+| approval_scope | sequence_enriched | 6/10 | 0.31-0.83 | 1869.2 | 76.1 |
+| approval_scope | sequence_enriched_uniform | 5/10 | 0.24-0.76 | 2291.5 | 95.2 |
+| approval_scope | sequence_no_approval | 6/10 | 0.31-0.83 | 2052.4 | 86.2 |
+| approval_scope | sequence_no_recipient | 4/10 | 0.17-0.69 | 2300.4 | 91.0 |
+| approval_scope | sequence_uniform | 6/10 | 0.31-0.83 | 1956.2 | 85.8 |
+| cross_department_read | enabled | 10/10 | 0.72-1.00 | 11.0 | 1.7 |
+| cross_department_read | enriched | 10/10 | 0.72-1.00 | 11.0 | 1.7 |
+| cross_department_read | random | 10/10 | 0.72-1.00 | 15.2 | 1.4 |
+| cross_department_read | sequence_enabled | 10/10 | 0.72-1.00 | 77.1 | 22.8 |
+| cross_department_read | sequence_enriched | 10/10 | 0.72-1.00 | 79.0 | 24.1 |
+| cross_department_read | sequence_enriched_uniform | 10/10 | 0.72-1.00 | 87.2 | 25.0 |
+| cross_department_read | sequence_no_approval | 10/10 | 0.72-1.00 | 72.3 | 24.5 |
+| cross_department_read | sequence_no_recipient | 10/10 | 0.72-1.00 | 79.0 | 24.1 |
+| cross_department_read | sequence_uniform | 10/10 | 0.72-1.00 | 56.6 | 23.1 |
+| cross_department_share | enabled | 10/10 | 0.72-1.00 | 102.8 | 7.5 |
+| cross_department_share | enriched | 10/10 | 0.72-1.00 | 112.4 | 6.2 |
+| cross_department_share | random | 10/10 | 0.72-1.00 | 102.1 | 7.4 |
+| cross_department_share | sequence_enabled | 10/10 | 0.72-1.00 | 1025.4 | 55.5 |
+| cross_department_share | sequence_enriched | 10/10 | 0.72-1.00 | 1394.7 | 62.0 |
+| cross_department_share | sequence_enriched_uniform | 8/10 | 0.49-0.94 | 1001.3 | 51.7 |
+| cross_department_share | sequence_no_approval | 7/10 | 0.40-0.89 | 1948.6 | 83.2 |
+| cross_department_share | sequence_no_recipient | 10/10 | 0.72-1.00 | 1215.5 | 59.7 |
+| cross_department_share | sequence_uniform | 10/10 | 0.72-1.00 | 1214.1 | 66.8 |
+| deny_audit | enabled | 10/10 | 0.72-1.00 | 1.1 | 1.0 |
+| deny_audit | enriched | 10/10 | 0.72-1.00 | 1.1 | 1.0 |
+| deny_audit | random | 10/10 | 0.72-1.00 | 1.2 | 1.0 |
+| deny_audit | sequence_enabled | 10/10 | 0.72-1.00 | 34.6 | 21.2 |
+| deny_audit | sequence_enriched | 10/10 | 0.72-1.00 | 33.7 | 21.2 |
+| deny_audit | sequence_enriched_uniform | 10/10 | 0.72-1.00 | 33.7 | 21.2 |
+| deny_audit | sequence_no_approval | 10/10 | 0.72-1.00 | 32.2 | 21.8 |
+| deny_audit | sequence_no_recipient | 10/10 | 0.72-1.00 | 33.7 | 21.2 |
+| deny_audit | sequence_uniform | 10/10 | 0.72-1.00 | 33.2 | 21.5 |
+| fixed | enabled | 0/10 | 0.00-0.28 | 3000.0 | 78.1 |
+| fixed | enriched | 0/10 | 0.00-0.28 | 3000.0 | 75.7 |
+| fixed | random | 0/10 | 0.00-0.28 | 3000.0 | 61.3 |
+| fixed | sequence_enabled | 0/10 | 0.00-0.28 | 3000.0 | 96.7 |
+| fixed | sequence_enriched | 0/10 | 0.00-0.28 | 3000.0 | 106.2 |
+| fixed | sequence_enriched_uniform | 0/10 | 0.00-0.28 | 3000.0 | 114.8 |
+| fixed | sequence_no_approval | 0/10 | 0.00-0.28 | 3000.0 | 112.3 |
+| fixed | sequence_no_recipient | 0/10 | 0.00-0.28 | 3000.0 | 107.7 |
+| fixed | sequence_uniform | 0/10 | 0.00-0.28 | 3000.0 | 114.1 |
+| list_scope | enabled | 10/10 | 0.72-1.00 | 7.8 | 1.4 |
+| list_scope | enriched | 10/10 | 0.72-1.00 | 7.8 | 1.4 |
+| list_scope | random | 10/10 | 0.72-1.00 | 6.9 | 1.5 |
+| list_scope | sequence_enabled | 10/10 | 0.72-1.00 | 24.0 | 20.0 |
+| list_scope | sequence_enriched | 10/10 | 0.72-1.00 | 24.0 | 20.0 |
+| list_scope | sequence_enriched_uniform | 10/10 | 0.72-1.00 | 24.0 | 20.0 |
+| list_scope | sequence_no_approval | 10/10 | 0.72-1.00 | 24.0 | 20.0 |
+| list_scope | sequence_no_recipient | 10/10 | 0.72-1.00 | 24.0 | 20.0 |
+| list_scope | sequence_uniform | 10/10 | 0.72-1.00 | 24.0 | 20.0 |
+| missing_approval | enabled | 9/10 | 0.60-0.98 | 713.3 | 24.2 |
+| missing_approval | enriched | 10/10 | 0.72-1.00 | 651.9 | 22.1 |
+| missing_approval | random | 9/10 | 0.60-0.98 | 1457.6 | 35.3 |
+| missing_approval | sequence_enabled | 10/10 | 0.72-1.00 | 504.4 | 35.5 |
+| missing_approval | sequence_enriched | 10/10 | 0.72-1.00 | 189.6 | 28.7 |
+| missing_approval | sequence_enriched_uniform | 10/10 | 0.72-1.00 | 221.1 | 31.6 |
+| missing_approval | sequence_no_approval | 10/10 | 0.72-1.00 | 300.3 | 35.0 |
+| missing_approval | sequence_no_recipient | 10/10 | 0.72-1.00 | 189.6 | 28.7 |
+| missing_approval | sequence_uniform | 10/10 | 0.72-1.00 | 198.1 | 29.9 |
+| sharing_overwrite | enabled | 1/10 | 0.02-0.40 | 2935.7 | 77.5 |
+| sharing_overwrite | enriched | 2/10 | 0.06-0.51 | 2857.9 | 72.9 |
+| sharing_overwrite | random | 1/10 | 0.02-0.40 | 2879.7 | 59.5 |
+| sharing_overwrite | sequence_enabled | 10/10 | 0.72-1.00 | 228.4 | 29.1 |
+| sharing_overwrite | sequence_enriched | 10/10 | 0.72-1.00 | 540.8 | 40.9 |
+| sharing_overwrite | sequence_enriched_uniform | 10/10 | 0.72-1.00 | 322.8 | 33.9 |
+| sharing_overwrite | sequence_no_approval | 10/10 | 0.72-1.00 | 135.3 | 26.5 |
+| sharing_overwrite | sequence_no_recipient | 10/10 | 0.72-1.00 | 377.1 | 33.8 |
+| sharing_overwrite | sequence_uniform | 10/10 | 0.72-1.00 | 168.8 | 28.8 |
+| unauthorized_revoke | enabled | 10/10 | 0.72-1.00 | 420.5 | 17.2 |
+| unauthorized_revoke | enriched | 10/10 | 0.72-1.00 | 639.9 | 20.7 |
+| unauthorized_revoke | random | 8/10 | 0.49-0.94 | 1198.1 | 30.1 |
+| unauthorized_revoke | sequence_enabled | 10/10 | 0.72-1.00 | 1138.6 | 55.7 |
+| unauthorized_revoke | sequence_enriched | 10/10 | 0.72-1.00 | 1463.9 | 71.7 |
+| unauthorized_revoke | sequence_enriched_uniform | 7/10 | 0.40-0.89 | 1782.0 | 81.7 |
+| unauthorized_revoke | sequence_no_approval | 8/10 | 0.49-0.94 | 1004.0 | 54.5 |
+| unauthorized_revoke | sequence_no_recipient | 6/10 | 0.31-0.83 | 1968.2 | 84.8 |
+| unauthorized_revoke | sequence_uniform | 10/10 | 0.72-1.00 | 946.6 | 54.6 |
+| unauthorized_update | enabled | 10/10 | 0.72-1.00 | 27.3 | 3.1 |
+| unauthorized_update | enriched | 10/10 | 0.72-1.00 | 27.3 | 3.1 |
+| unauthorized_update | random | 10/10 | 0.72-1.00 | 30.5 | 3.9 |
+| unauthorized_update | sequence_enabled | 7/10 | 0.40-0.89 | 1629.6 | 65.3 |
+| unauthorized_update | sequence_enriched | 8/10 | 0.49-0.94 | 1515.1 | 74.3 |
+| unauthorized_update | sequence_enriched_uniform | 8/10 | 0.49-0.94 | 1091.8 | 62.3 |
+| unauthorized_update | sequence_no_approval | 7/10 | 0.40-0.89 | 1511.8 | 73.5 |
+| unauthorized_update | sequence_no_recipient | 6/10 | 0.31-0.83 | 1750.2 | 79.3 |
+| unauthorized_update | sequence_uniform | 6/10 | 0.31-0.83 | 2199.5 | 90.3 |
+| wrong_recipient | enabled | 10/10 | 0.72-1.00 | 662.7 | 25.2 |
+| wrong_recipient | enriched | 10/10 | 0.72-1.00 | 1061.9 | 33.8 |
+| wrong_recipient | random | 8/10 | 0.49-0.94 | 1283.8 | 33.8 |
+| wrong_recipient | sequence_enabled | 6/10 | 0.31-0.83 | 1976.4 | 74.7 |
+| wrong_recipient | sequence_enriched | 6/10 | 0.31-0.83 | 1674.5 | 73.8 |
+| wrong_recipient | sequence_enriched_uniform | 6/10 | 0.31-0.83 | 2087.1 | 91.9 |
+| wrong_recipient | sequence_no_approval | 4/10 | 0.17-0.69 | 2100.2 | 86.4 |
+| wrong_recipient | sequence_no_recipient | 6/10 | 0.31-0.83 | 1876.1 | 83.3 |
+| wrong_recipient | sequence_uniform | 4/10 | 0.17-0.69 | 2185.8 | 93.0 |
+
+Abstraction sizes are diagnostics, not comparable coverage percentages.
+Fixed-control hits would indicate a defect in the implementation or specification.
