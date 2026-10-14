@@ -1,0 +1,57 @@
+name: Sequence mutation experiment
+on:
+  push:
+    branches: ['research/sequence-mutation']
+    paths:
+      - 'fuzzlab/mutation.py'
+      - 'fuzzlab/feedback.py'
+      - 'fuzzlab/reserved.py'
+      - 'fuzzlab/sequence.py'
+      - 'tests/test_sequence_mutation.py'
+      - 'configs/sequence-pilot.json'
+      - '.github/workflows/sequence-experiment.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sequence-experiment-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify frozen baseline sources
+        run: python scripts/unpack_results.py
+      - name: Run complete test suite
+        run: python -m unittest discover -s tests -v
+      - name: Execute matched sequence matrix
+        run: python -m fuzzlab.sequence run --config configs/sequence-pilot.json --out results/sequence-v02
+      - name: Preserve complete experiment artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sequence-v02-${{ github.sha }}
+          path: results/sequence-v02
+          if-no-files-found: ignore
+      - name: Commit measured results
+        if: success()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          traces = Path('results/sequence-v02/traces')
+          if traces.exists():
+              shutil.rmtree(traces)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/sequence-v02
+          git commit -m "Record measured sequence mutation experiments"
+          git push origin HEAD:${{ github.ref_name }}

@@ -1,0 +1,43 @@
+{
+  "seeds": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209
+  ],
+  "strategies": [
+    "random",
+    "enabled",
+    "enriched",
+    "sequence_uniform",
+    "sequence_enabled",
+    "sequence_enriched",
+    "sequence_no_recipient",
+    "sequence_no_approval",
+    "sequence_enriched_uniform"
+  ],
+  "mutants": [
+    "fixed",
+    "cross_department_read",
+    "wrong_recipient",
+    "sharing_overwrite",
+    "unauthorized_revoke",
+    "approval_scope",
+    "approval_replay",
+    "missing_approval",
+    "deny_audit",
+    "list_scope",
+    "unauthorized_update",
+    "cross_department_share"
+  ],
+  "budget": 3000,
+  "depth": 20,
+  "capacity": 64,
+  "baseline_commit": "eda1e8c2bb8d26f8f7e089f0d9a0d4e2380c6941"
+}
