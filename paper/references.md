@@ -37,3 +37,20 @@ replicated in this repository.
 
 The sequence-mutation follow-up cites these established stateful-generation methods.
 Their implementations have not been benchmarked against this small runtime.
+
+11. Vaggelis Atlidakis, Patrice Godefroid and Marina Polishchuk. *Checking Security Properties of Cloud Service REST APIs.* ICST 2020.
+    Primary author PDF: https://patricegodefroid.github.io/public_psfiles/icst2020.pdf
+12. Davide Corradini, Amedeo Zampieri, Michele Pasqua, Emanuele Viglianisi, Michael Dallago and Mariano Ceccato. *Automated Black-Box Testing of Nominal and Error Scenarios in RESTful APIs.* Software Testing, Verification and Reliability, 2022. https://doi.org/10.1002/stvr.1808
+    Author manuscript: https://michelepasqua.github.io/publications/pdfs/STVR22.pdf
+    Author publication record: https://profs.scienze.univr.it/~ceccato/papers/2022/stvr2022.html
+13. Davide Corradini, Michele Pasqua and Mariano Ceccato. *Automated Black-box Testing of Mass Assignment Vulnerabilities in RESTful APIs.* ICSE 2023.
+    Primary abstract/preprint: https://arxiv.org/abs/2301.01261
+    Institutional record: https://iris.univr.it/handle/11562/1107429
+14. Javier Godoy, Juan Pablo Galeotti, Diego Garbervetsky and Sebastián Uchitel. *Enabledness-based Testing of Object Protocols.* ACM Transactions on Software Engineering and Methodology, 30(2), Article 12, 2021. https://doi.org/10.1145/3415153
+    Author-published extended abstract (JAIIO 2022): https://revistas.unlp.edu.ar/JAIIO/article/download/18418/18081/82202
+    The complete journal article remains to be reviewed; the inspected primary source is the authors' one-page summary.
+
+The focused source audit, overlap decisions and full-text access limits are documented
+in literature-review.md. References [11] and [14] materially change the framing:
+security-property checking and enabledness-guided testing have close prior work.
+No external tool implementation is included in the measured treatment matrices.

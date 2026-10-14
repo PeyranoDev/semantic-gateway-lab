@@ -1,0 +1,562 @@
+[
+  {
+    "bootstrap_detections": 1,
+    "detected": 1,
+    "mean_capped_calls": 116.33333333333333,
+    "mean_observed_states": 2.3333333333333335,
+    "mode": "mutation_unseeded",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.005908590381612455,
+      0.16670390991409173
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 3,
+    "mean_capped_calls": 111.76666666666667,
+    "mean_observed_states": 4.166666666666667,
+    "mode": "random",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.03459988874733419,
+      0.25621082579184085
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 3,
+    "mean_capped_calls": 114.16666666666667,
+    "mean_observed_states": 16.433333333333334,
+    "mode": "random_bootstrap",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.03459988874733419,
+      0.25621082579184085
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 1,
+    "mean_capped_calls": 117.96666666666667,
+    "mean_observed_states": 16.2,
+    "mode": "seed_extend",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.005908590381612455,
+      0.16670390991409173
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 15.0,
+    "mode": "seed_replay",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 18,
+    "mean_capped_calls": 86.23333333333333,
+    "mean_observed_states": 16.9,
+    "mode": "sequence_enabled",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.42320360253322475,
+      0.7540937188319815
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 14,
+    "mean_capped_calls": 94.36666666666666,
+    "mean_observed_states": 17.433333333333334,
+    "mode": "sequence_enriched",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.30232388907699753,
+      0.638577003801267
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 18,
+    "mean_capped_calls": 89.36666666666666,
+    "mean_observed_states": 17.566666666666666,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "CONFIRM_PAYMENT",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.42320360253322475,
+      0.7540937188319815
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 2.3,
+    "mode": "mutation_unseeded",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 4.366666666666666,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 16.466666666666665,
+    "mode": "random_bootstrap",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 16.2,
+    "mode": "seed_extend",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 15.0,
+    "mode": "seed_replay",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 17.133333333333333,
+    "mode": "sequence_enabled",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 17.6,
+    "mode": "sequence_enriched",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 18.3,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 20,
+    "detected": 25,
+    "mean_capped_calls": 41.46666666666667,
+    "mean_observed_states": 1.6333333333333333,
+    "mode": "mutation_unseeded",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.6643564949358398,
+      0.9266345762815145
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 30,
+    "mean_capped_calls": 24.333333333333332,
+    "mean_observed_states": 1.8666666666666667,
+    "mode": "random",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 30,
+    "mean_capped_calls": 48.333333333333336,
+    "mean_observed_states": 15.533333333333333,
+    "mode": "random_bootstrap",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 26,
+    "mean_capped_calls": 67.3,
+    "mean_observed_states": 15.6,
+    "mode": "seed_extend",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.703186733179637,
+      0.9469034451594526
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 15.0,
+    "mode": "seed_replay",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 6,
+    "mean_capped_calls": 109.03333333333333,
+    "mean_observed_states": 17.033333333333335,
+    "mode": "sequence_enabled",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.0950510717728987,
+      0.3730569641314825
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 9,
+    "mean_capped_calls": 107.23333333333333,
+    "mean_observed_states": 17.533333333333335,
+    "mode": "sequence_enriched",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.16664748268243793,
+      0.47875787458714947
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 8,
+    "mean_capped_calls": 104.06666666666666,
+    "mean_observed_states": 17.766666666666666,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "BOOKING_SCOPE",
+    "variant": "read_scope",
+    "wilson95": [
+      0.14182663319596317,
+      0.4444796169518888
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 2.3,
+    "mode": "mutation_unseeded",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 4.366666666666666,
+    "mode": "random",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 16.466666666666665,
+    "mode": "random_bootstrap",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 2,
+    "mean_capped_calls": 118.76666666666667,
+    "mean_observed_states": 16.233333333333334,
+    "mode": "seed_extend",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.018477023791270378,
+      0.2132345836261692
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 15.0,
+    "mode": "seed_replay",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 10,
+    "mean_capped_calls": 100.63333333333334,
+    "mean_observed_states": 16.833333333333332,
+    "mode": "sequence_enabled",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.19230498083676134,
+      0.5121994835545616
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 10,
+    "mean_capped_calls": 99.9,
+    "mean_observed_states": 17.4,
+    "mode": "sequence_enriched",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.19230498083676134,
+      0.5121994835545616
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 10,
+    "mean_capped_calls": 101.36666666666666,
+    "mean_observed_states": 18.2,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "REFUND_REPLAY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.19230498083676134,
+      0.5121994835545616
+    ]
+  },
+  {
+    "bootstrap_detections": 1,
+    "detected": 2,
+    "mean_capped_calls": 113.1,
+    "mean_observed_states": 2.3333333333333335,
+    "mode": "mutation_unseeded",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.018477023791270378,
+      0.2132345836261692
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 2,
+    "mean_capped_calls": 118.3,
+    "mean_observed_states": 4.4,
+    "mode": "random",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.018477023791270378,
+      0.2132345836261692
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 1,
+    "mean_capped_calls": 119.36666666666666,
+    "mean_observed_states": 16.466666666666665,
+    "mode": "random_bootstrap",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.005908590381612455,
+      0.16670390991409173
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 5,
+    "mean_capped_calls": 115.9,
+    "mean_observed_states": 16.333333333333332,
+    "mode": "seed_extend",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.0733654237184855,
+      0.3356435050641603
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 15.0,
+    "mode": "seed_replay",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 12,
+    "mean_capped_calls": 100.36666666666666,
+    "mean_observed_states": 16.966666666666665,
+    "mode": "sequence_enabled",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.24590628116801852,
+      0.5767963974667752
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 22,
+    "mean_capped_calls": 77.8,
+    "mean_observed_states": 17.2,
+    "mode": "sequence_enriched",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.555520383048111,
+      0.8581733668040368
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "detected": 24,
+    "mean_capped_calls": 71.23333333333333,
+    "mean_observed_states": 17.333333333333332,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "SLOT_CAPACITY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.6269430358685175,
+      0.9049489282271013
+    ]
+  }
+]

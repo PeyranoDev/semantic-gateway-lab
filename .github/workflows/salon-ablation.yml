@@ -8,6 +8,7 @@ on:
       - 'configs/salon-ablation.json'
       - 'docs/salon-ablation-protocol.md'
       - 'scripts/*salon_ablation.py'
+      - 'scripts/check_salon_repair.py'
       - 'results/salon-v06/**'
       - '.github/workflows/salon-ablation.yml'
   pull_request:
@@ -17,6 +18,7 @@ on:
       - 'configs/salon-ablation.json'
       - 'docs/salon-ablation-protocol.md'
       - 'scripts/*salon_ablation.py'
+      - 'scripts/check_salon_repair.py'
       - 'results/salon-v06/**'
       - '.github/workflows/salon-ablation.yml'
   workflow_dispatch:
@@ -42,6 +44,9 @@ jobs:
       - name: Replay archived v0.6 witnesses against HTTP/SQL
         if: hashFiles('results/salon-v06/manifest.json') != ''
         run: python -m scripts.replay_salon_ablation
+      - name: Verify unchanged observations after the serialization repair
+        if: hashFiles('results/salon-v06/repair-verification.json') != ''
+        run: python -m scripts.check_salon_repair
       - name: Full frozen matrix on explicit dispatch
         if: github.event_name == 'workflow_dispatch'
         run: python -m integrations.salon_ablation.run --out /tmp/salon-ablation

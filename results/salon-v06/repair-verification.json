@@ -1,0 +1,19 @@
+{
+  "attempt1_http_calls": 129799,
+  "changed_source_paths": [
+    "integrations/salon_ablation/analysis.py",
+    "tests/test_salon_ablation.py"
+  ],
+  "config_sha256": "2294a82ca0d039bed2cf68732b140afeca0d49d6d1943c9a828fa9314aa99e92",
+  "corrected_measurement_commit": "6f9f0b359cde92dc1bd694ea1a279fc04e02173f",
+  "first_measurement_commit": "011359225b375b485afcf53aea518db9efaa760e",
+  "ignored_fields": [
+    "elapsed_s"
+  ],
+  "primary_http_calls": 129799,
+  "raw_sha256_attempt1": "ec50b0f43039f313cfb497cdc2ddae1bca936349855f375b0ce15537b9639b1c",
+  "raw_sha256_canonical": "fdb0b94608359844810464a72cb2f42cb04a49653d28b87a025d12aff4d7ccfa",
+  "replication_note": "verifier-only rerun; attempts are not pooled as independent samples",
+  "semantic_rows_compared": 1200,
+  "semantic_rows_equal": 1200
+}

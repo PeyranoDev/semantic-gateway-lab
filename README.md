@@ -25,9 +25,9 @@ python -m fuzzlab analyze
 python -m fuzzlab run --config configs/smoke.json --out results/local-smoke
 ```
 
-La suite base ejecuta **96 pruebas sin dependencias externas**. Al instalar las
-dependencias del backend de salones se habilitan otras 17 pruebas HTTP/SQL:
-**113 pruebas en total**. La demo valida ocho defectos
+La suite base contiene **102 pruebas sin dependencias externas**. Al instalar
+las dependencias de los casos HTTP se habilitan otras 20 pruebas:
+**122 pruebas en total**. La demo valida ocho defectos
 deliberados y un flujo legítimo. `analyze` encuentra un contraejemplo a la
 distinguibilidad de llamadas en la abstracción básica dentro de un submodelo
 acotado. Los resultados de campañas anteriores no se sobrescriben.
@@ -193,3 +193,25 @@ reservas se prueba aparte del dominio finito de búsqueda.
 
 [Resultados e interpretación](paper/salon-results.md) ·
 [Datos archivados](results/salon-v05/summary.md).
+
+## Separación de componentes y revisión del paper (v0.6)
+
+La evaluación prospectiva fija ocho tratamientos y 30 semillas nuevas. Las
+1.200 campañas separan biblioteca válida/aleatoria, repetición, extensión,
+mutación y feedback. Se publican todos los contrastes por semilla, incertidumbre
+descriptiva y testigos, junto con una réplica completa tras corregir el verificador.
+Ver [resultados de componentes](paper/component-results.md),
+[protocolo](docs/salon-ablation-protocol.md) y
+[auditoría bibliográfica](paper/literature-review.md).
+
+    python -m scripts.analyze_salon_ablation
+    python -m scripts.replay_salon_ablation
+    python -m scripts.check_salon_repair
+    python -m integrations.salon_ablation.run --out results/local-ablation
+
+Las figuras científicas se reproducen con paper/requirements-figures.txt y
+python -m scripts.plot_salon_ablation. El manuscrito ahora organiza una pregunta
+común y diferencia observación, búsqueda y seguridad. El [mapa de afirmaciones](paper/claims-and-evidence.md)
+identifica lo demostrado y lo pendiente. La comparación con RESTler aún no está
+ejecutada; su [protocolo externo](docs/external-baseline-protocol.md) no se cuenta
+como un resultado.
