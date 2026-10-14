@@ -1,0 +1,2109 @@
+{
+  "controls": [
+    {
+      "name": "seed-0",
+      "trace": [
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "read_sale",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 1,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "alice",
+                "paymentMethod": null,
+                "status": "pending",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000065"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        },
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "cancel_sale",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 10,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "cancelled"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 1,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "alice",
+                "paymentMethod": null,
+                "status": "cancelled",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000065"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "seed-1",
+      "trace": [
+        {
+          "action": {
+            "actor": "bob",
+            "operation": "read_sale",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 2,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "bob",
+                "paymentMethod": null,
+                "status": "pending",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000066"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        },
+        {
+          "action": {
+            "actor": "bob",
+            "operation": "cancel_sale",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 10
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "cancelled"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 2,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "bob",
+                "paymentMethod": null,
+                "status": "cancelled",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000066"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "seed-2",
+      "trace": [
+        {
+          "action": {
+            "actor": "anonymous",
+            "operation": "consume_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 1
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "CurrentUses": 1,
+                "Id": "00000000-0000-0000-0000-000000000259",
+                "IsValid": true,
+                "MaxUses": 1,
+                "Message": "Invitation is valid",
+                "UnitId": "00000000-0000-0000-0000-00000000012d"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "seed-3",
+      "trace": [
+        {
+          "action": {
+            "actor": "anonymous",
+            "operation": "consume_invitation",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 1
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "CurrentUses": 1,
+                "Id": "00000000-0000-0000-0000-00000000025a",
+                "IsValid": true,
+                "MaxUses": 1,
+                "Message": "Invitation is valid",
+                "UnitId": "00000000-0000-0000-0000-00000000012e"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "seed-4",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "revoke_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {},
+              "message": "Invitation revoked successfully",
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "seed-5",
+      "trace": [
+        {
+          "action": {
+            "actor": "nina",
+            "operation": "revoke_invitation",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {},
+              "message": "Invitation revoked successfully",
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "list_own_sales",
+      "trace": [
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "list_sales",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": [
+                {
+                  "discount": null,
+                  "discountPercent": null,
+                  "id": 1,
+                  "items": [
+                    {
+                      "productId": 1,
+                      "productName": "Fixture product",
+                      "quantity": 3.0,
+                      "subtotal": 6.0,
+                      "unitPrice": 2.0
+                    }
+                  ],
+                  "name": "alice",
+                  "paymentMethod": null,
+                  "status": "pending",
+                  "subtotal": 6.0,
+                  "total": 6.0,
+                  "userId": "00000000-0000-0000-0000-000000000065"
+                }
+              ],
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "reject_anonymous",
+      "trace": [
+        {
+          "action": {
+            "actor": "anonymous",
+            "operation": "read_sale",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "detail": "Not authenticated"
+            },
+            "status": 403
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "reject_cross_product",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "read_sale",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "detail": "Acceso denegado: Esta funcionalidad es solo para usuarios de VerduSoft"
+            },
+            "status": 403
+          },
+          "violations": []
+        },
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "revoke_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "detail": "Acceso denegado: Esta funcionalidad es solo para usuarios de RedVecina"
+            },
+            "status": 403
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "invitation_usage_limit",
+      "trace": [
+        {
+          "action": {
+            "actor": "anonymous",
+            "operation": "consume_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 1
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "CurrentUses": 1,
+                "Id": "00000000-0000-0000-0000-000000000259",
+                "IsValid": true,
+                "MaxUses": 1,
+                "Message": "Invitation is valid",
+                "UnitId": "00000000-0000-0000-0000-00000000012d"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        },
+        {
+          "action": {
+            "actor": "anonymous",
+            "operation": "consume_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 1
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 1
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "detail": "Invitation has reached maximum uses"
+            },
+            "status": 400
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "name": "revoked_invitation",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "revoke_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {},
+              "message": "Invitation revoked successfully",
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        },
+        {
+          "action": {
+            "actor": "anonymous",
+            "operation": "consume_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "detail": "Invitation not found"
+            },
+            "status": 404
+          },
+          "violations": []
+        }
+      ]
+    }
+  ],
+  "controls_passed": 11,
+  "known_witnesses": [
+    {
+      "name": "cancel_replay",
+      "target": "CANCEL_REPLAY",
+      "trace": [
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "cancel_sale",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 10,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "cancelled"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 1,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "alice",
+                "paymentMethod": null,
+                "status": "cancelled",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000065"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": []
+        },
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "cancel_sale",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 13,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "cancelled"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 10,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "cancelled"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 1,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "alice",
+                "paymentMethod": null,
+                "status": "cancelled",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000065"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": [
+            "CANCEL_REPLAY",
+            "DENIED_EFFECT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "read_foreign_sale",
+      "target": "READ_TENANT",
+      "trace": [
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "read_sale",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 2,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "bob",
+                "paymentMethod": null,
+                "status": "pending",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000066"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": [
+            "READ_TENANT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cancel_foreign_sale",
+      "target": "CANCEL_TENANT",
+      "trace": [
+        {
+          "action": {
+            "actor": "alice",
+            "operation": "cancel_sale",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 10
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "cancelled"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {
+                "discount": null,
+                "discountPercent": null,
+                "id": 2,
+                "items": [
+                  {
+                    "productId": 1,
+                    "productName": "Fixture product",
+                    "quantity": 3.0,
+                    "subtotal": 6.0,
+                    "unitPrice": 2.0
+                  }
+                ],
+                "name": "bob",
+                "paymentMethod": null,
+                "status": "cancelled",
+                "subtotal": 6.0,
+                "total": 6.0,
+                "userId": "00000000-0000-0000-0000-000000000066"
+              },
+              "message": null,
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": [
+            "CANCEL_TENANT",
+            "DENIED_EFFECT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "revoke_foreign_invitation",
+      "target": "INVITATION_SCOPE",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "revoke_invitation",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "data": {},
+              "message": "Invitation revoked successfully",
+              "success": true
+            },
+            "status": 200
+          },
+          "violations": [
+            "INVITATION_SCOPE",
+            "DENIED_EFFECT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "create_foreign_invitation",
+      "target": "INVITATION_SCOPE",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "create_invitation",
+            "resource": "b"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              },
+              "new-1": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "error": "InvitationResponse validation failed",
+              "validation_errors": 7
+            },
+            "status": 404
+          },
+          "violations": [
+            "INVITATION_SCOPE",
+            "DENIED_EFFECT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "create_own_invitation_response",
+      "target": "ERROR_EFFECT",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "create_invitation",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              },
+              "new-1": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "error": "InvitationResponse validation failed",
+              "validation_errors": 7
+            },
+            "status": 404
+          },
+          "violations": [
+            "LEGITIMATE_TASK_BLOCKED",
+            "ERROR_EFFECT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "list_own_invitation_response",
+      "target": "SERVER_ERROR",
+      "trace": [
+        {
+          "action": {
+            "actor": "ruth",
+            "operation": "list_invitations",
+            "resource": "a"
+          },
+          "after": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "before": {
+            "inventory": {
+              "1": 7,
+              "2": 7
+            },
+            "invitations": {
+              "a": {
+                "max_uses": 1,
+                "unit": "a",
+                "uses": 0
+              },
+              "b": {
+                "max_uses": 1,
+                "unit": "b",
+                "uses": 0
+              }
+            },
+            "sales": {
+              "a": {
+                "grocery": 1,
+                "quantity": 3,
+                "status": "pending"
+              },
+              "b": {
+                "grocery": 2,
+                "quantity": 3,
+                "status": "pending"
+              }
+            }
+          },
+          "response": {
+            "body": {
+              "error": "Internal Server Error"
+            },
+            "status": 500
+          },
+          "violations": [
+            "LEGITIMATE_TASK_BLOCKED",
+            "SERVER_ERROR"
+          ]
+        }
+      ]
+    }
+  ],
+  "known_witnesses_reproduced": 7
+}

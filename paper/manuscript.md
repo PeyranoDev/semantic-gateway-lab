@@ -3,7 +3,8 @@
 Ignacio Peyrano
 
 **Working draft, 14 October 2026. Not submission-ready.**
-This draft describes a synthetic executable benchmark. It does not claim that a
+This draft describes a synthetic executable benchmark and an exploratory
+HTTP/PostgreSQL case study on another implementation by the same author. It does not claim that a
 deployed agent system has been formally verified or that the proposed abstraction
 outperforms alternatives in general. Measured results are in `results.md`.
 
@@ -26,8 +27,14 @@ legacy guidance. Enrichment improves observed replay effort but worsens overwrit
 effort, and a no-corpus seed mutator is competitive. These findings support a
 property-dependent exploration tradeoff rather than universal superiority.
 All 829 detected witnesses are replayed and checked against the fixed control.
-The experiment remains limited to one synthetic backend, authored mutants and
-ten seeds per treatment, with no language model or real MCP transport.
+The synthetic study remains limited to authored mutants and ten seeds per
+treatment. A second, exploratory case study exercises an unmodified FastAPI
+backend with PostgreSQL: 120 campaigns target reviewed natural discrepancies.
+Seed mutation detects repeated cancellation in 10/10 runs versus 0/10 for random
+programs, while random programs more often detect store/unit scope violations.
+Matched coarse and enriched feedback shows no clear overall enrichment advantage.
+Both studies are authored within the same project, without independent held-out
+evaluation, language models or real MCP transport.
 
 ## 1. Introduction
 
@@ -275,6 +282,40 @@ Each minimized witness produces no oracle disagreement on the fixed service.
 The 90 fixed-control campaigns produce zero observed violations in 270,000 calls.
 These are bounded validation results, not a proof of universal safety.
 
+## 7.1 AoristoTech HTTP/PostgreSQL case study
+
+The optional v0.3 integration exercises the original FastAPI ASGI HTTP pipeline,
+authentication/service guards and SQL repositories of the pinned AoristoTech
+backend against PostgreSQL 16.15. Only the database dependency is overridden for
+serial program isolation. ORM metadata supplies the schema, and source commits
+release savepoints inside an outer rollback transaction. Production migrations,
+independent network transactions and concurrent races are not represented.
+
+Eleven positive/denial controls pass and seven reviewed regressions reproduce,
+including foreign-store reading/cancellation, foreign-unit invitation effects
+and repeated cancellation that increases stock from 7 to 10 to 13. Invitation
+creation can store a row before returning a response-validation error mapped to
+404; a failed HTTP response therefore does not establish absence of an effect.
+
+The matrix comprises 120 runs, four engines, three target properties and ten
+seeds, with 120 calls per campaign. Seed mutation without corpus detects repeated
+cancellation in 10/10 runs versus 0/10 for random programs. Conversely, random
+programs detect foreign-store reading in 9/10 versus 3/10 for that seed mutator,
+and invitation scope in 10/10 versus 6/10. The matched coarse/enriched engines
+both detect cancellation replay in 9/10 and foreign-store reading in 4/10;
+invitation scope is 6/10 versus 5/10. These small mixed contrasts establish no
+general enrichment advantage.
+
+All 75 detected campaigns have original and minimized witnesses reexecuted.
+The matrix consumes 8,268 campaign calls; all recorded stages total 8,831 HTTP
+executions. Full results, cost categories, censoring and provenance are in
+aoristo-results.md and results/aoristo-v03.
+
+The source is another implementation by the same author. Policies and reviewed
+defects are not independent or held out, and reproduction currently requires
+access to its private source. This adds bounded evidence from another domain,
+not an independently validated enterprise deployment.
+
 ## 8. Threats to validity
 
 **Construct validity:** lifecycle availability is a deliberately coarse projection;
@@ -288,8 +329,10 @@ observed coverage. The pilot informed the later matrix design, and both v0.1 eva
 Workflow seeds encode domain knowledge; they are a substantive treatment difference.
 Corpus capacity and hand-selected predicates constrain the observed tradeoffs.
 
-**External validity:** one synthetic in-memory backend, seeded single defects,
-four principals and a finite argument domain do not represent enterprise deployments.
+**External validity:** the synthetic in-memory benchmark and AoristoTech case
+study both use small finite fixtures and are authored within this project.
+They do not represent enterprise deployments. AoristoTech's ORM-schema and
+savepoint isolation further limit transfer to live production behavior.
 No language model, transport MCP implementation, OPA process, concurrency or human
 operator was evaluated. Real attacks may be distributed differently from mutants.
 
@@ -307,8 +350,9 @@ from sequence mutation, vary corpus capacity and retention, and evaluate
 full-budget state exploration separately from first-failure discovery.
 
 New variants in the same authored service are not independent generalization.
-A separately implemented backend, independently designed defect families and
-generation-bound approvals should precede deployment claims. An agent/MCP phase
+The AoristoTech case study adds another implementation and domain, but independently
+designed defect families, reviewed policies and generation-bound approvals are
+still required before deployment claims. An agent/MCP phase
 must separately evaluate legitimate tasks, adversarial model inputs, call/token
 costs and actual execution effects. None is represented by this offline benchmark.
 
@@ -327,6 +371,8 @@ identifying finite fuzzing or seeded-defect detection with general security veri
 The repository at https://github.com/PeyranoDev/semantic-gateway-lab includes source,
 unit/regression tests, configurations, raw experiments, replayable witnesses,
 summaries and this draft. Campaign manifests identify the exact measured source.
+The AoristoTech integration publishes synthetic observations and source hashes;
+its private backend implementation is not bundled.
 
 ## References
 

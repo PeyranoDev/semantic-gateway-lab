@@ -1,0 +1,13 @@
+{
+  "artifact": "raw.jsonl.gz",
+  "raw_sha256": "7a450d5636ea94ddc856b8c66d7d4e10216685953e4ca3c3fbcb530bbb53af07",
+  "rows": 120,
+  "distinct_string_values": 39,
+  "all_strings_explicitly_allowlisted": true,
+  "only_synthetic_fixture_resource_scopes": true,
+  "production_credentials_or_JWTs": false,
+  "private_implementation_code_included": false,
+  "scope": "Public research harness generated all fixtures; no live database was accessed. All decoded string values and resource identities inspected.",
+  "public_manifest_private_paths_or_commit_provenance": false,
+  "public_manifest_installed_package_inventory": false
+}

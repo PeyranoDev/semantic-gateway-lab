@@ -1,0 +1,28 @@
+name: Aoristo published artifact validation
+on:
+  push:
+    paths:
+      - 'integrations/aoristo/**'
+      - 'configs/aoristo-pilot.json'
+      - 'results/aoristo-v03/**'
+      - 'scripts/analyze_aoristo.py'
+      - '.github/workflows/aoristo-artifacts.yml'
+  pull_request:
+    paths:
+      - 'integrations/aoristo/**'
+      - 'configs/aoristo-pilot.json'
+      - 'results/aoristo-v03/**'
+      - 'scripts/analyze_aoristo.py'
+      - '.github/workflows/aoristo-artifacts.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate recorded data, source locks and witnesses
+        run: python -m scripts.analyze_aoristo

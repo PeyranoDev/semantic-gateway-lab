@@ -1,0 +1,123 @@
+{
+  "campaign_calls": 8268,
+  "config": {
+    "budget": 120,
+    "corpus_capacity": 64,
+    "depth": 8,
+    "modes": [
+      "random",
+      "sequence_uniform",
+      "sequence_enabled",
+      "sequence_enriched"
+    ],
+    "properties": [
+      "READ_TENANT",
+      "CANCEL_REPLAY",
+      "INVITATION_SCOPE"
+    ],
+    "seeds": [
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309
+    ],
+    "status": "exploratory; informed by reviewed known defects; not held out"
+  },
+  "config_sha256": "fde3b5efc6a02fb54cb83c754b141f605b3bf958bbcc7ec8aebaa84dd7ad50a6",
+  "database": "PostgreSQL",
+  "harness_sha256": {
+    "__init__.py": "548384c6af816cccf0503b5503ccbd79e8774a5ec336180bb6caf8c029bd1296",
+    "adapter.py": "857f2c5251364fffc7a998bbd651d235feea7818bc46372c77fd401394b4882a",
+    "experiment.py": "c42a882d710a6d961c92f3e163f9d513a8d602ec0b800cf9b11817343cecb3d8",
+    "feedback.py": "c81c67a9d6a9b824f36cc90a0afc2a48a08907c5cfd63711bfeb685224fab511",
+    "generator.py": "a94cda54fadc968a48de2bbbd2fcd3b129a08e115da044bf529c127101f3a22a",
+    "model.py": "72d558ba5c59f63e15d92158bd1bbe8abd042d3da802f8eeb1beabac2f876622",
+    "oracle.py": "caf1bd21bb747b7ba6cc45c47ac53bd6e28ea292a7778a3a3f67257962f0b90d",
+    "regressions.py": "b63883ceec48c6a5a870ff76ca208e3b91245b81abe7c29da5844d0f491600c6",
+    "run.py": "2c5e4a380d18c770f599dbf169e745d614956018bf99394fd3f54a0dd84f4366"
+  },
+  "isolation": "serial outer rollback transaction; original commits release savepoints",
+  "not_measured": [
+    "concurrent races",
+    "MCP transport",
+    "LLM agent",
+    "live production schema",
+    "independently authored evaluation",
+    "held-out defects"
+  ],
+  "phase": "v0.3 exploratory AoristoTech case study",
+  "postgresql_version": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "publication_metadata_policy": "Private commit provenance, individual backend paths/hashes and installed-package inventory remain in the private research repository. Aggregate source identity and public dependency-lock digest are retained.",
+  "python": "3.12.15",
+  "raw_sha256": "7a450d5636ea94ddc856b8c66d7d4e10216685953e4ca3c3fbcb530bbb53af07",
+  "regression_calls": 24,
+  "requirements_lock_sha256": "b7995e7d0faccf7bc05f0f7034321024fdbe9919b854ba519bfa7e1ba8b17773",
+  "response_normalization": "omit token/date fields; replace embedded InvitationResponse validation repr by type and count",
+  "runs": 120,
+  "schema": "original SQLAlchemy metadata.create_all; not Alembic",
+  "seed_programs": [
+    [
+      {
+        "actor": "alice",
+        "operation": "read_sale",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "cancel_sale",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "read_sale",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "cancel_sale",
+        "resource": "b"
+      }
+    ],
+    [
+      {
+        "actor": "anonymous",
+        "operation": "consume_invitation",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "anonymous",
+        "operation": "consume_invitation",
+        "resource": "b"
+      }
+    ],
+    [
+      {
+        "actor": "ruth",
+        "operation": "revoke_invitation",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "nina",
+        "operation": "revoke_invitation",
+        "resource": "b"
+      }
+    ]
+  ],
+  "shrinking_calls": 175,
+  "source_app_sha256": "ec709bb5f6880c139036a329ff8bb2a27b747cfa6f96630cf54acd10eaba8a09",
+  "transport": "in-process HTTP via original FastAPI ASGI pipeline",
+  "validation_calls": 261,
+  "witness_replays_verified": 150
+}

@@ -1,32 +1,25 @@
-# Next investigation after sequence mutation
+# Next investigation after the AoristoTech case study
 
-The v0.2 engine, matched comparison, predicate/scheduler ablations and three new
-synthetic variants are implemented. See paper/sequence-results.md for measurements,
-docs/sequence-protocol.md for the design and results/sequence-v02 for raw evidence.
+The v0.2 synthetic sequence study and v0.3 AoristoTech HTTP/PostgreSQL integration
+are complete. See paper/sequence-results.md and paper/aoristo-results.md.
 
-## Before adding an LLM
+1. Review the adopted store/unit policies independently and fix the reproduced
+   natural discrepancies on a separate application branch. Run the same regressions
+   against the corrected counterpart before drawing mitigation conclusions.
+2. Freeze a fresh-seed replication protocol before tuning the engines. Random
+   exploration finds scope bugs more often; seeded mutation finds repeated
+   cancellation more often. Test a hybrid explicitly rather than asserting a winner.
+3. Separate full-budget state exploration from targeted failure stopping. Vary
+   corpus capacity/retention and isolate workflow seeding from mutation.
+4. Validate the real Alembic schema and independent transactions. Add concurrent
+   invitation/QR consumption and partial-failure tests; the serial savepoint study
+   does not establish race safety or production durability.
+5. Add independently authored policies/defect families and a public reproducible
+   domain. AoristoTech is another implementation by the same author and remains private.
+6. Expand the document benchmark to generation-bound approvals and revocation.
+7. Add versioned MCP transport, then a separately configured agent evaluation
+   measuring legitimate tasks, adversarial tasks, runtime effects and call/token costs.
 
-1. Audit both the original specification and the new seeded programs independently.
-2. Separate state-coverage measurement at full budget from first-failure stopping.
-3. Test another document-service implementation and independently authored defect
-   families; the current reserved variants are still written within this project.
-4. Expand approval semantics to resource generations/versions and policy revocation.
-   The current replay witness depends on recreating the same identifier after deletion.
-5. Confirm important contrasts with new seeds and a frozen, separately reviewed
-   protocol. Current ten-seed contrasts are exploratory, not broad superiority claims.
-
-The recipient/approval predicate and scheduler ablations are measured in v0.2.
-An owner-only ablation is implemented/tested but not included in that matrix.
-Department and task-scoped delegation ablations remain future work.
-
-## Agent evaluation as a separate phase
-
-Expose the service through a versioned MCP adapter and keep server-side authority
-outside model outputs. Evaluate successful legitimate tasks, adversarial tasks,
-token/call costs and denied effects independently of offline fuzzing coverage.
-Model API costs, credentials and task datasets need explicit configuration before
-running that phase; no LLM evaluations are represented by the current artifact.
-
-Record observable actions, arguments, sources, identities, policy decisions and
-effects. Do not require private internal reasoning to establish execution authority.
-Review the full primary papers in the bibliography before asserting novelty.
+The current evidence contains no MCP transport, LLM agent, OPA process or production
+deployment validation. The owner ablation is implemented in v0.2 but unmeasured;
+department/task delegation ablations and broader novelty review remain pending.

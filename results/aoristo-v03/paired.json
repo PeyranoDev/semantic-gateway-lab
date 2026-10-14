@@ -1,0 +1,68 @@
+[
+  {
+    "both": 9,
+    "left": "sequence_enabled",
+    "left_only": 0,
+    "mean_right_minus_left_capped_calls": 1.4,
+    "neither": 1,
+    "right": "sequence_enriched",
+    "right_only": 0,
+    "seeds": [
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309
+    ],
+    "target": "CANCEL_REPLAY"
+  },
+  {
+    "both": 5,
+    "left": "sequence_enabled",
+    "left_only": 1,
+    "mean_right_minus_left_capped_calls": -1.8,
+    "neither": 4,
+    "right": "sequence_enriched",
+    "right_only": 0,
+    "seeds": [
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309
+    ],
+    "target": "INVITATION_SCOPE"
+  },
+  {
+    "both": 3,
+    "left": "sequence_enabled",
+    "left_only": 1,
+    "mean_right_minus_left_capped_calls": -3.0,
+    "neither": 5,
+    "right": "sequence_enriched",
+    "right_only": 1,
+    "seeds": [
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309
+    ],
+    "target": "READ_TENANT"
+  }
+]

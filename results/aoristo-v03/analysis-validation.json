@@ -1,0 +1,11 @@
+{
+  "runs": 120,
+  "detected": 75,
+  "recorded_steps_checked": 285,
+  "campaign_calls": 8268,
+  "raw_sha256": "7a450d5636ea94ddc856b8c66d7d4e10216685953e4ca3c3fbcb530bbb53af07",
+  "post_shrink_trace_calls": 103,
+  "total_http_calls": 8831,
+  "offline_artifact_checks_passed": true,
+  "postgresql_reexecution": "performed by the recorded research workflow, not this script"
+}

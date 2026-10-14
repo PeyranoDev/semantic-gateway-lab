@@ -11,3 +11,9 @@
 - Publish complete raw data, source hashes, paired comparisons and full-budget diagnostics.
 - Rewrite the manuscript around measured property-dependent gains and regressions.
 - Recover datasets and witnesses with scripts/unpack_sequence_results.py.
+
+## v0.3 research phase
+
+- Add pinned private-source AoristoTech HTTP/PostgreSQL integration, domain oracle and synthetic fixtures.
+- Record 120 exploratory campaigns, 11 passing controls and 7 reviewed regressions; verify all 150 original/minimal witness replays.
+- Add portable harness checks (88 tests total), source/dependency locks, published artifact validation and a balanced case-study section in the working paper.
