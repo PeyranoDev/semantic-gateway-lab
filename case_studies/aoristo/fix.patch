@@ -1,0 +1,453 @@
+--- a/backend/app/application/schemas/invitation.py
++++ b/backend/app/application/schemas/invitation.py
+@@ -1,7 +1,7 @@
+ """
+ Invitation Schemas (DTOs).
+ """
+-from pydantic import BaseModel, Field
++from pydantic import AliasChoices, BaseModel, Field, ConfigDict
+ from typing import Optional
+ from datetime import datetime
+ from uuid import UUID
+@@ -18,16 +18,15 @@
+ 
+ 
+ class InvitationResponse(BaseModel):
+-    Id: UUID
+-    UnitId: UUID
+-    Token: str
+-    CurrentUses: int
+-    MaxUses: int
+-    ExpiresAt: datetime
+-    CreatedAt: datetime
++    Id: UUID = Field(validation_alias=AliasChoices("Id", "id"))
++    UnitId: UUID = Field(validation_alias=AliasChoices("UnitId", "unit_id"))
++    Token: str = Field(validation_alias=AliasChoices("Token", "token"))
++    CurrentUses: int = Field(validation_alias=AliasChoices("CurrentUses", "current_uses"))
++    MaxUses: int = Field(validation_alias=AliasChoices("MaxUses", "max_uses"))
++    ExpiresAt: datetime = Field(validation_alias=AliasChoices("ExpiresAt", "expires_at"))
++    CreatedAt: datetime = Field(validation_alias=AliasChoices("CreatedAt", "created_at"))
+ 
+-    class Config:
+-        from_attributes = True
++    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
+ 
+ 
+ class ValidateInvitationRequest(BaseModel):
+--- a/backend/app/application/use_cases/invitation.py
++++ b/backend/app/application/use_cases/invitation.py
+@@ -1,7 +1,8 @@
+ """
+ Invitation Link Use Cases.
+ """
+-from typing import List
++from dataclasses import dataclass
++from typing import List, Optional
+ from uuid import UUID
+ from datetime import datetime, timedelta
+ import secrets
+@@ -26,6 +27,32 @@
+     pass
+ 
+ 
++class InvitationAccessDeniedError(Exception):
++    """The authenticated unit/building scope does not cover this invitation."""
++
++
++@dataclass(frozen=True)
++class InvitationScope:
++    unit_id: Optional[str]
++    building_id: Optional[str]
++    is_staff: bool = False
++    is_super_admin: bool = False
++
++
++def ensure_unit_scope(unit_id, unit_repo, scope):
++    unit = unit_repo.get_by_id(unit_id)
++    if unit is None:
++        raise InvitationNotFoundError("Unit not found")
++    if scope.is_super_admin:
++        return
++    permitted = (scope.building_id is not None and str(unit.building_id) == str(scope.building_id)
++                 if scope.is_staff else
++                 scope.unit_id is not None and str(unit.id) == str(scope.unit_id)
++                 and scope.building_id is not None and str(unit.building_id) == str(scope.building_id))
++    if not permitted:
++        raise InvitationAccessDeniedError("Invitation unit is outside your scope")
++
++
+ class GenerateInvitationUseCase:
+     """Generate invitation link for new residents."""
+     
+@@ -46,12 +73,10 @@
+         unit_id: UUID,
+         max_uses: int = 5,
+         valid_days: int = 7,
++        *, scope: InvitationScope,
+     ) -> Invitation:
+         """Generate invitation."""
+-        # Validate unit exists
+-        unit = self.unit_repo.get_by_id(unit_id)
+-        if not unit:
+-            raise ValueError(f"Unit {unit_id} not found")
++        ensure_unit_scope(unit_id, self.unit_repo, scope)
+         
+         # Generate token
+         token = self._generate_token()
+@@ -99,24 +124,28 @@
+ class ListInvitationsByUnitUseCase:
+     """List invitations for a unit."""
+     
+-    def __init__(self, invitation_repo: InvitationRepositoryPort):
++    def __init__(self, invitation_repo: InvitationRepositoryPort, unit_repo: UnitRepositoryPort):
+         self.invitation_repo = invitation_repo
++        self.unit_repo = unit_repo
+     
+-    def execute(self, unit_id: UUID) -> List[Invitation]:
++    def execute(self, unit_id: UUID, *, scope: InvitationScope) -> List[Invitation]:
+         """List invitations."""
++        ensure_unit_scope(unit_id, self.unit_repo, scope)
+         return self.invitation_repo.get_by_unit(unit_id)
+ 
+ 
+ class RevokeInvitationUseCase:
+     """Revoke an invitation (delete it)."""
+     
+-    def __init__(self, invitation_repo: InvitationRepositoryPort):
++    def __init__(self, invitation_repo: InvitationRepositoryPort, unit_repo: UnitRepositoryPort):
+         self.invitation_repo = invitation_repo
++        self.unit_repo = unit_repo
+     
+-    def execute(self, invitation_id: UUID) -> bool:
++    def execute(self, invitation_id: UUID, *, scope: InvitationScope) -> bool:
+         """Revoke invitation."""
+         invitation = self.invitation_repo.get_by_id(invitation_id)
+         if not invitation:
+             raise InvitationNotFoundError(f"Invitation {invitation_id} not found")
+         
++        ensure_unit_scope(invitation.unit_id, self.unit_repo, scope)
+         return self.invitation_repo.delete(invitation_id)
+--- a/backend/app/application/use_cases/purchase.py
++++ b/backend/app/application/use_cases/purchase.py
+@@ -118,8 +118,8 @@
+     def __init__(self, purchase_repository: PurchaseRepositoryPort):
+         self.purchase_repository = purchase_repository
+     
+-    def execute(self, purchase_id: int) -> Purchase:
+-        purchase = self.purchase_repository.get_by_id(purchase_id)
++    def execute(self, purchase_id: int, grocery_id: int) -> Purchase:
++        purchase = self.purchase_repository.get_by_id_for_grocery(purchase_id, grocery_id)
+         if not purchase:
+             raise PurchaseNotFoundError(purchase_id)
+         return purchase
+@@ -294,7 +294,7 @@
+         from sqlalchemy.exc import IntegrityError
+         
+         # Get existing purchase
+-        purchase = self.purchase_repository.get_by_id(dto.purchase_id)
++        purchase = self.purchase_repository.get_by_id_for_grocery(dto.purchase_id, dto.grocery_id)
+         if not purchase:
+             raise PurchaseNotFoundError(dto.purchase_id)
+         
+--- a/backend/app/application/use_cases/sale.py
++++ b/backend/app/application/use_cases/sale.py
+@@ -262,14 +262,14 @@
+     def __init__(self, sale_repository: SaleRepositoryPort):
+         self.sale_repository = sale_repository
+ 
+-    def execute(self, sale_id: int) -> Sale:
++    def execute(self, sale_id: int, grocery_id: int) -> Sale:
+         """
+         Get sale by ID.
+         
+         Raises:
+             SaleNotFoundError: If sale not found
+         """
+-        sale = self.sale_repository.get_by_id(sale_id)
++        sale = self.sale_repository.get_by_id_for_grocery(sale_id, grocery_id)
+         if not sale:
+             raise SaleNotFoundError(f"Venta {sale_id} no encontrada.")
+         return sale
+@@ -289,29 +289,6 @@
+         self.sale_repository = sale_repository
+         self.inventory_repository = inventory_repository
+ 
+-    def execute(self, sale_id: int, user_id: str) -> Sale:
+-        """
+-        Cancel sale and restore stock.
+-        """
+-        sale = self.sale_repository.get_by_id(sale_id)
+-        if not sale:
+-            raise SaleNotFoundError(f"Venta {sale_id} no encontrada.")
+-            
+-        if sale.Status != "pending":
+-
+-             if sale.Status == "completed":
+-                 raise SaleError("Solo se pueden cancelar ventas pendientes.")
+-             pass
+-
+-        sale.Status = "cancelled"
+-        self.sale_repository.update(sale)
+-        
+-        for item in sale.Items:
+-            inv_item = self.inventory_repository.get_by_product_id(
+-                item.ProductId, sale.GroceryId
+-            )
+-            if inv_item:
+-                new_stock = int(inv_item.Stock + item.Quantity)
+-                self.inventory_repository.adjust_stock(inv_item.Id, new_stock)
+-                
+-        return sale
++    def execute(self, sale_id: int, grocery_id: int) -> Sale:
++        """Cancel a scoped pending sale and restore stock in one transaction."""
++        return self.sale_repository.cancel_pending_and_restore_stock(sale_id, grocery_id)
+--- a/backend/app/domain/ports/purchase_repository.py
++++ b/backend/app/domain/ports/purchase_repository.py
+@@ -21,6 +21,11 @@
+         pass
+ 
+     @abstractmethod
++    def get_by_id_for_grocery(self, purchase_id: int, grocery_id: int) -> Optional[Purchase]:
++        """Find a purchase only within the caller's tenant."""
++        pass
++
++    @abstractmethod
+     def get_paginated(
+         self,
+         grocery_id: int,
+--- a/backend/app/domain/ports/sale_repository.py
++++ b/backend/app/domain/ports/sale_repository.py
+@@ -18,6 +18,16 @@
+     @abstractmethod
+     def get_by_id(self, sale_id: int) -> Optional[Sale]:
+         """Get sale by ID with items."""
++        pass
++
++    @abstractmethod
++    def get_by_id_for_grocery(self, sale_id: int, grocery_id: int) -> Optional[Sale]:
++        """Find a sale only inside the caller's authenticated tenant."""
++        pass
++
++    @abstractmethod
++    def cancel_pending_and_restore_stock(self, sale_id: int, grocery_id: int) -> Sale:
++        """Atomically cancel one pending sale and restore its inventory."""
+         pass
+ 
+     @abstractmethod
+--- a/backend/app/infrastructure/api/routes/invitation_routes.py
++++ b/backend/app/infrastructure/api/routes/invitation_routes.py
+@@ -19,10 +19,19 @@
+ from app.application.use_cases.invitation import (
+     GenerateInvitationUseCase, ValidateInvitationUseCase,
+     ListInvitationsByUnitUseCase, RevokeInvitationUseCase,
+-    InvitationNotFoundError, InvitationExpiredError, InvitationExhaustedError
++    InvitationNotFoundError, InvitationExpiredError, InvitationExhaustedError,
++    InvitationScope, InvitationAccessDeniedError
+ )
+ 
+ router = APIRouter(prefix="/RedVecina/Invitations", tags=["redvecina-invitations"])
++
++
++def _scope(user: CurrentUser) -> InvitationScope:
++    # Authority is derived from the DB-backed current user, never the request body.
++    if not (user.is_redvecina_resident or user.is_redvecina_staff or user.is_super_admin):
++        raise HTTPException(status_code=403, detail="Resident or staff role required")
++    return InvitationScope(user.unit_id, user.building_id,
++                           user.is_redvecina_staff, user.is_super_admin)
+ 
+ 
+ @router.post("", response_model=ApiResponse[InvitationResponse], status_code=status.HTTP_201_CREATED)
+@@ -37,14 +46,16 @@
+     use_case = GenerateInvitationUseCase(invitation_repo, unit_repo)
+     
+     try:
+-        invitation = use_case.execute(data.UnitId, data.MaxUses, data.ValidDays)
++        invitation = use_case.execute(data.UnitId, data.MaxUses, data.ValidDays, scope=_scope(current_user))
+         return ApiResponse(
+             success=True,
+             message="Invitation generated successfully",
+             data=InvitationResponse.model_validate(invitation)
+         )
+-    except ValueError as e:
++    except InvitationNotFoundError as e:
+         raise HTTPException(status_code=404, detail=str(e))
++    except InvitationAccessDeniedError as e:
++        raise HTTPException(status_code=403, detail=str(e))
+ 
+ 
+ @router.post("/validate", response_model=ApiResponse[ValidateInvitationResponse])
+@@ -84,9 +95,14 @@
+ ):
+     """List invitations for a unit."""
+     invitation_repo = PostgresInvitationRepository(db)
+-    use_case = ListInvitationsByUnitUseCase(invitation_repo)
+-    
+-    invitations = use_case.execute(unit_id)
++    unit_repo = PostgresUnitRepository(db)
++    use_case = ListInvitationsByUnitUseCase(invitation_repo, unit_repo)
++    try:
++        invitations = use_case.execute(unit_id, scope=_scope(current_user))
++    except InvitationNotFoundError as e:
++        raise HTTPException(status_code=404, detail=str(e))
++    except InvitationAccessDeniedError as e:
++        raise HTTPException(status_code=403, detail=str(e))
+     
+     return ApiResponse(
+         success=True,
+@@ -102,10 +118,11 @@
+ ):
+     """Revoke an invitation."""
+     invitation_repo = PostgresInvitationRepository(db)
+-    use_case = RevokeInvitationUseCase(invitation_repo)
++    unit_repo = PostgresUnitRepository(db)
++    use_case = RevokeInvitationUseCase(invitation_repo, unit_repo)
+     
+     try:
+-        use_case.execute(invitation_id)
++        use_case.execute(invitation_id, scope=_scope(current_user))
+         return ApiResponse(
+             success=True,
+             message="Invitation revoked successfully",
+@@ -113,3 +130,5 @@
+         )
+     except InvitationNotFoundError as e:
+         raise HTTPException(status_code=404, detail=str(e))
++    except InvitationAccessDeniedError as e:
++        raise HTTPException(status_code=403, detail=str(e))
+--- a/backend/app/infrastructure/api/routes/purchase_routes.py
++++ b/backend/app/infrastructure/api/routes/purchase_routes.py
+@@ -105,14 +105,15 @@
+ def get_purchase_by_id(
+     purchase_id: int,
+     db: Session = Depends(get_db),
+-    current_user: CurrentUser = Depends(require_verdusoft_user)
++    current_user: CurrentUser = Depends(require_verdusoft_user),
++    grocery_id: int = Depends(get_tenant_grocery_id)
+ ):
+     """Get purchase by ID."""
+     repo = PostgresPurchaseRepository(db)
+     use_case = GetPurchaseByIdUseCase(repo)
+     
+     try:
+-        purchase = use_case.execute(purchase_id)
++        purchase = use_case.execute(purchase_id, grocery_id)
+     except PurchaseNotFoundError as e:
+         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+     
+--- a/backend/app/infrastructure/api/routes/sale_routes.py
++++ b/backend/app/infrastructure/api/routes/sale_routes.py
+@@ -27,7 +27,7 @@
+     SalesFilterDTO,
+     AppliedPromotionDTO,
+ )
+-from app.domain.exceptions import InsufficientStockError, SaleNotFoundError
++from app.application.use_cases.sale import InsufficientStockError, SaleNotFoundError
+ from app.application.services.activity_service import ActivityService
+ from app.domain.entities.activity import ActivityType, ActivityImportance
+ from app.infrastructure.repositories.postgres_activity_repository import PostgresActivityRepository
+@@ -126,14 +126,15 @@
+ def get_sale_by_id(
+     sale_id: int,
+     db: Session = Depends(get_db),
+-    current_user: CurrentUser = Depends(require_verdusoft_user)
++    current_user: CurrentUser = Depends(require_verdusoft_user),
++    grocery_id: int = Depends(get_tenant_grocery_id)
+ ):
+     """Get sale by ID."""
+     repo = PostgresSaleRepository(db)
+     use_case = GetSaleByIdUseCase(repo)
+     
+     try:
+-        sale = use_case.execute(sale_id)
++        sale = use_case.execute(sale_id, grocery_id)
+     except SaleNotFoundError as e:
+         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+     
+@@ -213,7 +214,8 @@
+ def cancel_sale(
+     sale_id: int,
+     db: Session = Depends(get_db),
+-    current_user: CurrentUser = Depends(require_verdusoft_user)
++    current_user: CurrentUser = Depends(require_verdusoft_user),
++    grocery_id: int = Depends(get_tenant_grocery_id)
+ ):
+     """
+     Cancel a pending sale and restore stock.
+@@ -226,7 +228,7 @@
+     use_case = CancelSaleUseCase(repo_sale, repo_inv)
+     
+     try:
+-        sale = use_case.execute(sale_id, current_user.id)
++        sale = use_case.execute(sale_id, grocery_id)
+     except SaleNotFoundError as e:
+         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+     except SaleError as e:
+@@ -239,7 +241,7 @@
+         entity_type="Sale",
+         entity_id=str(sale.Id),
+         user_id=current_user.id,
+-        grocery_id=current_user.grocery_id,
++        grocery_id=grocery_id,
+         importance=ActivityImportance.HIGH
+     )
+         
+--- a/backend/app/infrastructure/repositories/postgres_purchase_repository.py
++++ b/backend/app/infrastructure/repositories/postgres_purchase_repository.py
+@@ -89,6 +89,11 @@
+         )
+         return self._to_entity(model) if model else None
+ 
++    def get_by_id_for_grocery(self, purchase_id: int, grocery_id: int) -> Optional[Purchase]:
++        model = (self.db.query(PurchaseModel).options(joinedload(PurchaseModel.Items))
++                 .filter(PurchaseModel.Id == purchase_id, PurchaseModel.GroceryId == grocery_id).first())
++        return self._to_entity(model) if model else None
++
+     def get_all(
+         self,
+         grocery_id: int,
+--- a/backend/app/infrastructure/repositories/postgres_sale_repository.py
++++ b/backend/app/infrastructure/repositories/postgres_sale_repository.py
+@@ -143,6 +143,43 @@
+             .first()
+         )
+         return self._to_entity(model) if model else None
++
++    def get_by_id_for_grocery(self, sale_id: int, grocery_id: int) -> Optional[Sale]:
++        model = (self.db.query(SaleModel)
++                 .options(joinedload(SaleModel.Items), joinedload(SaleModel.User))
++                 .filter(SaleModel.Id == sale_id, SaleModel.GroceryId == grocery_id).first())
++        return self._to_entity(model) if model else None
++
++    def cancel_pending_and_restore_stock(self, sale_id: int, grocery_id: int) -> Sale:
++        from app.application.use_cases.sale import SaleError, SaleNotFoundError
++        from app.domain.models.inventory import InventoryItem as InventoryModel
++        try:
++            # Lock and refresh the authoritative row: concurrent cancellation waits
++            # and then observes the committed status, rather than a stale entity.
++            model = (self.db.query(SaleModel)
++                     .filter(SaleModel.Id == sale_id, SaleModel.GroceryId == grocery_id)
++                     .populate_existing().with_for_update().first())
++            if model is None:
++                raise SaleNotFoundError(f"Venta {sale_id} no encontrada.")
++            if model.Status != "pending":
++                raise SaleError("Solo se pueden cancelar ventas pendientes.")
++            for item in model.Items:
++                updated = (self.db.query(InventoryModel)
++                           .filter(InventoryModel.ProductId == item.ProductId,
++                                   InventoryModel.GroceryId == grocery_id)
++                           .update({InventoryModel.Stock: InventoryModel.Stock + int(item.Quantity)},
++                                   synchronize_session=False))
++                if updated != 1:
++                    raise SaleError("No se pudo restaurar el inventario de la venta.")
++            model.Status = "cancelled"
++            self.db.flush()
++            # Materialize before commit, so conversion errors also roll back stock.
++            result = self._to_entity(model)
++            self.db.commit()
++            return result
++        except Exception:
++            self.db.rollback()
++            raise
+ 
+     def get_all(
+         self,

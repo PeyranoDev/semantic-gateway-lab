@@ -1,0 +1,13 @@
+{
+  "scope": "Owner-requested original source for sales, purchases, invitations and required dependencies only",
+  "python_files": 81,
+  "verbatim_files": 62,
+  "adapted_files": 19,
+  "literal_strings_inspected": 722,
+  "embedded_production_credentials_detected": false,
+  "external_service_urls_or_real_email_literals_detected": false,
+  "env_or_deployment_files_included": false,
+  "private_commit_or_upstream_file_hashes_in_public_manifest": false,
+  "fixture_credentials": "Only the clearly named public test key and lab:lab loopback database",
+  "status": "Publication content checked; private origin attestation remains outside the public artifact"
+}
