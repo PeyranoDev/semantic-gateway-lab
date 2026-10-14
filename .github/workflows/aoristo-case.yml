@@ -1,7 +1,14 @@
 name: Public real-backend case validation
 on:
   push:
-    branches: [research/aoristo-fixes]
+    branches: [main, research/aoristo-fixes]
+    paths:
+      - 'case_studies/aoristo/**'
+      - 'integrations/aoristo_case/**'
+      - 'scripts/materialize_aoristo.py'
+      - 'tests/test_aoristo_case.py'
+      - '.github/workflows/aoristo-case.yml'
+  pull_request:
     paths:
       - 'case_studies/aoristo/**'
       - 'integrations/aoristo_case/**'
@@ -45,29 +52,10 @@ jobs:
           python -m integrations.aoristo_case.run --variant '${{ matrix.variant }}'
           --source /tmp/aoristo-case
           --database-url postgresql://lab:lab@127.0.0.1:5432/sglab_case
-          --out results/aoristo-v04-${{ matrix.variant }}
+          --out /tmp/aoristo-ci-${{ matrix.variant }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: aoristo-v04-${{ matrix.variant }}
-          path: results/aoristo-v04-${{ matrix.variant }}
+          path: /tmp/aoristo-ci-${{ matrix.variant }}
           if-no-files-found: ignore
-  record:
-    needs: case
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    if: github.ref == 'refs/heads/research/aoristo-fixes'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: aoristo-v04-*
-          path: results
-      - name: Record verified fixture observations
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add results/aoristo-v04-original results/aoristo-v04-fixed
-          git commit -m "Record public real-backend original and fixed validation"
-          git push origin HEAD:research/aoristo-fixes

@@ -17,3 +17,10 @@
 - Add pinned private-source AoristoTech HTTP/PostgreSQL integration, domain oracle and synthetic fixtures.
 - Record 120 exploratory campaigns, 11 passing controls and 7 reviewed regressions; verify all 150 original/minimal witness replays.
 - Add portable harness checks (88 tests total), source/dependency locks, published artifact validation and a balanced case-study section in the working paper.
+
+## v0.4 research phase
+
+- Publish owner-authorized real-source original/fixed subset with documented adaptations and a shared 11-module mitigation patch.
+- Replay all 150 historical witnesses against the original subset; validate 21 checks and 120 campaigns/14,400 calls on each fixed assembly.
+- Verify rollback and synchronized concurrent HTTP cancellation with independent SQL sessions.
+- Add public artifact integrity checks and 94 portable tests; keep historical experiments frozen.

@@ -160,3 +160,7 @@ ni una garantía de seguridad. No se ejecutaron LLMs ni transporte MCP real.
 The optional integration preserves the original FastAPI HTTP authorization pipeline and SQL repositories against disposable PostgreSQL. It contains a source lock, dependency lock, synthetic fixtures, an independent domain oracle, known regressions, and a four-engine exploratory comparison. The private application source is not bundled. See [the protocol](docs/aoristo-protocol.md) and [integration](integrations/aoristo/README.md). Portable artifact checks now include 88 tests; HTTP/PostgreSQL evidence is produced separately.
 
 The completed PostgreSQL study contains 120 campaigns, 11 passing controls and 7 reproduced known regressions. All 75 discovered target witnesses and their minimized versions were reexecuted. See [AoristoTech results](paper/aoristo-results.md). Validate the published dataset with `python -m scripts.analyze_aoristo`.
+
+## Public real-backend original/fixed case (v0.4)
+
+The [AoristoTech source case](case_studies/aoristo/README.md) includes 62 verbatim real backend modules plus explicitly documented bootstrap/registry adaptations. Its 11-module patch also applies to the full application. Both fixed assemblies pass 21 checks and 120 campaigns (14,400 calls each); the original subset reproduces all 150 historical witnesses. See [mitigation evidence](paper/mitigation-results.md). Portable artifact tests now total 94. Validate with `python -m scripts.analyze_aoristo_case`.

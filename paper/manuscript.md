@@ -316,6 +316,29 @@ defects are not independent or held out, and reproduction currently requires
 access to its private source. This adds bounded evidence from another domain,
 not an independently validated enterprise deployment.
 
+## 7.2 Public real-source extraction and mitigation
+
+An owner-authorized source subset now makes the selected case executable without
+private-repository access. It includes 81 Python files, 62 copied verbatim and 19
+documented adaptations for bootstrap, configuration, module exports and the ORM
+registry. The original subset reproduces all 150 historical original/minimized
+witness traces at the observed HTTP/business-state boundary. This is finite
+observational agreement, not an equivalence theorem for the complete application.
+
+The same 11-module patch is tested on the public subset and the full application.
+It adds store-scoped queries, trusted resident/staff unit/building scope, correct
+invitation response mapping and transactional pending-sale cancellation. Each
+corrected assembly passes 21 checks and 120 campaign conditions with no oracle
+disagreement in 14,400 calls. Synchronized concurrent HTTP cancellation returns
+200/400 and restores stock once; an injected post-stock failure rolls back both
+stock and sale status using the actual SQL repositories.
+
+These results demonstrate mitigation of reviewed discrepancies in the selected
+domain. They do not establish independent generalization, production-migration
+compatibility or broader application security. The public source, patch, evidence
+and reproduction commands are documented in mitigation-results.md and
+case_studies/aoristo/README.md.
+
 ## 8. Threats to validity
 
 **Construct validity:** lifecycle availability is a deliberately coarse projection;
@@ -372,7 +395,8 @@ The repository at https://github.com/PeyranoDev/semantic-gateway-lab includes so
 unit/regression tests, configurations, raw experiments, replayable witnesses,
 summaries and this draft. Campaign manifests identify the exact measured source.
 The AoristoTech integration publishes synthetic observations and source hashes;
-its private backend implementation is not bundled.
+the selected public source subset and patch are bundled separately, while the
+complete private backend implementation is not.
 
 ## References
 
