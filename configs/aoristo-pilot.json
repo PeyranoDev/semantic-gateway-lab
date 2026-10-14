@@ -1,0 +1,10 @@
+{
+  "source_commit": "f9420647c6fad86294032126a77b5d4880a11f21",
+  "seeds": [300, 301, 302, 303, 304, 305, 306, 307, 308, 309],
+  "modes": ["random", "sequence_uniform", "sequence_enabled", "sequence_enriched"],
+  "properties": ["READ_TENANT", "CANCEL_REPLAY", "INVITATION_SCOPE"],
+  "budget": 120,
+  "depth": 8,
+  "corpus_capacity": 64,
+  "status": "exploratory; informed by reviewed known defects; not held out"
+}

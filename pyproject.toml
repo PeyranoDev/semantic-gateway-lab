@@ -12,4 +12,7 @@ license = {text = "MIT"}
 authors = [{name = "Ignacio Peyrano"}]
 
 [tool.setuptools.packages.find]
-include = ["fuzzlab*"]
+include = ["fuzzlab*", "integrations*"]
+
+[tool.setuptools.package-data]
+"integrations.aoristo" = ["source-lock.json", "requirements.lock"]

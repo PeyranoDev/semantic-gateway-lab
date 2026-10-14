@@ -1,4 +1,5 @@
 __pycache__/
+results/local-aoristo/
 *.py[cod]
 *.egg-info/
 .venv/
