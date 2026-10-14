@@ -29,3 +29,11 @@ This is an initial bibliography, not an exhaustive systematic review. Complete
 papers and associated artifacts must be read before asserting novelty or comparative
 results. No source's reported benchmark numbers are presented as independently
 replicated in this repository.
+
+9. Vaggelis Atlidakis, Patrice Godefroid and Marina Polishchuk. *RESTler: Stateful REST API Fuzzing.* ICSE 2019, pp. 748-758. https://doi.org/10.1109/ICSE.2019.00083
+   Primary author PDF: https://patricegodefroid.github.io/public_psfiles/icse2019.pdf
+10. Van-Thuan Pham, Marcel Böhme and Abhik Roychoudhury. *AFLNET: A Greybox Fuzzer for Network Protocols.* ICST 2020. https://doi.org/10.1109/ICST46399.2020.00062
+    Primary author PDF: https://mboehme.github.io/paper/ICST20.AFLNet.pdf
+
+The sequence-mutation follow-up cites these established stateful-generation methods.
+Their implementations have not been benchmarked against this small runtime.

@@ -25,7 +25,7 @@ python -m fuzzlab analyze
 python -m fuzzlab run --config configs/smoke.json --out results/local-smoke
 ```
 
-El primer comando ejecuta **44 pruebas**. La demo valida ocho defectos
+El primer comando ejecuta **65 pruebas**. La demo valida ocho defectos
 deliberados y un flujo legítimo. `analyze` encuentra un contraejemplo a la
 distinguibilidad de llamadas en la abstracción básica dentro de un submodelo
 acotado. Los resultados de campañas anteriores no se sobrescriben.
@@ -135,3 +135,22 @@ de las campañas identifican exactamente el código que produjo sus resultados.
 Las ejecuciones de CI se pueden consultar en la pestaña Actions del repositorio.
 
 Licencia MIT para la implementación nueva. Ver `docs/provenance.md`.
+
+## Segunda ronda: mutación de secuencias
+
+La versión v0.2 agrega seis operadores de mutación, corpus acotado, ablaciones y
+tres variantes sintéticas nuevas. La comparación incluye 1.080 ejecuciones,
+1.147.407 llamadas y 829 testigos verificados. Ver [resultados v0.2](paper/sequence-results.md)
+y [protocolo](docs/sequence-protocol.md). Los módulos de v0.1 se conservan intactos.
+
+```bash
+python scripts/unpack_sequence_results.py
+python -m fuzzlab.sequence run --config configs/sequence-pilot.json --out results/local-sequence
+python -m scripts.analyze_sequence
+```
+
+El motor de secuencias detecta reutilización de aprobación en 10/10 semillas por
+tratamiento, frente a 0/10 para los motores anteriores en el mismo presupuesto.
+También conserva resultados negativos: baja la detección de destinatario incorrecto.
+La mejora combina semillas legítimas y mutación; no establece una ventaja universal
+ni una garantía de seguridad. No se ejecutaron LLMs ni transporte MCP real.

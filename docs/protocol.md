@@ -27,7 +27,8 @@ exist. Each document carries owner, department, content, phase, pending recipien
 ACL and deletion-request flag. Approvals bind actor, resource, operation, nonce and
 expiry; consumed nonces survive deletion/recreation. The time is fixed at 1000.
 Approvals do not bind a document generation/version; concurrency, distributed
-revocation, resource reincarnation and policy updates are outside this benchmark.
+revocation and policy updates are outside this benchmark. Identifier deletion/recreation
+is exercised by the replay witness, but separate resource-generation semantics are not modeled.
 
 Approval signing is a trusted fixture operation and is not exposed as a tool.
 The public HMAC key is deliberately test-only. There is no human study or

@@ -14,3 +14,6 @@ results/pilot-final/raw.jsonl
 results/pilot-final/traces/
 results/confirmatory/raw.jsonl
 results/confirmatory/traces/
+
+results/sequence-v02/raw.jsonl
+results/sequence-v02/traces/

@@ -88,3 +88,10 @@ proof of security are different forms of evidence. Timings come from concurrentl
 executed local campaigns and are not a comparative performance benchmark. The next
 study should use independent defect families and implementations and separately
 evaluate finer predicates, corpus scheduling and relation-preserving mutation.
+
+## Sequence-mutation follow-up
+
+A separate v0.2 matrix reruns the original engines and compares workflow-seeded
+mutators at matched budgets. See [sequence-results.md](sequence-results.md) for
+its measured improvements, regressions, ablations and corpus diagnostics.
+The numbers above remain the v0.1 historical observations and are not overwritten.

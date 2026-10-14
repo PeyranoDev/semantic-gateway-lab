@@ -1,49 +1,32 @@
-# Próximo ciclo de investigación
+# Next investigation after sequence mutation
 
-## Primera lectura
+The v0.2 engine, matched comparison, predicate/scheduler ablations and three new
+synthetic variants are implemented. See paper/sequence-results.md for measurements,
+docs/sequence-protocol.md for the design and results/sequence-v02 for raw evidence.
 
-1. Ejecutar tests, demo y análisis acotado siguiendo README.
-2. Leer `paper/results.md` junto a los CSV y manifiestos.
-3. Reproducir una traza de destinatario incorrecto y otra de aprobación.
-4. Revisar el caso de aprobación reutilizada: el test dirigido detecta el mutante,
-   pero su descubrimiento aleatorio requiere una secuencia considerablemente más rara.
+## Before adding an LLM
 
-## Prioridad científica
+1. Audit both the original specification and the new seeded programs independently.
+2. Separate state-coverage measurement at full budget from first-failure stopping.
+3. Test another document-service implementation and independently authored defect
+   families; the current reserved variants are still written within this project.
+4. Expand approval semantics to resource generations/versions and policy revocation.
+   The current replay witness depends on recreating the same identifier after deletion.
+5. Confirm important contrasts with new seeds and a frozen, separately reviewed
+   protocol. Current ten-seed contrasts are exploratory, not broad superiority claims.
 
-No agregar otra capa de seguridad todavía. Primero decidir si el paper estudia
-la pérdida de información de las abstracciones o la eficiencia del algoritmo de
-exploración. Este laboratorio permite investigar ambas, pero sus resultados no
-justifican afirmar que más predicados siempre mejoran el fuzzing.
+The recipient/approval predicate and scheduler ablations are measured in v0.2.
+An owner-only ablation is implemented/tested but not included in that matrix.
+Department and task-scoped delegation ablations remain future work.
 
-## Siguiente experimento propuesto (no implementado ni medido)
+## Agent evaluation as a separate phase
 
-Mantener las tres estrategias entregadas como baseline congelado. Incorporar,
-en una nueva versión, mutaciones de secuencias y argumentos que conserven parte
-de las relaciones necesarias para avanzar en un flujo. Aplicar el mismo motor
-de mutación a `enabled` y `enriched`, para no confundir el efecto de abstracción
-con mejores parámetros. Aislar el tamaño del corpus y la longitud de replay.
+Expose the service through a versioned MCP adapter and keep server-side authority
+outside model outputs. Evaluate successful legitimate tasks, adversarial tasks,
+token/call costs and denied effects independently of offline fuzzing coverage.
+Model API costs, credentials and task datasets need explicit configuration before
+running that phase; no LLM evaluations are represented by the current artifact.
 
-Agregar ablaciones por familia de predicados: destinatario, propietario,
-departamento y aprobación. Comparar cobertura con un presupuesto fijo completo,
-además del modo actual de primera falla. Separar cobertura de rapidez de detección.
-Agregar una implementación independiente del servicio antes de generalizar.
-
-## Fase con agentes reales
-
-Implementar un adaptador que traduzca llamadas estructuradas de uno o dos modelos
-en Action; la autoridad seguirá proveniendo de sesiones autenticadas. Medir tareas
-legítimas, tareas adversariales, costos y llamadas por separado del fuzzing offline.
-Agregar transporte MCP real y versionarlo antes de afirmar compatibilidad.
-
-No exponer razonamientos internos como requisito de auditoría: conservar acciones,
-parámetros, fuentes, identidades, decisiones y efectos observables. Definir un
-modelo de amenazas concreto para datos externos y aprobaciones humanas.
-
-## Antes de enviar el paper
-
-Leer completos los trabajos cercanos citados; comprobar la novedad específica.
-Auditar independientemente el oráculo. Usar defectos reservados diseñados por otra
-persona y más de un backend. Congelar semillas, presupuestos y análisis antes del
-experimento siguiente. Publicar negativos, intervalos, limitaciones y artefactos.
-Solicitar revisión de alguien con experiencia en métodos formales para cualquier
-afirmación de preservación de propiedades o prueba de seguridad.
+Record observable actions, arguments, sources, identities, policy decisions and
+effects. Do not require private internal reasoning to establish execution authority.
+Review the full primary papers in the bibliography before asserting novelty.

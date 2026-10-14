@@ -1,4 +1,4 @@
-# Beyond Tool Enabledness: Reproducible Stateful Authorization Testing for Agent Tool Runtimes
+# Beyond Tool Enabledness: Workflow-Seeded Authorization Fuzzing for Agent Tool Runtimes
 
 Ignacio Peyrano
 
@@ -9,22 +9,25 @@ outperforms alternatives in general. Measured results are in `results.md`.
 
 ## Abstract
 
-Agents that invoke enterprise tools must obey authorization rules involving
-principals, objects and execution history. A state abstraction that retains only
-the names of lifecycle-enabled tools can omit distinctions that determine whether
-a particular invocation is authorized. We present a reproducible laboratory for
-studying this information loss and its implications for stateful fuzzing. The
-artifact executes a document service with ten tools, eight isolated implementation
-mutants and a fixed control. An independent specification oracle checks decisions,
-observable outputs, state changes and audit completeness after every call. We
-compare uniform random testing with two corpus-guided strategies that use coarse
-enabledness and relationally enriched state keys. Budgets include prefix replay,
-and undetected defects remain censored observations. A bounded recipient-sharing
-submodel supplies an executable counterexample to action distinguishability under
-the coarse projection. The experiments evaluate whether added information improves
-discovery rather than assuming that it does. The resulting artifact separates
-counterexample evidence, finite testing and formal guarantees, providing a basis
-for a subsequent study with independent backends and language-model agents.
+Authorization in agent tool runtimes depends on principals, resources and execution
+history, not only which tool names are currently enabled. We present a reproducible
+synthetic laboratory that separates abstraction information loss from exploration
+efficiency. An executable sharing counterexample shows that a coarse enabled-tool
+projection can merge states requiring different decisions for the same invocation.
+An independent specification oracle checks actual service effects, decisions,
+outputs and audit records. Following a baseline evaluation, we introduce mutation
+of legitimate workflow programs, matched coarse and relational corpus feedback,
+and predicate/scheduler ablations. A new matrix comprises 1080 runs over nine
+engines and twelve variants, with all initialization and repeated calls counted.
+The three original engines fail to discover approval replay within 3000 calls
+in all ten-seed conditions; every sequence-mutation engine detects it in 10/10.
+However, wrong-recipient discovery is lower for the new guided engines than for
+legacy guidance. Enrichment improves observed replay effort but worsens overwrite
+effort, and a no-corpus seed mutator is competitive. These findings support a
+property-dependent exploration tradeoff rather than universal superiority.
+All 829 detected witnesses are replayed and checked against the fixed control.
+The experiment remains limited to one synthetic backend, authored mutants and
+ten seeds per treatment, with no language model or real MCP transport.
 
 ## 1. Introduction
 
@@ -56,23 +59,31 @@ testing and agent security work remains to be established through full review.
 ## 2. Related work and positioning
 
 Enabledness-preserving abstractions were developed for contract validation by
-de Caso et al. [3], with subsequent work on behavior validation [4]. This artifact's
-coarse projection is inspired by that research; it is not presented as a sound
-implementation of all assumptions or guarantees of those techniques.
+de Caso et al. [3], with subsequent behavior-validation work [4]. Our lifecycle
+projection is inspired by that research, not a claim to implement every assumption
+or guarantee of a sound EPA. The action-distinguishability counterexample below is
+a limitation of this particular projection, not a refutation of those methods.
 
-AgentGuard [5] studies runtime verification using learned probabilistic models of
-agent behavior. MCPSHIELD [6] presents a formal security framework for MCP-based
-agents using transition systems and trust boundaries. HCP [7] evaluates explicit
-execution-control invariants in MCP-style runtimes. These works require a precise
-positioning of any claim about agent verification or runtime mediation. The present
-experiment concerns offline exploration and abstraction-induced information loss
-in a small deterministic execution service. It does not replace those frameworks
-or empirically compare their complete implementations.
+Stateful request generation and preservation of dependencies are established
+testing techniques. RESTler [9] uses dependencies inferred from API specifications
+and execution feedback to generate request sequences. AFLNet [10] mutates protocol
+message sequences and guides exploration using state feedback. Our hand-authored
+workflow seeds and generic mutations are not presented as inventions of either
+sequence mutation or dependency-aware testing. We specialize an executable
+experiment to principal/resource/approval-history relationships and compare
+observational feedback under explicit call budgets and an independent oracle.
+A full empirical comparison with RESTler or AFLNet has not been performed.
+
+AgentGuard [5] studies runtime verification with probabilistic behavior models.
+MCPSHIELD [6] provides a security framework for MCP-based agents with transition
+systems and trust boundaries. HCP [7] evaluates execution-control invariants in
+MCP-style runtimes. This study concerns offline testing at a deterministic tool
+execution boundary, rather than a replacement for those frameworks. Novelty
+relative to their complete methods and broader testing literature remains open.
 
 MCP's HTTP authorization specification [8] already defines an OAuth-based flow.
-The benchmark therefore does not compare a supposedly secure protocol with an
-inherently insecure REST protocol. Transport and backend authorization are distinct
-concerns, and this version does not implement an MCP transport.
+Transport and object/operation authorization are distinct concerns. Neither this
+benchmark nor its results establish protocol superiority over REST.
 
 ## 3. System and threat model
 
@@ -96,9 +107,15 @@ clock is fixed; approval expiry boundaries and reuse are tested against that clo
 Approvals are not generation-bound. Concurrent actions, server compromise, changing
 policies, arbitrary binary tools and real model prompt injection are out of scope.
 
-Eight isolated implementation mutants remove or weaken checks. The oracle and
-generator do not receive mutant annotations. These are seeded defects, not claimed
-discoveries in external implementations.
+Eight original implementation mutants remove or weaken checks. Three additional
+synthetic variants disclose object identifiers in list responses, permit non-owner
+updates or permit cross-department sharing. The generator does not receive defect
+labels. All eleven defects were authored within this project and the same backend;
+the new variants are not independently sourced held-out vulnerabilities.
+
+The replay witness recreates the same resource identifier after deletion. The
+fixture tests consumed-grant history without generation/version binding; no claim
+is made that production systems with non-reused identifiers exhibit this defect.
 
 ## 4. Abstraction and action distinguishability
 
@@ -128,57 +145,135 @@ the recipient witness. No general property-preservation or minimality result is
 claimed for this projection. A finer projection may also fragment the exploration
 corpus and consume more replay budget.
 
+The proposition concerns exact authorization reconstruction from the projection.
+Our projections are used for feedback selection only. The runtime and oracle
+continue to inspect full concrete state. Thus a projection can lose distinctions
+while still being useful for testing; a coarser search key does not itself weaken
+the service's authorization boundary. This distinction motivates measuring
+discovery rather than inferring it directly from representational fidelity.
+
 ## 5. Testing methodology
 
-The fuzzer calls the service rather than a precomputed transition graph. Before
-and after every invocation, the harness records snapshots and the visible response.
-A separate specification oracle derives authorization, expected effects and output,
-and checks audit completeness. It imports neither implementation checks nor
-abstraction logic. Shared data conventions and fixture constants remain potential
-sources of correlated mistakes, motivating independent review.
+The harness executes the service and captures before/after snapshots and visible
+responses. A separate oracle derives authorization, effects and expected output,
+and checks denied-call atomicity and audit completeness. It imports neither
+implementation check helpers nor abstraction logic. Shared fixture assumptions
+remain a possible source of correlated mistakes and require independent review.
 
-Uniform random testing samples tool names and arguments and resets between bounded
-episodes. Two guided methods use the same 80% lifecycle-enabled selection rule,
-argument generator and corpus scheduler. They retain one shortest safe prefix per
-abstract key. Their only treatment difference is the coarse versus enriched key.
-The random baseline differs in both selection and lack of prefix reuse, so it
-evaluates the guided mechanism as a whole rather than abstraction alone.
+The three v0.1 engines remain byte-for-byte unchanged. They use uniform arguments,
+with two variants preferring lifecycle-enabled tool names and reusing state-reaching
+prefixes indexed by coarse or enriched projections. They are rerun at the same
+v0.2 budgets and seeds as the new engines. For new synthetic variants only, the
+single-threaded harness substitutes the service constructor without editing their
+generation, selection or oracle code. A regression test verifies unchanged
+behavior on an original variant.
 
-Every replayed call consumes the runtime-call budget. Campaigns terminate on the
-first violation or budget exhaustion. Afterward, deletion-based minimization finds
-a 1-minimal witness under action removal; its cost is reported separately. The
-generator uses no directed regression witness as an initial seed.
+The new engine initializes six legitimate workflow programs. Sharing programs
+include initiation, acceptance, read and revocation. Deletion programs include
+two authorized lifecycle transactions using distinct fresh fixture approvals.
+A final program covers list/read/update/export. None contains an unauthorized
+terminal operation or imports known failing regression traces.
+
+Generic operators change a field, insert a call, duplicate a contiguous segment,
+delete a step, swap calls or splice a fragment from another legitimate program.
+Insertions retain the anchor principal/resource; field mutations preferentially
+sample values already observed in the program. Approvals are test-fixture outputs,
+not guessed cryptographic signatures.
+
+A no-corpus engine selects these seeds uniformly. Two matched corpus engines use
+the identical mutator, seeds, capacity of 64 and inverse-selection-count scheduler.
+They differ only in coarse versus enriched feedback keys. Each key identifies an
+observed abstract transition and retains one shortest complete tested program.
+FIFO eviction bounds memory. Multiple keys may select the same program, so
+partitioning changes effective sampling weights as well as information retained.
+
+Two ablations remove recipient or consumed-approval predicates. Another retains
+full enrichment but selects stored programs uniformly. An owner-only ablation is
+implemented and tested, but not included in the measured matrix.
+
+All bootstrap, repeated, denied and mutation-source-prefix calls consume budget.
+Legacy selected-prefix replay and new unchanged-source-prefix counts differ and
+are not pooled as one overhead metric. Campaigns stop at their first oracle
+violation or budget exhaustion. Deletion-based shrinking occurs afterward and
+has a separate call count. Every detected original and minimized trace is replayed
+in a separate analysis process; minimized traces are also checked on the fixed service.
 
 ## 6. Experimental setup
 
-The final pilot evaluates seeds 0-9, three strategies and nine variants with a
-1500-call budget and depth 12, totaling 270 runs. An additional matrix uses seeds
-100-129, budget 10000 and depth 20, totaling 810 runs. This second matrix was
-configured after inspecting the first pilot; it is not independently preregistered.
-No exploration algorithm was changed between matrices. Budget/depth changes mean
-cross-matrix differences cannot be attributed solely to held-out seeds.
+The v0.1 artifact contains a 270-run pilot (seeds 0-9, budget 1500, depth 12)
+and an 810-run larger-budget matrix (seeds 100-129, budget 10000, depth 20).
+Their 3,233,104 executed calls are preserved as historical evidence. The second
+matrix was configured after inspecting the pilot and is not independently preregistered.
 
-Primary outcomes are defect detection fraction and call index to first violation.
-Misses are right-censored at the budget. Mean capped discovery effort includes
-misses at their budget rather than discarding them. Wilson intervals describe
-variation over seeds in this synthetic benchmark, not a real-world breach rate.
-Results are descriptive; no statistical superiority claim is made.
+The v0.2 protocol was committed before execution. It is nevertheless an exploratory
+follow-up designed after inspecting v0.1, not an independent confirmatory study.
+Ten new seeds (200-209), nine engines and twelve variants yield 1080 runs, each
+with budget 3000 and depth 20. There are three legacy engines, six sequence engines,
+eight original defects, three new synthetic defects and a fixed control.
 
-Common concrete state and edge counts provide auxiliary diagnostics. Their values
-are affected by early stopping and do not constitute exhaustive coverage. Abstract
-state counts are not directly comparable coverage percentages. Timing observations
-come from a local, potentially contended host and do not support production latency
-claims. Source hashes, fixture configuration and host metadata accompany raw data.
+Source/config/seed-program hashes identify the measured implementation. The original
+source hashes remain valid. All 65 automated tests pass on Python 3.11, 3.12 and 3.13.
+GitHub Actions executes the matrix and the separate witness-validation analysis.
+The matrix consumes 1,147,407 actual service calls before its stop conditions.
+
+Primary measures are detection fraction and first-failure call index. Undetected
+runs remain right-censored, contributing the full budget to mean capped effort.
+Wilson intervals summarize seed variation within this benchmark, not real-world
+breach probability. Same-seed descriptions record detection discordance and
+right-minus-left capped-effort differences; no significance claim is made.
+
+Auxiliary corpus diagnostics use fixed-control runs only, so all methods complete
+the full budget and avoid early-stopping coverage differences. Per-call timings
+describe instrumented in-process execution, not network, model or deployment latency.
 
 ## 7. Results
 
-See `results.md` and the committed raw JSONL, CSV summaries and manifests. Report
-the results by defect and strategy, including misses and fixed-control outcomes.
-Do not substitute directed regression success for stochastic discovery rates.
+Detailed tables, paired descriptions and full-budget diagnostics are in
+sequence-results.md; raw evidence and manifests are in results/sequence-v02.
+The historical matrices remain documented in results.md.
 
-The abstraction counterexample establishes a concrete limit of tool-name projection.
-It does not establish that a finer abstraction improves the current scheduler's
-discovery efficiency. That question must be answered from the measured matrices.
+### 7.1 Sequence-dependent discovery
+
+For approval replay, each legacy engine discovers zero failures in ten runs.
+All six sequence-mutation engines discover the defect in 10/10 at the same
+3000-call budget. The no-corpus seed mutator has mean capped effort 218.4 calls,
+coarse guidance 595.4 and full enriched guidance 198.2.
+
+This comparison changes both initial workflow knowledge and mutation operators
+relative to v0.1. It supports the combined workflow-seeded system in this fixture,
+not an isolated mutation-only or abstraction-only benefit.
+
+Sharing overwrite is found by legacy coarse guidance in 1/10 runs and by the
+three principal seed-mutation variants in 10/10. Capped effort is 168.8 calls for
+no-corpus mutation, 228.4 for coarse guidance and 540.8 for full enrichment.
+
+### 7.2 Negative results and property dependence
+
+Wrong-recipient discovery is 10/10 for each legacy guided engine but 6/10 for both
+new guided engines, with four censored misses. The no-corpus seed mutator finds
+4/10. Approval-scope and unauthorized-update results are also mixed. Therefore
+the new engine is not a universal replacement, and a single overall detection
+percentage would conceal relevant per-property tradeoffs.
+
+Removing approval history raises observed replay effort from 198.2 to 300.3 calls,
+but lowers overwrite effort from 540.8 to 135.3. Uniform selection with enriched
+keys produces 221.1 replay calls and 322.8 overwrite calls. These descriptive
+contrasts motivate property-sensitive feedback and scheduling rather than the
+claim that every additional predicate improves exploration.
+
+### 7.3 Exploration cost and validation
+
+At equal full budget, coarse sequence guidance has mean 145.6 corpus evictions and
+mean stored-program length 7.0; full enrichment has 683.3 evictions and length 10.4.
+Unchanged source prefixes consume 45.7% versus 47.5% of calls respectively.
+These diagnostics establish higher observed turnover and longer stored programs
+for enrichment in this configuration. They do not independently prove why one
+method wins on a particular defect.
+
+All 829 recorded failures have their original and minimized witnesses replayed.
+Each minimized witness produces no oracle disagreement on the fixed service.
+The 90 fixed-control campaigns produce zero observed violations in 270,000 calls.
+These are bounded validation results, not a proof of universal safety.
 
 ## 8. Threats to validity
 
@@ -189,7 +284,9 @@ The abstract keys contain hand-selected predicates and no general sufficiency pr
 **Internal validity:** implementation and independent oracle can share mistaken
 business assumptions. Corpus fragmentation, replay overhead and uniform argument
 generation can limit guided testing. Campaigns stop at first failure, affecting
-observed coverage. The pilot informed the later matrix design.
+observed coverage. The pilot informed the later matrix design, and both v0.1 evaluations informed v0.2.
+Workflow seeds encode domain knowledge; they are a substantive treatment difference.
+Corpus capacity and hand-selected predicates constrain the observed tradeoffs.
 
 **External validity:** one synthetic in-memory backend, seeded single defects,
 four principals and a finite argument domain do not represent enterprise deployments.
@@ -202,20 +299,28 @@ must accompany them. No-failure runs support only bounded observational claims.
 
 ## 9. Discussion and next study
 
-Preserving authorization-relevant distinctions and efficiently exploring the resulting
-state partition are different problems. A method can satisfy the first while
-performing poorly on the second. A subsequent version should separately ablate
-predicate families, corpus scheduling and argument/sequence mutation, preserving
-matched generators for abstraction comparisons. It should include independent
-backends and held-out defect families before adding a real-agent evaluation.
+Preserving authorization distinctions and efficiently searching their partition
+are separate objectives. The matched sequence engines demonstrate opposite
+enrichment effects for replay and overwrite, while a seed mutator without corpus
+feedback is competitive. A stronger next study should isolate workflow seeding
+from sequence mutation, vary corpus capacity and retention, and evaluate
+full-budget state exploration separately from first-failure discovery.
+
+New variants in the same authored service are not independent generalization.
+A separately implemented backend, independently designed defect families and
+generation-bound approvals should precede deployment claims. An agent/MCP phase
+must separately evaluate legitimate tasks, adversarial model inputs, call/token
+costs and actual execution effects. None is represented by this offline benchmark.
 
 ## 10. Conclusion
 
-This artifact makes a narrow question executable: whether tool-name enabledness
-retains sufficient information for particular stateful authorization decisions,
-and what happens when additional predicates guide exploration. It supplies a
-counterexample and measured, reproducible tests without identifying finite fuzzing
-with a universal safety proof. Further evidence is required for broader claims.
+The artifact supplies a concrete enabled-tool information-loss witness and
+executable authorization testing with a separate oracle. Workflow-seeded sequence
+mutation makes a previously missed history-dependent defect discoverable in this
+synthetic service. Its negative results and ablations show that richer feedback
+and corpus guidance have property-dependent costs. The evidence supports a
+bounded experimental contribution and a direction for further study, without
+identifying finite fuzzing or seeded-defect detection with general security verification.
 
 ## Artifact availability
 
