@@ -1,0 +1,40 @@
+name: Sequence result analysis
+on:
+  push:
+    branches: ['research/sequence-mutation']
+    paths:
+      - 'scripts/analyze_sequence.py'
+      - 'scripts/unpack_sequence_results.py'
+      - '.github/workflows/sequence-analysis.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore and verify sequence data
+        run: python scripts/unpack_sequence_results.py
+      - name: Analyze and replay recorded witnesses
+        run: python -m scripts.analyze_sequence
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sequence-analysis-${{ github.sha }}
+          path: |
+            results/sequence-v02/analysis-validation.json
+            results/sequence-v02/control-diagnostics.csv
+            paper/sequence-results.md
+      - name: Commit measured analysis
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/sequence-v02/analysis-validation.json results/sequence-v02/control-diagnostics.csv paper/sequence-results.md
+          git commit -m "Record sequence diagnostics and independently replayed witnesses"
+          git push origin HEAD:${{ github.ref_name }}
