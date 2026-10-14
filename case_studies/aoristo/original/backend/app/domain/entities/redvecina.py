@@ -10,6 +10,7 @@ from typing import Optional
 from uuid import UUID
 
 
+@dataclass
 class Building:
     """Building/Consortium entity."""
     id: Optional[UUID]
@@ -19,6 +20,7 @@ class Building:
     is_active: bool = True
 
 
+@dataclass
 class Unit:
     """Residential unit entity."""
     id: Optional[UUID]
@@ -29,6 +31,7 @@ class Unit:
     debt: float = 0.0
 
 
+@dataclass
 class Invitation:
     """Unit invitation link entity."""
     id: Optional[UUID]

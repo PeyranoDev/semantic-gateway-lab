@@ -117,7 +117,7 @@
     },
     "domain/entities/redvecina.py": {
       "adaptation": "Keep exact Building, Unit and Invitation class bodies; omit unrelated models/relationships.",
-      "export_sha256": "951640aa434f9a9645e31ff012b50c1356080a859801362e27614644715fc9a0",
+      "export_sha256": "f4f67930af3256d3ca4eddd8fee854e0bd132238fcc4b32cde03dc956d504be2",
       "status": "adapted"
     },
     "domain/entities/sale.py": {
@@ -420,6 +420,6 @@
     "infrastructure/repositories/postgres_purchase_repository.py": "55aa606e83d39d51c14e34a5e87e4e4439b6de1d563ca3d572a5b7dfd22a4a56",
     "infrastructure/repositories/postgres_sale_repository.py": "5adb311ce92e99d021b246f9062faccffa8076d296fb93cff72b0d4611a09fde"
   },
-  "provenance": "Upstream commit and per-file private provenance retained in the source repository; this manifest describes only the explicitly exported public files.",
+  "provenance": "Private origin attestation retained privately; public manifest describes exported source only.",
   "verbatim_export_fingerprint": "57ac10070e5069ba3b3b9612f17b747664b7a80f7d704759bbc2a92feba0a865"
 }

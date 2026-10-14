@@ -37,4 +37,12 @@ class PublicBackendCaseTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             with self.assertRaises(ValueError):materialize(folder,"fixed")
 
+    def test_export_preserves_real_entity_constructor(self):
+        import runpy
+        from uuid import UUID
+        entities=runpy.run_path(str(CASE/"original/backend/app/domain/entities/redvecina.py"))
+        invitation=entities["Invitation"](id=UUID(int=1),unit_id=UUID(int=2),token="public-test")
+        self.assertEqual(0,invitation.current_uses)
+        self.assertEqual(UUID(int=2),invitation.unit_id)
+
 if __name__=="__main__":unittest.main()
