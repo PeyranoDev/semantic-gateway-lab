@@ -1,0 +1,20 @@
+{
+  "campaign_calls": 0,
+  "checks_passed": 19,
+  "config_sha256": "fde3b5efc6a02fb54cb83c754b141f605b3bf958bbcc7ec8aebaa84dd7ad50a6",
+  "historical_original_minimal_replays": 150,
+  "phase": "v0.4 public real-backend mitigation study",
+  "postgresql": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "python": "3.12.15",
+  "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runs": 0,
+  "scope": "known regressions plus finite campaign; not general security proof",
+  "source": {
+    "aggregate_sha256": "db0ac81e898a4becc31c4c8acf3fa95abed7440b784543121c49004bd11738a1",
+    "app_files": 81,
+    "checked_files": 81,
+    "source_kind": "public_subset",
+    "variant": "original"
+  },
+  "total_http_calls": 288
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 10.6,
+    "mode": "random",
+    "runs": 10,
+    "target": "CANCEL_REPLAY",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 11.1,
+    "mode": "sequence_enabled",
+    "runs": 10,
+    "target": "CANCEL_REPLAY",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 12.8,
+    "mode": "sequence_enriched",
+    "runs": 10,
+    "target": "CANCEL_REPLAY",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 13.6,
+    "mode": "sequence_uniform",
+    "runs": 10,
+    "target": "CANCEL_REPLAY",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 10.6,
+    "mode": "random",
+    "runs": 10,
+    "target": "INVITATION_SCOPE",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 11.1,
+    "mode": "sequence_enabled",
+    "runs": 10,
+    "target": "INVITATION_SCOPE",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 12.8,
+    "mode": "sequence_enriched",
+    "runs": 10,
+    "target": "INVITATION_SCOPE",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 13.6,
+    "mode": "sequence_uniform",
+    "runs": 10,
+    "target": "INVITATION_SCOPE",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 10.6,
+    "mode": "random",
+    "runs": 10,
+    "target": "READ_TENANT",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 11.1,
+    "mode": "sequence_enabled",
+    "runs": 10,
+    "target": "READ_TENANT",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 12.8,
+    "mode": "sequence_enriched",
+    "runs": 10,
+    "target": "READ_TENANT",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  },
+  {
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 13.6,
+    "mode": "sequence_uniform",
+    "runs": 10,
+    "target": "READ_TENANT",
+    "wilson95": [
+      0,
+      0.2775327998628892
+    ]
+  }
+]

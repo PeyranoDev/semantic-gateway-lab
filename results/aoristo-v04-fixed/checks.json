@@ -1,0 +1,116 @@
+[
+  {
+    "case": "legitimate-seed-0",
+    "passed": true
+  },
+  {
+    "case": "legitimate-seed-1",
+    "passed": true
+  },
+  {
+    "case": "legitimate-seed-2",
+    "passed": true
+  },
+  {
+    "case": "legitimate-seed-3",
+    "passed": true
+  },
+  {
+    "case": "legitimate-seed-4",
+    "passed": true
+  },
+  {
+    "case": "legitimate-seed-5",
+    "passed": true
+  },
+  {
+    "case": "cancel_replay",
+    "passed": true,
+    "statuses": [
+      200,
+      400
+    ]
+  },
+  {
+    "case": "read_foreign_sale",
+    "passed": true,
+    "statuses": [
+      404
+    ]
+  },
+  {
+    "case": "cancel_foreign_sale",
+    "passed": true,
+    "statuses": [
+      404
+    ]
+  },
+  {
+    "case": "revoke_foreign_invitation",
+    "passed": true,
+    "statuses": [
+      403
+    ]
+  },
+  {
+    "case": "create_foreign_invitation",
+    "passed": true,
+    "statuses": [
+      403
+    ]
+  },
+  {
+    "case": "create_own_invitation_response",
+    "passed": true,
+    "statuses": [
+      201
+    ]
+  },
+  {
+    "case": "list_own_invitation_response",
+    "passed": true,
+    "statuses": [
+      200
+    ]
+  },
+  {
+    "case": "created-invitation-output-and-single-use",
+    "passed": true
+  },
+  {
+    "case": "staff-building-scope",
+    "passed": true
+  },
+  {
+    "case": "unknown-role-fails-closed",
+    "passed": true
+  },
+  {
+    "case": "nonpending-sales-never-restore-stock",
+    "passed": true
+  },
+  {
+    "case": "missing-sale-consistent-404",
+    "passed": true
+  },
+  {
+    "case": "purchase-read-update-tenant-scope",
+    "foreign_read": 404,
+    "foreign_update": 404,
+    "passed": true,
+    "variant": "fixed"
+  },
+  {
+    "case": "failure-after-stock-update-rolls-back",
+    "passed": true
+  },
+  {
+    "case": "concurrent-http-cancellation-two-independent-sessions",
+    "passed": true,
+    "statuses": [
+      200,
+      400
+    ],
+    "stock_after": 10
+  }
+]

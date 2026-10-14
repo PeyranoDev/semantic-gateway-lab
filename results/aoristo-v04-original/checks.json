@@ -1,0 +1,81 @@
+[
+  {
+    "case": "seed-0",
+    "passed": true
+  },
+  {
+    "case": "seed-1",
+    "passed": true
+  },
+  {
+    "case": "seed-2",
+    "passed": true
+  },
+  {
+    "case": "seed-3",
+    "passed": true
+  },
+  {
+    "case": "seed-4",
+    "passed": true
+  },
+  {
+    "case": "seed-5",
+    "passed": true
+  },
+  {
+    "case": "list_own_sales",
+    "passed": true
+  },
+  {
+    "case": "reject_anonymous",
+    "passed": true
+  },
+  {
+    "case": "reject_cross_product",
+    "passed": true
+  },
+  {
+    "case": "invitation_usage_limit",
+    "passed": true
+  },
+  {
+    "case": "revoked_invitation",
+    "passed": true
+  },
+  {
+    "case": "cancel_replay",
+    "passed": true
+  },
+  {
+    "case": "read_foreign_sale",
+    "passed": true
+  },
+  {
+    "case": "cancel_foreign_sale",
+    "passed": true
+  },
+  {
+    "case": "revoke_foreign_invitation",
+    "passed": true
+  },
+  {
+    "case": "create_foreign_invitation",
+    "passed": true
+  },
+  {
+    "case": "create_own_invitation_response",
+    "passed": true
+  },
+  {
+    "case": "list_own_invitation_response",
+    "passed": true
+  },
+  {
+    "case": "purchase-read-update-tenant-scope",
+    "foreign_read": 200,
+    "foreign_update": 200,
+    "passed": true,
+    "variant": "original"
+  }
+]
