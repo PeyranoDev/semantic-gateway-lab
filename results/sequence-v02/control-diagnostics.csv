@@ -1,0 +1,10 @@
+strategy,control_runs,mean_concrete_states,mean_abstract_states,mean_corpus_evictions,mean_corpus_program_length,mean_source_prefix_fraction,mean_noop_mutation_fraction
+random,10,61.3,0,,,,
+enabled,10,78.1,9.5,,,,
+enriched,10,75.7,46.3,,,,
+sequence_uniform,10,114.1,0,0,0,0.4559333333333333,0.1472603612616857
+sequence_enabled,10,96.7,64,145.6,6.99375,0.45743333333333336,0.12432602543732411
+sequence_enriched,10,106.2,64,683.3,10.38125,0.4745333333333333,0.12819377067865664
+sequence_no_recipient,10,107.7,64,698.4,10.4015625,0.47363333333333335,0.12885151373743425
+sequence_no_approval,10,112.3,64,560.5,11.5890625,0.4695333333333333,0.12089382257212941
+sequence_enriched_uniform,10,114.8,64,712.2,10.5859375,0.48123333333333335,0.13184464603055018

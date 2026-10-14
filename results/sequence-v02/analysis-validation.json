@@ -1,0 +1,9 @@
+{
+  "runs": 1080,
+  "raw_sha256": "8e7919724d1c15c06bae31ac8f797e9564bb5c923679b36166643ba9bb0bf117",
+  "source_hashes_verified": true,
+  "original_witnesses_replayed": 829,
+  "minimal_witnesses_replayed": 829,
+  "fixed_minimal_replays_checked": 829,
+  "fixed_violations": 0
+}
