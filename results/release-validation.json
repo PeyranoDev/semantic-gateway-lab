@@ -1,0 +1,31 @@
+{
+  "matrices": {
+    "pilot-final": {
+      "runs": 270,
+      "backend_calls": 242987,
+      "fixed_runs": 30,
+      "fixed_calls": 45000,
+      "fixed_violations": 0,
+      "detected_mutant_runs": 146,
+      "raw_sha256": "f7a850aee5270c418918946922f60ca07c3eeb123273fdb923a2494f0361c46b",
+      "source_hashes_verified": true
+    },
+    "confirmatory": {
+      "runs": 810,
+      "backend_calls": 2990117,
+      "fixed_runs": 90,
+      "fixed_calls": 900000,
+      "fixed_violations": 0,
+      "detected_mutant_runs": 576,
+      "raw_sha256": "e3cebbb754d217a99ebed992180a99d1f103a05dbf1a1238c0b2d513a2e359d3",
+      "source_hashes_verified": true
+    }
+  },
+  "replay_checks": 722,
+  "local_unit_tests": {
+    "count": 44,
+    "passed": 44,
+    "python": "3.12",
+    "remote_ci_executed": false
+  }
+}

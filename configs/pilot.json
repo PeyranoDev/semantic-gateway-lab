@@ -1,0 +1,7 @@
+{
+  "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "strategies": ["random", "enabled", "enriched"],
+  "mutants": ["fixed", "cross_department_read", "wrong_recipient", "sharing_overwrite", "unauthorized_revoke", "approval_scope", "approval_replay", "missing_approval", "deny_audit"],
+  "budget": 1500,
+  "depth": 12
+}

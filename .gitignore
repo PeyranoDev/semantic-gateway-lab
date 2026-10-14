@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.DS_Store
+results/local*/
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+results/pilot-final/raw.jsonl
+results/pilot-final/traces/
+results/confirmatory/raw.jsonl
+results/confirmatory/traces/

@@ -86,6 +86,7 @@ descubiertas en servicios de terceros.
 Para reproducir una traza, elegí un archivo existente de `results/.../traces/`:
 
 ```bash
+python scripts/unpack_results.py
 python -m fuzzlab replay results/pilot-final/traces/cross_department_read-random-0.json
 ```
 
@@ -95,6 +96,9 @@ una clave pública de prueba: no son credenciales.
 
 ## Interpretar resultados
 
+Los datos históricos están guardados como `raw.jsonl.gz`. El comando
+`python scripts/unpack_results.py` verifica sus hashes, recupera los JSONL
+originales y reconstruye las 722 trazas individuales. No requiere dependencias.
 Cada carpeta de campaña contiene:
 
 - `raw.jsonl`: una observación por ejecución, con presupuesto, cobertura,

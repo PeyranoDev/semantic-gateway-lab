@@ -1,0 +1,41 @@
+{
+  "max_depth": 3,
+  "subalphabet_size": 5,
+  "reachable_states_observed": 5,
+  "collisions": {
+    "enabled": {
+      "first_prefix": [
+        {
+          "tool": "initiate_share",
+          "actor": "alice",
+          "document": "d1",
+          "target": "bob",
+          "content": "updated",
+          "token": ""
+        }
+      ],
+      "second_prefix": [
+        {
+          "tool": "initiate_share",
+          "actor": "alice",
+          "document": "d1",
+          "target": "mallory",
+          "content": "updated",
+          "token": ""
+        }
+      ],
+      "distinguishing_action": {
+        "tool": "accept_share",
+        "actor": "bob",
+        "document": "d1",
+        "target": "bob",
+        "content": "updated",
+        "token": ""
+      },
+      "first_allowed": true,
+      "second_allowed": false
+    },
+    "enriched": null
+  },
+  "scope": "bounded finite subalphabet; no general soundness proof"
+}

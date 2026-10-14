@@ -1,0 +1,7 @@
+{
+  "seeds": [0, 1],
+  "strategies": ["random", "enabled", "enriched"],
+  "mutants": ["fixed", "cross_department_read", "wrong_recipient"],
+  "budget": 100,
+  "depth": 8
+}
