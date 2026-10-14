@@ -104,6 +104,7 @@ def run(source, database_url, out, config_path):
             "source": adapter.manifest, "transport": "in-process HTTP via original FastAPI ASGI pipeline",
             "database": "PostgreSQL", "schema": "original SQLAlchemy metadata.create_all; not Alembic",
             "isolation": "serial outer rollback transaction; original commits release savepoints",
+            "response_normalization": "omit token/date fields; replace embedded InvitationResponse validation repr by type and count",
             "python": platform.python_version(),
             "postgresql_version": adapter.connection.exec_driver_sql("SHOW server_version").scalar(),
             "dependencies": {d.metadata["Name"]: d.version for d in importlib.metadata.distributions()},

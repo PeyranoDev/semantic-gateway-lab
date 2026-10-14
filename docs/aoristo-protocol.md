@@ -60,6 +60,11 @@ Seven operations vary actor and fixture resource. Missing IDs are included.
 Sale/invitation IDs are fixture-known; guessing IDs and obtaining capabilities
 are not measured. Generated UUIDs, JWTs and capability tokens are omitted from
 published observations. New invitation rows are normalized to stable names.
+Pydantic validation details embedding randomly generated fixture UUIDs/times are
+normalized to the schema name and validation-error count. HTTP status and all
+observed business-state effects remain exact. In the pinned service, creation
+can persist a row then translate response validation into HTTP 404; listing
+existing invitations can return HTTP 500. These are separate behaviors.
 
 ## Controls and known regressions
 
@@ -117,7 +122,7 @@ git -C ../AoristoTech checkout f9420647c6fad86294032126a77b5d4880a11f21
 python3.12 -m venv .venv
 .venv/bin/pip install -r integrations/aoristo/requirements.lock
 docker run --rm -d --name sglab-postgres -p 127.0.0.1:55432:5432 \
-  -e POSTGRES_DB=sglab_aoristo -e POSTGRES_USER=lab -e POSTGRES_PASSWORD=lab postgres:16
+  -e POSTGRES_DB=sglab_aoristo -e POSTGRES_USER=lab -e POSTGRES_PASSWORD=lab postgres:16@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
 # Wait for pg_isready inside the disposable container before continuing.
 .venv/bin/python -m integrations.aoristo.run --source ../AoristoTech \
   --database-url postgresql://lab:lab@127.0.0.1:55432/sglab_aoristo \

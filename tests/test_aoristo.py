@@ -12,7 +12,7 @@ from integrations.aoristo.generator import Mutator, OPERATORS
 from integrations.aoristo.model import Action, legitimate_seeds, SOURCE_COMMIT
 from integrations.aoristo.oracle import check
 from integrations.aoristo.run import validate_config, paired
-from integrations.aoristo.adapter import validate_database_url
+from integrations.aoristo.adapter import validate_database_url, clean_response
 
 def fixture():
     return {"sales": {"a": {"grocery": 1, "status": "pending", "quantity": 3},
@@ -136,5 +136,10 @@ class AoristoHarnessTests(unittest.TestCase):
 
     def test_database_url_rejects_other_dialects(self):
         with self.assertRaises(ValueError): validate_database_url("sqlite:///:memory:")
+
+    def test_response_normalization_preserves_schema_error(self):
+        body = {"detail":"7 validation errors for InvitationResponse\nvolatile UUID and datetime"}
+        self.assertEqual({"error":"InvitationResponse validation failed","validation_errors":7}, clean_response(body))
+        self.assertEqual({"id":1}, clean_response({"id":1,"Token":"test-capability","date":"now"}))
 
 if __name__ == "__main__": unittest.main()

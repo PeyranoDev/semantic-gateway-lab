@@ -12,6 +12,18 @@ import sys
 
 from .model import SOURCE_COMMIT, PUBLIC_KEY, uid
 
+def clean_response(value):
+    """Normalize volatile fields and Pydantic's embedded fixture repr only."""
+    if isinstance(value, dict):
+        detail = value.get("detail")
+        if isinstance(detail, str) and "validation errors for InvitationResponse" in detail:
+            return {"error": "InvitationResponse validation failed", "validation_errors": int(detail.split()[0])}
+        return {key: clean_response(v) for key, v in value.items()
+                if key not in ("Token", "token", "CreatedAt", "ExpiresAt", "Date", "date")}
+    if isinstance(value, list):
+        return [clean_response(v) for v in value]
+    return value
+
 def source_manifest(source):
     root = Path(source).resolve()
     files = sorted((root / "backend/app").rglob("*.py"))
@@ -184,14 +196,7 @@ class Adapter:
         except ValueError:
             body = {"error": response.text[:200]}
         # Generated UUIDs/tokens/timestamps do not belong in published semantic traces.
-        def clean(value):
-            if isinstance(value, dict):
-                return {key: clean(v) for key, v in value.items()
-                        if key not in ("Token", "token", "CreatedAt", "ExpiresAt", "Date", "date")}
-            if isinstance(value, list):
-                return [clean(v) for v in value]
-            return value
-        return {"status": response.status_code, "body": clean(body)}
+        return {"status": response.status_code, "body": clean_response(body)}
 
     def close(self):
         self.client_context.__exit__(None, None, None)

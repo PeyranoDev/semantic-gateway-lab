@@ -8,7 +8,7 @@ CASES = {
     "cancel_foreign_sale": ([Action("cancel_sale", "alice", "b")], "CANCEL_TENANT"),
     "revoke_foreign_invitation": ([Action("revoke_invitation", "ruth", "b")], "INVITATION_SCOPE"),
     "create_foreign_invitation": ([Action("create_invitation", "ruth", "b")], "INVITATION_SCOPE"),
-    "create_own_invitation_response": ([Action("create_invitation", "ruth", "a")], "SERVER_ERROR"),
+    "create_own_invitation_response": ([Action("create_invitation", "ruth", "a")], "ERROR_EFFECT"),
     "list_own_invitation_response": ([Action("list_invitations", "ruth", "a")], "SERVER_ERROR"),
 }
 

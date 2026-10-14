@@ -157,4 +157,4 @@ ni una garantía de seguridad. No se ejecutaron LLMs ni transporte MCP real.
 
 ## AoristoTech case study (v0.3)
 
-The optional integration preserves the original FastAPI HTTP authorization pipeline and SQL repositories against disposable PostgreSQL. It contains a source lock, dependency lock, synthetic fixtures, an independent domain oracle, known regressions, and a four-engine exploratory comparison. The private application source is not bundled. See [the protocol](docs/aoristo-protocol.md) and [integration](integrations/aoristo/README.md). Portable artifact checks now include 87 tests; HTTP/PostgreSQL evidence is produced separately.
+The optional integration preserves the original FastAPI HTTP authorization pipeline and SQL repositories against disposable PostgreSQL. It contains a source lock, dependency lock, synthetic fixtures, an independent domain oracle, known regressions, and a four-engine exploratory comparison. The private application source is not bundled. See [the protocol](docs/aoristo-protocol.md) and [integration](integrations/aoristo/README.md). Portable artifact checks now include 88 tests; HTTP/PostgreSQL evidence is produced separately.
