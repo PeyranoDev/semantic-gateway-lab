@@ -1,0 +1,63 @@
+name: Salon backend transfer study
+on:
+  push:
+    branches: [main, research/salon-transfer]
+    paths:
+      - 'backends/salon/**'
+      - 'integrations/salon/**'
+      - 'tests/test_salon.py'
+      - 'configs/salon-transfer.json'
+      - 'docs/salon-protocol.md'
+      - 'scripts/analyze_salon.py'
+      - 'scripts/salon_http_smoke.py'
+      - 'scripts/replay_salon.py'
+      - 'results/salon-v05/**'
+      - 'scripts/analyze_salon.py'
+      - 'scripts/replay_salon.py'
+      - '.github/workflows/salon-study.yml'
+  pull_request:
+    paths:
+      - 'backends/salon/**'
+      - 'integrations/salon/**'
+      - 'tests/test_salon.py'
+      - 'configs/salon-transfer.json'
+      - 'results/salon-v05/**'
+      - 'scripts/analyze_salon.py'
+      - 'scripts/replay_salon.py'
+      - '.github/workflows/salon-study.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backends/salon/requirements.lock
+      - name: HTTP, SQL, rollback and concurrency contracts
+        run: python -m unittest discover -s tests -p 'test_salon.py' -v
+      - name: Actual TCP business workflow
+        run: python -m scripts.salon_http_smoke
+      - name: Verify archived matrix and source identity
+        run: python -m scripts.analyze_salon
+      - name: Replay all archived original and minimized witnesses through HTTP
+        run: python -m scripts.replay_salon
+      - name: New full matrix on explicit dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: python -m integrations.salon.run --out /tmp/salon-study
+      - name: Verify newly dispatched observations
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python - <<'PY'
+          from scripts.analyze_salon import analyze
+          analyze('/tmp/salon-study')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          name: salon-${{ github.sha }}
+          path: /tmp/salon-study

@@ -1,0 +1,285 @@
+{
+  "config": {
+    "budget": 120,
+    "corpus_capacity": 64,
+    "depth": 8,
+    "design": "one target per isolated mutant; every target on fixed; 320 mutant campaigns plus 320 controls; no held-out or independent system claim",
+    "modes": [
+      "random",
+      "sequence_uniform",
+      "sequence_enabled",
+      "sequence_enriched"
+    ],
+    "phase": "v0.5 authored second-domain transfer; frozen before the first full matrix",
+    "properties": [
+      "BOOKING_SCOPE",
+      "SLOT_CAPACITY",
+      "CONFIRM_PAYMENT",
+      "REFUND_REPLAY"
+    ],
+    "seeds": [
+      400,
+      401,
+      402,
+      403,
+      404,
+      405,
+      406,
+      407,
+      408,
+      409,
+      410,
+      411,
+      412,
+      413,
+      414,
+      415,
+      416,
+      417,
+      418,
+      419
+    ],
+    "variants": [
+      "fixed",
+      "read_scope",
+      "slot_capacity",
+      "confirm_unpaid",
+      "refund_replay"
+    ]
+  },
+  "config_sha256": "47b02cd63c24184faf595cc99bf3b416bb0478f0d3c14bec150ee81e52b6aae5",
+  "costs": {
+    "confirm_unpaid": {
+      "all_http_calls": 8181,
+      "authentication_calls": 4,
+      "campaign_calls": 7721,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 74,
+      "shrink_calls": 172,
+      "validation_calls": 176,
+      "verified_witness_replays": 74
+    },
+    "fixed": {
+      "all_http_calls": 38438,
+      "authentication_calls": 4,
+      "campaign_calls": 38400,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 0,
+      "shrink_calls": 0,
+      "validation_calls": 0,
+      "verified_witness_replays": 0
+    },
+    "read_scope": {
+      "all_http_calls": 7122,
+      "authentication_calls": 4,
+      "campaign_calls": 6764,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 41,
+      "shrink_calls": 132,
+      "validation_calls": 147,
+      "verified_witness_replays": 82
+    },
+    "refund_replay": {
+      "all_http_calls": 9635,
+      "authentication_calls": 4,
+      "campaign_calls": 8504,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 105,
+      "shrink_calls": 764,
+      "validation_calls": 224,
+      "verified_witness_replays": 42
+    },
+    "slot_capacity": {
+      "all_http_calls": 8298,
+      "authentication_calls": 4,
+      "campaign_calls": 7884,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 70,
+      "shrink_calls": 143,
+      "validation_calls": 163,
+      "verified_witness_replays": 70
+    }
+  },
+  "dependencies": {
+    "fastapi": "0.121.3",
+    "httpx": "0.28.1",
+    "pydantic": "2.12.4",
+    "starlette": "0.50.0",
+    "uvicorn": "0.38.0"
+  },
+  "limitations": [
+    "newly authored synthetic backend; not independent production evidence",
+    "deliberate reviewed mutants; not held-out discovery",
+    "synthetic credits, not a payment processor",
+    "finite fixture; create endpoint checked outside campaign domain",
+    "no LLM or MCP transport; SQLite concurrency differs from PostgreSQL"
+  ],
+  "persistence": "file-backed SQLite WAL; independent connections; committed BEGIN IMMEDIATE transactions",
+  "phase": "v0.5 authored salon backend transfer",
+  "python": "3.12.15",
+  "raw_sha256": "2a96ad220fc8f5c63dd0fe6c647e43b2563a72a6d580cb47ebe3f693f7f0dedb",
+  "runs": 640,
+  "seed_programs": [
+    [
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "pay",
+        "resource": "a"
+      },
+      {
+        "actor": "staff_a",
+        "operation": "confirm",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "pay",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "cancel",
+        "resource": "a"
+      },
+      {
+        "actor": "staff_a",
+        "operation": "refund",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "cancel",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a2"
+      }
+    ],
+    [
+      {
+        "actor": "alice",
+        "operation": "list_bookings",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "read_booking",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "pay",
+        "resource": "b"
+      },
+      {
+        "actor": "staff_b",
+        "operation": "confirm",
+        "resource": "b"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "pay",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "cancel",
+        "resource": "b"
+      },
+      {
+        "actor": "staff_b",
+        "operation": "refund",
+        "resource": "b"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "cancel",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b2"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "list_bookings",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "read_booking",
+        "resource": "b"
+      }
+    ]
+  ],
+  "source_sha256": {
+    "backends/salon/__init__.py": "63e3d94596e924460bef06eec62913def7d5361daf347fb4a789279ab1a1b57a",
+    "backends/salon/__main__.py": "8c4c913e7a41554899493a38bfd16edb7a2f75076d7b69294402894215089675",
+    "backends/salon/app.py": "7ddbd543448d00f075191e2a7dcacaf1fc63cce63e0b00642f0b29cc0493e111",
+    "backends/salon/auth.py": "d9d6a911dc5ceb7daa322070fedaaa69fb4bd9951a544e0c881addfcaf0c09d6",
+    "backends/salon/db.py": "f261376fca5b133e667f5dbfa3ab779c7207282b57c642f43402fd074505ab90",
+    "backends/salon/requirements.lock": "e5046dcde63f4c33281d97f3c5b602c399f1fef37fea2671e00267a4580ca01d",
+    "backends/salon/service.py": "0dae119a4ef7d23ef5a48c5737a3b4b2eae4e54f916ad98c1e59ca8aedb2733d",
+    "docs/salon-protocol.md": "910077b0b3166e2ed444fa5d727bb3d94c7880b3beb556160f49bf17627553bb",
+    "fuzzlab/feedback.py": "0242f015efa155d291689fde9a244bb382e88fb0d802e7266a9bb64a8bf2468a",
+    "integrations/salon/__init__.py": "40885c6c3f2e7a091add4fa6d9b99b4defa0da6b01a6b21becf1782b2d92ca22",
+    "integrations/salon/adapter.py": "b9c4be0d1575564e138661e8473862169883d9ba02e55942921aebf6764d3a77",
+    "integrations/salon/checks.py": "eeb1fa3f26964a7640991f63dc23f8aff611571bd7d645f1d3bb4a0bab8203ae",
+    "integrations/salon/experiment.py": "adf98149459439324fd04f88cb8670b8b227f9f8a8eb6ddb67265b800c2eb420",
+    "integrations/salon/feedback.py": "ac46b3676f6da861370e2b1a07209d2141e2b04d381ccb81f4cc7ad3f7decb41",
+    "integrations/salon/generator.py": "a94cda54fadc968a48de2bbbd2fcd3b129a08e115da044bf529c127101f3a22a",
+    "integrations/salon/model.py": "4cbd26373016283838d93d08a8e847cb2084ac69b9f555f157abdc1ebe09f9ab",
+    "integrations/salon/oracle.py": "b308a1e9ed91bfba27c331dc39dd76783cb29f0e522668d455a8938deb0adae4",
+    "integrations/salon/run.py": "4e2cee11ae9ba6b4476fbd79d2576d193a86d73e89337e680cec90c93e04cd49",
+    "scripts/analyze_salon.py": "932a432d41d940097f4a8bc22d0096076689495c970732f98490dcb43c038dd4",
+    "scripts/salon_http_smoke.py": "305ce44437245ae13e2ff45928c4a2483da029ca13b4b24f707500d6d9e16d09",
+    "tests/test_salon.py": "72ff05f860875adc280258329db65710b938418bc5ad8357eb5a87fd45bb58d4"
+  },
+  "sqlite": "3.45.1",
+  "transport": "FastAPI ASGI via TestClient; no TCP in campaign"
+}
