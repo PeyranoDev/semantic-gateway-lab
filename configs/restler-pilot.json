@@ -1,0 +1,16 @@
+{
+  "stage": "v0.7-setup-pilot",
+  "restler_commit": "6d984deedbc54aad957fa3da0c7e9e5df23a2aee",
+  "variants": ["fixed", "read_scope", "slot_capacity", "confirm_unpaid", "refund_replay"],
+  "seeds": [700, 701, 702],
+  "modes": ["restler_bfs", "restler_bfs_cheap", "random", "sequence_uniform"],
+  "budget": 1200,
+  "depth": 8,
+  "capacity": 64,
+  "max_combinations": 25,
+  "wall_timeout_seconds": 90,
+  "checkers": "disabled",
+  "stop": "first_common_oracle_violation_or_budget",
+  "isolation": "reset_on_each_new_sequence_header",
+  "analysis": "descriptive_setup_pilot_only_no_superiority_claim"
+}
