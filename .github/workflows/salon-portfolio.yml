@@ -1,0 +1,34 @@
+name: Authorization portfolio checks
+on:
+  push:
+    branches: [research/portfolio-v08]
+    paths: ['integrations/salon_portfolio/**', 'configs/salon-portfolio.json', 'docs/salon-portfolio-protocol.md', 'tests/test_salon_portfolio.py', 'scripts/verify_salon_portfolio.py', 'results/salon-v08/**', '.github/workflows/salon-portfolio.yml']
+  pull_request:
+    paths: ['integrations/salon_portfolio/**', 'configs/salon-portfolio.json', 'tests/test_salon_portfolio.py', 'scripts/verify_salon_portfolio.py', 'results/salon-v08/**', '.github/workflows/salon-portfolio.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backends/salon/requirements.lock
+      - run: python -m unittest discover -s tests -v
+      - name: Verify complete observations and replay every witness
+        if: hashFiles('results/salon-v08/manifest.json') != ''
+        run: python -m scripts.verify_salon_portfolio results/salon-v08 --replay
+      - name: Independent full matrix on explicit dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python -m integrations.salon_portfolio.run --out /tmp/salon-v08
+          python -m scripts.verify_salon_portfolio /tmp/salon-v08 --replay
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event_name == 'workflow_dispatch'
+        with:
+          name: salon-portfolio-${{ github.sha }}
+          path: /tmp/salon-v08

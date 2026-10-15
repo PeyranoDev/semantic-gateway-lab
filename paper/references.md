@@ -36,7 +36,7 @@ replicated in this repository.
     Primary author PDF: https://mboehme.github.io/paper/ICST20.AFLNet.pdf
 
 The sequence-mutation follow-up cites these established stateful-generation methods.
-Their implementations have not been benchmarked against this small runtime.
+RESTler was subsequently executed in the scoped v0.7 pilot; AFLNet remains unexecuted.
 
 11. Vaggelis Atlidakis, Patrice Godefroid and Marina Polishchuk. *Checking Security Properties of Cloud Service REST APIs.* ICST 2020.
     Primary author PDF: https://patricegodefroid.github.io/public_psfiles/icst2020.pdf
@@ -54,3 +54,17 @@ The focused source audit, overlap decisions and full-text access limits are docu
 in literature-review.md. References [11] and [14] materially change the framing:
 security-property checking and enabledness-guided testing have close prior work.
 No external tool implementation is included in the measured treatment matrices.
+
+15. Yuanliang Chen, Yu Jiang, Fuchen Ma, Jie Liang, Mingzhe Wang, Chijin Zhou,
+    Xun Jiao and Zhuo Su. *EnFuzz: Ensemble Fuzzing with Seed Synchronization
+    among Diverse Fuzzers.* USENIX Security 2019, pp. 1967–1983.
+    https://www.usenix.org/conference/usenixsecurity19/presentation/chen-yuanliang
+    https://www.usenix.org/system/files/sec19-chen-yuanliang.pdf
+16. Tai Yue, Pengfei Wang, Yong Tang, Enze Wang, Bo Yu, Kai Lu and Xu Zhou.
+    *EcoFuzz: Adaptive Energy-Saving Greybox Fuzzing as a Variant of the Adversarial
+    Multi-Armed Bandit.* USENIX Security 2020.
+    https://www.usenix.org/system/files/sec20-yue.pdf
+17. George T. Klees, Andrew Ruef, Benjamin Cooper, Shiyi Wei and Michael Hicks.
+    *Evaluating Fuzz Testing.* ACM CCS 2018. https://doi.org/10.1145/3243734.3243804
+    Author bibliography: https://mhicks.me/papers/klees2018fuzzeval.html
+    Author preprint: https://arxiv.org/abs/1808.09700
