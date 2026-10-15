@@ -3,12 +3,13 @@
 | Afirmación delimitada | Evidencia disponible | Límite |
 |---|---|---|
 | Nuestra proyección global de herramientas pierde distinciones de autorización | Contraejemplo de documentos y test HTTP de confirmación en salones | No refuta los métodos completos de EPA ni es un nuevo teorema formal |
-| Mutar tareas válidas puede facilitar fallas con historia en estas condiciones | v0.2, cancelación en Aoristo v0.3 y salones v0.5; ablation v0.6 separa componentes | Biblioteca y reglas diseñadas dentro del proyecto; falta referencia externa |
+| Mutar tareas válidas puede facilitar fallas con historia en estas condiciones | v0.2, cancelación en Aoristo v0.3 y salones v0.5; ablation v0.6 separa componentes | Biblioteca y reglas del proyecto; piloto RESTler ejecutado, comparación concluyente pendiente |
 | Feedback más rico tiene costos y beneficios dependientes de la propiedad | Comparaciones de proyección con mutador/planificador iguales en v0.2, v0.3 y v0.5 | No concluir eficiencia general ni cobertura total desde campañas con parada temprana |
 | Errores HTTP pueden acompañar escrituras de negocio | Testigos de invitaciones en Aoristo y parche con rollback | Hecho del caso; tiene antecedentes en checkers de efectos tras fallos |
 | El caso público conserva las observaciones históricas seleccionadas | 150 replays exactos y manifiesto de extracción | Equivalencia finita de observaciones; no equivalencia del backend completo |
 | La mitigación corrige los casos revisados | Controles, campañas acotadas, rollback y concurrencia específicos | No demostrar seguridad general o compatibilidad de despliegue productivo |
 | Combinar azar y tareas tiene compensaciones bajo presupuesto compartido | v0.8: 900 campañas, 16 contrastes, mejoras de alcance y regresiones de historia | No mejora general; mismos defectos conocidos, presupuestos dependientes |
+| Se ejecutó un generador externo oficial | v0.7: RESTler fijado por commit, 60 campañas y 31 trazas revalidadas | Checkers nativos desactivados; alcance insuficiente del ciclo válido; repeticiones deterministas |
 
 ## Unidad experimental
 
@@ -22,6 +23,12 @@ tratamientos y presupuestos. Las nuevas semillas de v0.6 son frescas respecto
 de v0.5, pero reutilizan el backend y errores revisados. No se las llama defectos
 reservados ni una prueba confirmatoria independiente.
 
+v0.8 compara 900 campañas sobre cuatro defectos deliberados y un control corregido.
+Las 446 campañas detectadas no son 446 vulnerabilidades nuevas. Los 892 replays
+corresponden a testigos originales y minimizados. Los presupuestos de 120 y 480
+reutilizan semillas y no son dos réplicas independientes. El intento interrumpido
+no se agrega a los totales del rerun completo.
+
 ## Afirmaciones que la evidencia actual no autoriza
 
 - Superioridad general frente a RESTler: v0.7 es un piloto ejecutado de dos
@@ -34,7 +41,7 @@ reservados ni una prueba confirmatoria independiente.
 
 ## Cierre antes de enviar
 
-Comparación externa ejecutada y/o alcance de artículo de artefacto/estudio
-exploratorio acordado; lectura completa de antecedentes de pruebas con EPA;
+Alcance de artículo de artefacto/estudio exploratorio acordado; si se pretende
+afirmar superioridad externa, hace falta una comparación más fuerte que el piloto; lectura completa de antecedentes de pruebas con EPA;
 revisión externa de políticas/oráculo; narrativa y tablas sin duplicación de
 unidades; figuras reproducibles; referencias y formato de la sede seleccionada.

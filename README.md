@@ -3,19 +3,20 @@
 Laboratorio reproducible para un nuevo paper de Ignacio Peyrano sobre pruebas
 de autorización con estado en runtimes de herramientas para agentes.
 
-**Pregunta:** ¿qué información pierde una abstracción que conserva únicamente
-herramientas habilitadas, y qué costo tiene enriquecerla para guiar fuzzing?
+**Pregunta:** ¿cómo influyen la información de autorización, los flujos válidos
+y la estrategia de búsqueda en la detección de fallas bajo un presupuesto fijo?
 
 Este proyecto toma como referencia el preprint
 [From CRUD to Autonomous Agents](https://arxiv.org/abs/2604.25555)
 y el [PoC original](https://github.com/PeyranoDev/semantic-gateway-poc).
 La implementación experimental es nueva. El fuzzer ejecuta un servicio de
-documentos y verifica sus efectos con un oráculo independiente; no recorre
+documentos y verifica sus efectos con un oráculo especificado por separado; no recorre
 un grafo que ya contiene una arista marcada como vulnerable.
 
 ## Empezar
 
-Python **3.11 o superior**, sin dependencias externas, GPU ni claves de API.
+Los ejemplos del núcleo requieren Python **3.11 o superior**, sin dependencias
+externas, GPU ni claves de API. Los casos HTTP tienen dependencias adicionales.
 En Windows podés sustituir `python` por `py -3` si corresponde.
 
 ```bash
@@ -25,9 +26,16 @@ python -m fuzzlab analyze
 python -m fuzzlab run --config configs/smoke.json --out results/local-smoke
 ```
 
-La suite base contiene **102 pruebas sin dependencias externas**. Al instalar
-las dependencias de los casos HTTP se habilitan otras 20 pruebas:
-**122 pruebas en total**. La demo valida ocho defectos
+La evaluación v0.8 verificó **139 tests** con las dependencias HTTP instaladas.
+Sin esas dependencias, la suite omite los tests HTTP; ejecutar sólo el núcleo no
+reproduce la validación completa. Para habilitarlos:
+
+```bash
+python -m pip install -r backends/salon/requirements.lock
+python -m unittest discover -s tests -v
+```
+
+Estos tests no sustituyen las campañas ni sus replays. La demo valida ocho defectos
 deliberados y un flujo legítimo. `analyze` encuentra un contraejemplo a la
 distinguibilidad de llamadas en la abstracción básica dentro de un submodelo
 acotado. Los resultados de campañas anteriores no se sobrescriben.
@@ -49,14 +57,14 @@ Las trazas son reproducibles; los tiempos dependen del equipo y su carga.
 | Archivo o carpeta | Función |
 |---|---|
 | `fuzzlab/backend.py` | Servicio ejecutable con diez herramientas y controles por objeto |
-| `fuzzlab/oracle.py` | Especificación independiente de decisiones, efectos, respuestas y auditoría |
+| `fuzzlab/oracle.py` | Oráculo de decisiones, efectos, respuestas y auditoría especificado por separado |
 | `fuzzlab/abstraction.py` | Abstracciones observacionales básica y enriquecida |
 | `fuzzlab/fuzzer.py` | Campañas, replay y minimización de contraejemplos |
 | `fuzzlab/analyze.py` | Búsqueda acotada de estados indistinguibles con decisiones diferentes |
 | `tests/` | Regresiones, controles corregidos, flujos legítimos y reproducibilidad |
 | `configs/` | Presupuestos, profundidad, variantes y semillas exactas |
 | `results/pilot-final/` | Datos del piloto con manifiesto del código entregado |
-| `results/confirmatory/` | Datos de la campaña adicional con semillas reservadas |
+| `results/confirmatory/` | Datos de la campaña adicional con semillas distintas; mismos defectos conocidos |
 | `docs/protocol.md` | Protocolo, métricas, supuestos y límites |
 | `docs/next_steps.md` | Próximo ciclo de investigación |
 | `docs/provenance.md` | Referencias al preprint y al commit del PoC revisado |
@@ -160,13 +168,13 @@ ni una garantía de seguridad. No se ejecutaron LLMs ni transporte MCP real.
 
 ## AoristoTech case study (v0.3)
 
-The optional integration preserves the original FastAPI HTTP authorization pipeline and SQL repositories against disposable PostgreSQL. It contains a source lock, dependency lock, synthetic fixtures, an independent domain oracle, known regressions, and a four-engine exploratory comparison. The private application source is not bundled. See [the protocol](docs/aoristo-protocol.md) and [integration](integrations/aoristo/README.md). Portable artifact checks now include 88 tests; HTTP/PostgreSQL evidence is produced separately.
+The optional integration preserves the original FastAPI HTTP authorization pipeline and SQL repositories against disposable PostgreSQL. It contains a source lock, dependency lock, synthetic fixtures, an independent domain oracle, known regressions, and a four-engine exploratory comparison. The private application source is not bundled. See [the protocol](docs/aoristo-protocol.md) and [integration](integrations/aoristo/README.md). At the v0.3 snapshot, portable artifact checks included 88 tests; HTTP/PostgreSQL evidence is produced separately.
 
 The completed PostgreSQL study contains 120 campaigns, 11 passing controls and 7 reproduced known regressions. All 75 discovered target witnesses and their minimized versions were reexecuted. See [AoristoTech results](paper/aoristo-results.md). Validate the published dataset with `python -m scripts.analyze_aoristo`.
 
 ## Public real-backend original/fixed case (v0.4)
 
-The [AoristoTech source case](case_studies/aoristo/README.md) includes 62 verbatim real backend modules plus explicitly documented bootstrap/registry adaptations. Its 11-module patch also applies to the full application. Both fixed assemblies pass 21 checks and 120 campaigns (14,400 calls each); the original subset reproduces all 150 historical witnesses. See [mitigation evidence](paper/mitigation-results.md). Portable artifact tests now total 94. Validate with `python -m scripts.analyze_aoristo_case`.
+The [AoristoTech source case](case_studies/aoristo/README.md) includes 62 verbatim real backend modules plus explicitly documented bootstrap/registry adaptations. Its 11-module patch also applies to the full application. Both fixed assemblies pass 21 checks and 120 campaigns (14,400 calls each); the original subset reproduces all 150 historical witnesses. See [mitigation evidence](paper/mitigation-results.md). The v0.4 snapshot included 94 portable artifact tests. Validate with `python -m scripts.analyze_aoristo_case`.
 
 ## Segundo dominio: reservas de salones (v0.5)
 

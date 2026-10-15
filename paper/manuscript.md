@@ -10,30 +10,30 @@ testing work and independent policy review remain outstanding.
 
 ## Abstract
 
-Authorization and business integrity depend on principals, resources and
-execution history. A global set of callable operation names can therefore merge
-states that require different decisions for the same invocation. This observation
-does not determine which state representation is most efficient for testing.
-We study that distinction with separately specified oracles that check decisions,
-responses and actual business effects across a document benchmark, an existing
-FastAPI/PostgreSQL backend and a newly authored appointment/payment service.
-Historical comparisons show that mutation of legitimate tasks reaches some
-history-dependent faults missed by random programs, while random programs more
-often expose simple scope violations. A further 1,200-campaign evaluation uses
-30 fresh search seeds and eight treatments to distinguish initial workflow
-knowledge, whole-program perturbation, append-only extension, charged warmup
-and matched coarse/enriched feedback. Valid-bank mutation detects overbooking in 24/30, unpaid confirmation in
-18/30 and repeated refund in 10/30, versus 2/30, 1/30 and 0/30 for mutation of
-length-matched random banks. The direction reverses for cross-scope reading:
-8/30 versus 25/30. An append-only baseline also outperforms full mutation for
-reading but underperforms on those history-dependent targets. Richer feedback
-improves overbooking while showing mixed effects on other properties.
-Every detected original and deletion-minimized witness is reexecuted against
-the measured HTTP/SQL service. The artifact retains censored misses, separate
-cost categories, all prespecified paired effects and fixed controls. The
-contribution is bounded comparative evidence and an executable authorization
-testing artifact; it is not a novel stateful-fuzzing algorithm, independent
-production generalization, a security proof or an evaluation of LLM/MCP behavior.
+Authorization and business integrity depend on principals, resources and execution
+history. A global set of callable operation names can merge states that require
+different decisions for the same invocation, but preserving more distinctions
+does not necessarily improve bounded test generation. We study this separation
+using specified oracles that check decisions, responses and business effects in
+a document benchmark, an existing FastAPI/PostgreSQL backend and an authored
+appointment/payment service.
+
+A 1,200-campaign component evaluation separates initial workflow knowledge,
+mutation, append-only extension, charged warmup and state feedback. At 120 calls,
+valid-bank mutation detects capacity, unpaid-confirmation and refund faults in
+24/30, 18/30 and 10/30 campaigns, versus 2/30, 1/30 and 0/30 for length-matched
+random banks. Scope reading reverses the comparison: 8/30 versus 25/30. A subsequent
+900-campaign evaluation finds that a fixed random/mutation portfolio improves
+scope detection relative to mutation alone but loses history-sensitive detections
+at the smaller budget. A 60-campaign official RESTler setup pilot provides external
+tool observations, with insufficient valid-workflow reachability to establish
+general comparative superiority.
+
+Detected traces are reexecuted; artifacts preserve misses, call costs, controls
+and favorable and unfavorable contrasts. These are repeated searches over reviewed
+defects in systems sharing project authorship. The contribution is a reproducible
+study of property-dependent authorization-testing tradeoffs, not a new general
+fuzzing algorithm, independent production validation or a proof of security.
 
 ## 1. Introduction
 
@@ -297,7 +297,9 @@ eight original defects, three new synthetic defects and a fixed control.
 
 Source/config/seed-program hashes identify each measured implementation. Historical
 source hashes remain valid. The v0.2 phase had 65 automated tests; the accumulated
-artifact now has 122 tests when the optional HTTP dependencies are installed.
+v0.6 artifact had 122 tests with the optional HTTP dependencies installed;
+the v0.8 snapshot passes 139. Tests, campaign executions and witness replays are
+reported as separate units.
 GitHub Actions executes the matrix and the separate witness-validation analysis.
 The matrix consumes 1,147,407 actual service calls before its stop conditions.
 
@@ -333,6 +335,26 @@ within-fixture seed variation and are not confidence statements across systems,
 nor multiplicity-adjusted hypothesis tests. All contrasts are reported, including
 unfavorable and zero effects. Same seed labels do not imply identical random
 draws at every call because engines consume RNG differently.
+
+### 6.2 Later phases are separate experiments
+
+| Phase | Campaigns | Search budget per campaign | Transport | Stopping rule |
+|---|---:|---|---|---|
+| v0.6 component study | 1,200 | 120 | ASGI HTTP / SQLite | Named property on mutants; ANY property on fixed controls |
+| v0.7 RESTler setup pilot | 60 | 1,200 | TCP HTTP / SQLite | First ANY-property discrepancy or budget; infrastructure limits recorded separately |
+| v0.8 portfolio follow-up | 900 | 120 and 480 | ASGI HTTP / SQLite | First ANY-property discrepancy or budget |
+
+v0.7 combines two official RESTler strategies and two internal generators across
+five assemblies and three seed labels. The repeated RESTler search streams are
+identical within each strategy/assembly; their seed labels are not independent
+stochastic replicates. v0.8 uses three internal generators, five assemblies and
+30 fresh seeds at each budget. Its budget conditions reuse streams and remain
+paired sensitivity conditions. No phase totals are pooled into one success rate.
+
+A detected campaign supplies a witness to a reviewed defect, not evidence of a
+new distinct vulnerability. An original and its minimized replay do not double
+the defect count. Search calls, setup calls, minimization and validation costs
+remain separate, and finite fixed-control success does not establish security.
 
 ## 7. Results
 
@@ -540,7 +562,20 @@ every treatment and contrast rather than selecting only positive outcomes.
 ![Figure 2. Prespecified right-minus-left capped-call effects; bars are paired percentile-bootstrap intervals over search seeds.](figures/v06-paired-effort.svg)
 
 
-### 7.6 Fixed portfolio follow-up
+### 7.6 Official RESTler setup pilot
+
+An official RESTler setup pilot executed 60 campaigns with 44,808 dispatched
+search calls and 31 exactly revalidated witnesses; details and native artifacts
+are documented in restler-pilot-results.md. BFS and BFS-cheap show different
+property-level findings. Under the fixed service neither reaches a successful
+refund within 1,200 calls, whereas our valid-task library supplies that history.
+All three seed labels produce identical normalized search streams for each
+RESTler treatment/variant, so these are deterministic repetitions, not three
+independent stochastic samples. Native checkers are disabled and the business
+oracle supplies discrepancy detection. These setup observations do not establish
+general superiority over RESTler.
+
+### 7.7 Fixed portfolio follow-up
 
 A further 900-campaign development study freezes a count-balanced combination of
 random programs and valid-workflow mutation, with separate component streams,
@@ -609,19 +644,13 @@ post-task random extension, mutation of the task interior, and mutation of rando
 banks. These operational distinctions matter when interpreting differences from
 a random-program reference. The specific comparisons and their caveats should be
 retained when designing a hybrid or changing the corpus. The subsequent fixed
-portfolio evaluation in Section 7.6 demonstrates that combining complementary
+portfolio evaluation in Section 7.7 demonstrates that combining complementary
 constituents does not automatically improve discovery at a shared small budget.
 
-An official RESTler setup pilot now executes 60 campaigns with 44,808 dispatched
-search calls and 31 exactly revalidated witnesses; details and native artifacts
-are documented in paper/restler-pilot-results.md. BFS and BFS-cheap show different
-property-level findings. Under the fixed service neither reaches a successful
-refund within 1,200 calls, whereas our valid-task library supplies that history.
-All three seed labels produce identical normalized search streams for each
-RESTler treatment/variant, so these are deterministic repetitions, not three
-independent stochastic samples. Native checkers are disabled and the business
-oracle supplies discrepancy detection. These setup observations do not establish
-general superiority over RESTler.
+The external-tool pilot in Section 7.6 demonstrates the importance of validating
+legitimate workflow reachability before interpreting detection differences.
+Its deterministic repeated streams and disabled native checkers further limit
+what can be concluded about RESTler beyond this particular setup.
 
 The most material remaining evaluation is a stronger external-tool configuration
 with validated workflow reachability, and an independently authored service or
@@ -645,6 +674,8 @@ specified effects. Across reviewed fixtures, task-seeded testing has benefits
 and regressions that depend on the property. A prospective component evaluation
 adds explicit controls for initial knowledge, perturbation and feedback, while
 public HTTP/SQL cases make witnesses and selected mitigations reproducible.
+The fixed portfolio follow-up makes the budget tradeoff explicit: adding broad
+exploration can improve scope detection while reducing history-sensitive discovery.
 The resulting contribution is comparative evidence within authored systems.
 It supports further external evaluation without identifying finite fuzzing with
 security verification or claiming a new general stateful-fuzzing algorithm.
