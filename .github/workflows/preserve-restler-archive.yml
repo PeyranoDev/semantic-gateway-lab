@@ -1,0 +1,34 @@
+name: Preserve pinned RESTler pilot archive
+on:
+  push:
+    branches: [research/portfolio-v08]
+    paths: ['.github/workflows/preserve-restler-archive.yml']
+permissions:
+  actions: read
+  contents: write
+jobs:
+  preserve:
+    if: github.ref == 'refs/heads/research/portfolio-v08'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download the exact completed pilot artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/PeyranoDev/semantic-gateway-lab/actions/artifacts/11927202027/zip > results/restler-v07/archive.zip
+          echo '97e6ff731a4f15869af17f247e06fef82669ba7daa7ab16e598fc3f1f0df3dee  results/restler-v07/archive.zip' | sha256sum --check --strict
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit every archived manifest entry and observation
+        run: python -m scripts.analyze_restler_pilot results/restler-v07
+      - name: Save verified bytes to this research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/restler-v07/archive.zip
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Preserve the exact verified RESTler pilot ZIP'
+          git push origin HEAD:refs/heads/research/portfolio-v08
