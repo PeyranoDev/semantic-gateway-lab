@@ -1,0 +1,452 @@
+[
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 16,
+    "mean_capped_calls": 101.33333333333333,
+    "mean_observed_states": 17.066666666666666,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.36142299619873297,
+      0.6976761109230025
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 3,
+    "mean_capped_calls": 111.8,
+    "mean_observed_states": 4.3,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.03459988874733419,
+      0.25621082579184085
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 21,
+    "mean_capped_calls": 77.9,
+    "mean_observed_states": 17.433333333333334,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.5212421254128504,
+      0.8333525173175619
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 17.233333333333334,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 4.333333333333333,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 18.066666666666666,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 28,
+    "mean_capped_calls": 40.13333333333333,
+    "mean_observed_states": 10.0,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "read_scope",
+    "wilson95": [
+      0.7867654163738308,
+      0.9815229762087295
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 30,
+    "mean_capped_calls": 23.5,
+    "mean_observed_states": 1.9,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "read_scope",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 14,
+    "mean_capped_calls": 94.83333333333333,
+    "mean_observed_states": 17.633333333333333,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "read_scope",
+    "wilson95": [
+      0.30232388907699753,
+      0.638577003801267
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 5,
+    "mean_capped_calls": 114.3,
+    "mean_observed_states": 17.4,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.0733654237184855,
+      0.3356435050641603
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 0,
+    "mean_capped_calls": 120.0,
+    "mean_observed_states": 4.333333333333333,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 15,
+    "mean_capped_calls": 95.4,
+    "mean_observed_states": 17.833333333333332,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.33154125640533766,
+      0.6684587435946623
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 14,
+    "mean_capped_calls": 98.73333333333333,
+    "mean_observed_states": 16.533333333333335,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.30232388907699753,
+      0.638577003801267
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 2,
+    "mean_capped_calls": 112.36666666666666,
+    "mean_observed_states": 4.233333333333333,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.018477023791270378,
+      0.2132345836261692
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 120,
+    "detected": 26,
+    "mean_capped_calls": 75.83333333333333,
+    "mean_observed_states": 17.766666666666666,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.703186733179637,
+      0.9469034451594526
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 30,
+    "mean_capped_calls": 160.9,
+    "mean_observed_states": 18.2,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 9,
+    "mean_capped_calls": 408.1333333333333,
+    "mean_observed_states": 6.233333333333333,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.16664748268243793,
+      0.47875787458714947
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 30,
+    "mean_capped_calls": 90.1,
+    "mean_observed_states": 17.766666666666666,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "confirm_unpaid",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 0,
+    "mean_capped_calls": 480.0,
+    "mean_observed_states": 21.966666666666665,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 0,
+    "mean_capped_calls": 480.0,
+    "mean_observed_states": 6.433333333333334,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 0,
+    "mean_capped_calls": 480.0,
+    "mean_observed_states": 25.6,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "fixed",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 30,
+    "mean_capped_calls": 43.53333333333333,
+    "mean_observed_states": 10.0,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "read_scope",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 30,
+    "mean_capped_calls": 23.5,
+    "mean_observed_states": 1.9,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "read_scope",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 24,
+    "mean_capped_calls": 198.0,
+    "mean_observed_states": 20.266666666666666,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "read_scope",
+    "wilson95": [
+      0.6269430358685175,
+      0.9049489282271013
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 21,
+    "mean_capped_calls": 280.9,
+    "mean_observed_states": 20.233333333333334,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.5212421254128504,
+      0.8333525173175619
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 0,
+    "mean_capped_calls": 480.0,
+    "mean_observed_states": 6.433333333333334,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0,
+      0.11351339317396876
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 27,
+    "mean_capped_calls": 185.06666666666666,
+    "mean_observed_states": 20.333333333333332,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "refund_replay",
+    "wilson95": [
+      0.7437891742081593,
+      0.9654001112526658
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 30,
+    "mean_capped_calls": 151.6,
+    "mean_observed_states": 17.733333333333334,
+    "mode": "portfolio_balanced",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 11,
+    "mean_capped_calls": 392.56666666666666,
+    "mean_observed_states": 6.333333333333333,
+    "mode": "random",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.21873920806100708,
+      0.5448643634520511
+    ]
+  },
+  {
+    "bootstrap_detections": 0,
+    "budget": 480,
+    "detected": 30,
+    "mean_capped_calls": 79.76666666666667,
+    "mean_observed_states": 18.033333333333335,
+    "mode": "sequence_uniform",
+    "runs": 30,
+    "target": "ANY",
+    "variant": "slot_capacity",
+    "wilson95": [
+      0.8864866068260312,
+      0.9999999999999999
+    ]
+  }
+]
