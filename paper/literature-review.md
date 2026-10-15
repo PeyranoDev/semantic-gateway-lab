@@ -56,10 +56,43 @@ de ser el primer fuzzer con estado, el primero que comprueba autorización, o un
 refutación general de EPAs. La originalidad restante debe juzgarse sobre el
 diseño experimental, los artefactos y sus hallazgos, y sigue abierta a revisión.
 
-## Comparaciones que todavía no están ejecutadas
+## Estado de las comparaciones externas
 
-RESTler, AFLNet, RESTTESTGEN y EvoMaster no son tratamientos de nuestras matrices.
-seed_extend es una referencia interna creada aquí, no una implementación reducida
-ni un sustituto de esos sistemas. Los motores nuevos tampoco aportan un servicio
-de otro autor. El protocolo para la comparación externa está en
-docs/external-baseline-protocol.md y no se cuenta como resultado empírico.
+RESTler oficial sí fue ejecutado en el piloto v0.7: dos estrategias, checkers
+nativos desactivados y alcance limitado de flujos válidos. Los resultados y límites
+están en paper/restler-pilot-results.md. AFLNet, RESTTESTGEN y EvoMaster siguen sin
+comparación ejecutada. seed_extend es una referencia interna, no un sustituto de
+estas herramientas. Ninguno de estos experimentos agrega un servicio independiente.
+
+## Revisión adicional del 15 de octubre de 2026
+
+[15] EnFuzz estudia combinar estrategias diversas y sincronizar entradas
+interesantes. Consultamos el artículo de USENIX, especialmente las secciones 3–4.
+Nuestra combinación v0.8 comparte presupuesto entre dos generadores internos; no
+implementa la sincronización de semillas ni reproduce EnFuzz. Combinar motores no
+es una contribución novedosa por sí sola.
+
+[16] EcoFuzz formula la asignación de energía como exploración y explotación y
+propone un planificador adaptativo. Consultamos la introducción y la configuración
+de evaluación del artículo de USENIX. En v0.8 elegimos una distribución fija y
+observable por cantidad de solicitudes. No la llamamos bandit ni EcoFuzz.
+
+[17] Klees y colaboradores estudian errores de evaluación de fuzzers y proponen
+criterios de comparación experimental. Consultamos la ficha del autor y la introducción del preprint,
+incluyendo sus advertencias sobre presupuesto, semillas y conteo de defectos. Incorporamos presupuesto comparable, múltiples semillas y
+publicación de todos los resultados. Las semillas repetidas no resuelven la falta
+de diversidad independiente de defectos y sistemas.
+
+Esta es una revisión dirigida, no sistemática; los rendimientos de estos trabajos
+no se comparan numéricamente con nuestras campañas. El protocolo v0.8 declara de
+antemano qué sería una mejora amplia y qué se informará como una compensación.
+
+[18] Barabanov y colaboradores describen análisis de especificaciones OpenAPI
+para identificar posibles casos IDOR/BOLA. Se verificaron metadatos y abstract;
+la lectura completa sigue pendiente. Es otro antecedente que impide presentar
+como nueva la mera generación de pruebas de autorización desde una especificación.
+No se atribuyen precisión ni resultados comparativos no replicados.
+
+Se evaluó la elegibilidad de OWASP crAPI como futura implementación independiente;
+ver docs/independent-backend-candidate.md. Es un candidato documentado y versionado,
+no un tercer sistema ya evaluado ni un conjunto de defectos desconocidos.

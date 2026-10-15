@@ -115,9 +115,11 @@ native testing summary; invocation records and the observation journal are the
 complete source of budget/finding counts. The completed native test-mode report
 and all native logs produced before termination remain archived.
 
-Download that ZIP as `results/restler-v07/archive.zip` before verification.
-The compact summaries and provenance are committed to the research branch;
-the complete ZIP's additional Git-backed publication remains pending.
+The exact ZIP is now also committed as `results/restler-v07/archive.zip` on the
+v0.8 research branch. Preservation run 38753068080 checked its SHA-256 and all
+archived observations before committing it. Verification works directly after
+checkout; no expiring Actions download or separate root controls.json is needed.
+The original measured source and artifact hash are unchanged.
 
 ```bash
 python -m scripts.analyze_restler_pilot
