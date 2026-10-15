@@ -86,3 +86,13 @@ de diversidad independiente de defectos y sistemas.
 Esta es una revisión dirigida, no sistemática; los rendimientos de estos trabajos
 no se comparan numéricamente con nuestras campañas. El protocolo v0.8 declara de
 antemano qué sería una mejora amplia y qué se informará como una compensación.
+
+[18] Barabanov y colaboradores describen análisis de especificaciones OpenAPI
+para identificar posibles casos IDOR/BOLA. Se verificaron metadatos y abstract;
+la lectura completa sigue pendiente. Es otro antecedente que impide presentar
+como nueva la mera generación de pruebas de autorización desde una especificación.
+No se atribuyen precisión ni resultados comparativos no replicados.
+
+Se evaluó la elegibilidad de OWASP crAPI como futura implementación independiente;
+ver docs/independent-backend-candidate.md. Es un candidato documentado y versionado,
+no un tercer sistema ya evaluado ni un conjunto de defectos desconocidos.

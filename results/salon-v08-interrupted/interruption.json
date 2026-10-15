@@ -1,0 +1,8 @@
+{
+  "source_commit": "30bfd41ef70eef98e715f6925c255f05631a185a",
+  "completed_campaigns": 810,
+  "raw_sha256": "1d7b550435219d621adabea01827a61ba6fcf472f5eeadd406e59c81adea6435",
+  "reason": "Chat/tool session interruption stopped the local process; no experiment exception was logged. Partial observations retained; no selection or parameter changes.",
+  "analysis_role": "Excluded from primary complete-matrix estimates. To be compared with a full independent rerun of identical settings.",
+  "partial_inflight_work": "Calls of any unfinished campaign and final per-variant accounting were not saved; no exact all-attempt total is claimed."
+}

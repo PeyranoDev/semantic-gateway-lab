@@ -68,3 +68,10 @@ No external tool implementation is included in the measured treatment matrices.
     *Evaluating Fuzz Testing.* ACM CCS 2018. https://doi.org/10.1145/3243734.3243804
     Author bibliography: https://mhicks.me/papers/klees2018fuzzeval.html
     Author preprint: https://arxiv.org/abs/1808.09700
+
+18. Alexander Barabanov, Denis Dergunov, Denis Makrushin and Aleksey Teplov.
+    *Automatic detection of access control vulnerabilities via API specification
+    processing.* Voprosy kiberbezopasnosti 1(47), pp. 49–65, 2022.
+    https://arxiv.org/abs/2201.10833
+    https://doi.org/10.21681/2311-3456-2022-1-49-65
+    Review scope this round: author metadata and abstract only.
