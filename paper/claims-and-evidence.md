@@ -8,6 +8,7 @@
 | Errores HTTP pueden acompañar escrituras de negocio | Testigos de invitaciones en Aoristo y parche con rollback | Hecho del caso; tiene antecedentes en checkers de efectos tras fallos |
 | El caso público conserva las observaciones históricas seleccionadas | 150 replays exactos y manifiesto de extracción | Equivalencia finita de observaciones; no equivalencia del backend completo |
 | La mitigación corrige los casos revisados | Controles, campañas acotadas, rollback y concurrencia específicos | No demostrar seguridad general o compatibilidad de despliegue productivo |
+| Combinar azar y tareas tiene compensaciones bajo presupuesto compartido | v0.8: 900 campañas, 16 contrastes, mejoras de alcance y regresiones de historia | No mejora general; mismos defectos conocidos, presupuestos dependientes |
 
 ## Unidad experimental
 

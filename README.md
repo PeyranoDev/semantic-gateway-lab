@@ -228,3 +228,30 @@ Ver [resultados y límites](paper/restler-pilot-results.md),
 El siguiente paso es validar dependencias de workflows y más estrategias de
 RESTler antes de congelar una comparación principal. Este piloto no demuestra
 superioridad general.
+
+## Combinación evaluada y resultados completos (v0.8)
+
+Se ejecutaron 900 campañas nuevas con azar, mutación de tareas y una combinación
+que comparte el presupuesto por llamadas efectivas. Pasaron 139 tests y se
+reprodujeron 892 testigos originales/minimizados de 446 campañas detectadas.
+Hubo 160.806 llamadas de búsqueda; las 180 campañas corregidas no observaron fallas.
+
+La combinación mejora la lectura fuera de alcance respecto de mutación sola,
+pero pierde detecciones con historia bajo 120 llamadas. Con 480 llamadas alcanza
+30/30 en alcance, cupos y confirmación; en reembolsos queda en 21/30 frente a
+27/30 de mutación. No hay superioridad general. Ambos presupuestos y las pérdidas
+se conservan en el [informe completo](paper/portfolio-results.md).
+
+- [Protocolo previo a ejecución](docs/salon-portfolio-protocol.md).
+- [Matriz y verificación en Actions](https://github.com/PeyranoDev/semantic-gateway-lab/actions/runs/38751685998).
+- [Figura reproducible](paper/figures/salon-portfolio.svg).
+- [Candidato externo OWASP crAPI, todavía no evaluado](docs/independent-backend-candidate.md).
+
+El intento local interrumpido también está publicado: sus 810 filas coinciden con
+el rerun completo, excluyendo solamente el tiempo. El ZIP completo de RESTler v0.7
+ya está preservado en Git, con hash verificado.
+
+```bash
+python -m scripts.verify_salon_portfolio results/salon-v08 --replay
+python -m scripts.check_portfolio_recovery
+```

@@ -1,0 +1,11 @@
+{
+  "frozen_source_commit": "30bfd41ef70eef98e715f6925c255f05631a185a",
+  "execution_commit": "1528f5d96aa0484d85c461cd0bfb660b1bae92bb",
+  "workflow_run": 38751685998,
+  "job": 116479426398,
+  "artifact_id": 11982625921,
+  "artifact_sha256": "135c6f5cf08ccdbce1eb9c8d6e972ff15e052b988eaa1abaef5837f8ddcf2a8b",
+  "complete_campaigns": 900,
+  "excluded_interrupted_campaigns": 810,
+  "purpose": "Exploratory development follow-up on known authored defects; no primary outcome selection."
+}

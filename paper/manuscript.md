@@ -2,7 +2,7 @@
 
 Ignacio Peyrano
 
-**Working draft, 14 October 2026.** This is a controlled empirical study and a
+**Working draft, 15 October 2026.** This is a controlled empirical study and a
 reproducible research artifact. The observed effects concern reviewed fixtures
 and authored systems. An official RESTler setup pilot has been executed;
 definitive external-tool benchmarking, complete review of closely related EPA
@@ -80,7 +80,8 @@ summary, and a full journal-text review remains necessary.
 RESTler [9] generates request sequences using producer-consumer dependencies
 and execution feedback. AFLNet [10] mutates protocol message sequences and uses
 observed response information for guidance. These establish relevant prior work
-for stateful generation and mutation; neither is an executed treatment here.
+for stateful generation and mutation. RESTler was executed in the scoped v0.7
+setup pilot described in Section 9; AFLNet remains unexecuted.
 
 The closest security antecedent is RESTler's active-checker work [11], which
 tests user namespaces, resource hierarchy, access after deletion and effects
@@ -94,6 +95,14 @@ sequence/oracle testing also appears in mass-assignment research [13]. Our valid
 workflow bank, domain oracle and HTTP checks must be positioned against these
 antecedents. The targeted review and inspected-source limits are documented in
 literature-review.md; it is not a systematic literature review.
+
+EnFuzz [15] establishes ensemble fuzzing with diverse engines and seed sharing.
+EcoFuzz [16] studies adaptive resource allocation. Our fixed two-component
+portfolio is a small, non-adaptive allocation baseline; it neither implements
+these tools nor establishes algorithmic novelty. Klees et al. [17] motivate
+explicit budgets, repeated randomized trials, and separation of detected inputs
+from distinct defects. Reusing authored defects with fresh search seeds remains
+a development evaluation, not an independent test set.
 
 AgentGuard, MCPSHIELD and HCP [5-7] provide agent-security context. Their arXiv
 metadata/abstracts were verified, but their systems and guarantees are not
@@ -531,6 +540,32 @@ every treatment and contrast rather than selecting only positive outcomes.
 ![Figure 2. Prespecified right-minus-left capped-call effects; bars are paired percentile-bootstrap intervals over search seeds.](figures/v06-paired-effort.svg)
 
 
+### 7.6 Fixed portfolio follow-up
+
+A further 900-campaign development study freezes a count-balanced combination of
+random programs and valid-workflow mutation, with separate component streams,
+30 fresh seeds, budgets of 120 and 480 calls and ANY-property stopping. Each
+standalone reference receives the entire shared budget. This evaluates resource
+allocation within RQ2, without claiming a new ensemble algorithm [15–17].
+
+At the primary 120-call budget, portfolio detection is 28/30 for cross-scope
+reading, 14/30 for capacity, 16/30 for unpaid confirmation and 5/30 for refund.
+Standalone workflow mutation gives 14/30, 26/30, 21/30 and 15/30 respectively;
+random gives 30/30, 2/30, 3/30 and 0/30. Thus the frozen criterion for broad
+improvement fails: the scope gain comes with history-sensitive regressions.
+At 480 calls, portfolio detects 30/30 for the first three properties and 21/30
+for refund; mutation gives 24/30, 30/30, 30/30 and 27/30. Both sum to 111/120
+under equal defect weights, but that equality hides different outcomes.
+
+The complete matrix records 160,806 search calls and 446 detected campaigns;
+all 892 original/minimal witnesses are exactly replayed. Fixed controls comprise
+180 campaigns and 54,000 search calls without an observed discrepancy. A chat
+interruption stopped the first attempt after 810 completed rows; every saved row
+matches the unchanged full rerun except elapsed time. Only the full matrix enters
+the estimates. All 16 planned effects, capped costs and both budget conditions
+are reported in portfolio-results.md. These are known authored defects with new
+search seeds; the two budgets are dependent sensitivity conditions.
+
 ## 8. Threats to validity
 
 **Construct validity:** lifecycle availability is a deliberately coarse projection;
@@ -541,7 +576,8 @@ The abstract keys contain hand-selected predicates and no general sufficiency pr
 business assumptions. Corpus fragmentation, replay overhead and uniform argument
 generation can limit guided testing. Campaigns stop at first failure, affecting
 observed coverage. The pilot informed later designs, both v0.1 evaluations informed v0.2, and
-v0.5 informed the prespecified v0.6 component controls.
+v0.5 informed the prespecified v0.6 component controls; the observed tradeoffs
+informed v0.8. Its fresh seeds do not make the reused defects a holdout.
 Workflow seeds encode domain knowledge; they are a substantive treatment
 difference. v0.6 controls separate bank quality, perturbation and feedback within
 the same authored service, rather than establishing effects across systems.
@@ -572,8 +608,9 @@ The component evaluation distinguishes several uses of task knowledge: replay,
 post-task random extension, mutation of the task interior, and mutation of random
 banks. These operational distinctions matter when interpreting differences from
 a random-program reference. The specific comparisons and their caveats should be
-retained when designing a hybrid or changing the corpus; the present study has
-not tuned or evaluated such a hybrid after seeing the results.
+retained when designing a hybrid or changing the corpus. The subsequent fixed
+portfolio evaluation in Section 7.6 demonstrates that combining complementary
+constituents does not automatically improve discovery at a shared small budget.
 
 An official RESTler setup pilot now executes 60 campaigns with 44,808 dispatched
 search calls and 31 exactly revalidated witnesses; details and native artifacts
