@@ -23,7 +23,9 @@ reservados ni una prueba confirmatoria independiente.
 
 ## Afirmaciones que la evidencia actual no autoriza
 
-- Superioridad frente a RESTler, AFLNet u otros fuzzers no ejecutados.
+- Superioridad general frente a RESTler: v0.7 es un piloto ejecutado de dos
+  estrategias, sin checkers nativos y con alcance de workflows limitado.
+- Superioridad frente a AFLNet u otros fuzzers no ejecutados.
 - Novedad de generar secuencias, mutarlas o comprobar autorización con un oráculo.
 - Seguridad formal o ausencia universal de fallas en una versión corregida.
 - Generalización independiente a empresas o implementaciones de otros autores.

@@ -1,0 +1,8 @@
+{
+  "local_python": "3.12.14",
+  "result": {
+    "authentication_calls": 16,
+    "replay_business_calls": 84,
+    "witnesses_replayed": 31
+  }
+}

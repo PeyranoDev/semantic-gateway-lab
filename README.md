@@ -212,6 +212,19 @@ Ver [resultados de componentes](paper/component-results.md),
 Las figuras científicas se reproducen con paper/requirements-figures.txt y
 python -m scripts.plot_salon_ablation. El manuscrito ahora organiza una pregunta
 común y diferencia observación, búsqueda y seguridad. El [mapa de afirmaciones](paper/claims-and-evidence.md)
-identifica lo demostrado y lo pendiente. La comparación con RESTler aún no está
-ejecutada; su [protocolo externo](docs/external-baseline-protocol.md) no se cuenta
-como un resultado.
+identifica lo demostrado y lo pendiente.
+
+## Piloto ejecutado con RESTler oficial (v0.7)
+
+Se construyó RESTler desde un commit fijado y se ejecutaron 60 campañas por TCP,
+con 44.808 llamadas de búsqueda y 31 testigos revalidados. Los 132 tests pasaron.
+Los resultados separan las estrategias BFS/BFS-cheap y el oráculo común de los
+checkers nativos, que están desactivados. Las repeticiones de RESTler son
+deterministas y no representan muestras aleatorias independientes.
+
+Ver [resultados y límites](paper/restler-pilot-results.md),
+[protocolo fijado](docs/restler-pilot-protocol.md) y
+[ejecución completa](https://github.com/PeyranoDev/semantic-gateway-lab/actions/runs/38632820433).
+El siguiente paso es validar dependencias de workflows y más estrategias de
+RESTler antes de congelar una comparación principal. Este piloto no demuestra
+superioridad general.

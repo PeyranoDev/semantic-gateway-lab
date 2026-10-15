@@ -12,9 +12,11 @@
 
 ## Prioridades para fortalecer el paper
 
-1. **Comparación externa ejecutada.** Implementar el protocolo preparado en
-   external-baseline-protocol.md usando un commit de RESTler fijado, la misma
-   API/oráculo y costos comparables. seed_extend es sólo un baseline interno.
+1. **Comparación externa principal.** El piloto oficial v0.7 ya se ejecutó:
+   60 campañas, 44.808 llamadas y 31 testigos revalidados. Ver
+   paper/restler-pilot-results.md. Validar ahora una configuración con dependencias
+   de workflows y más estrategias, con alcance del ciclo legítimo comprobado,
+   antes de congelar una matriz mayor. seed_extend sigue siendo sólo interno.
 2. **Independencia.** Evaluar un backend de otro autor con licencia revisada y
    política de negocio definida antes de medir; o conseguir revisión externa
    del contrato/oráculo. Los servicios actuales siguen siendo del mismo proyecto.

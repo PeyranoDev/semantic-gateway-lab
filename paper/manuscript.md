@@ -4,8 +4,9 @@ Ignacio Peyrano
 
 **Working draft, 14 October 2026.** This is a controlled empirical study and a
 reproducible research artifact. The observed effects concern reviewed fixtures
-and authored systems. External-tool benchmarking, complete review of closely
-related EPA testing work and independent policy review remain outstanding.
+and authored systems. An official RESTler setup pilot has been executed;
+definitive external-tool benchmarking, complete review of closely related EPA
+testing work and independent policy review remain outstanding.
 
 ## Abstract
 
@@ -574,8 +575,20 @@ a random-program reference. The specific comparisons and their caveats should be
 retained when designing a hybrid or changing the corpus; the present study has
 not tuned or evaluated such a hybrid after seeing the results.
 
-The most material remaining evaluation is a real external-tool comparison and
-an independently authored service or independent policy/oracle review. The
+An official RESTler setup pilot now executes 60 campaigns with 44,808 dispatched
+search calls and 31 exactly revalidated witnesses; details and native artifacts
+are documented in paper/restler-pilot-results.md. BFS and BFS-cheap show different
+property-level findings. Under the fixed service neither reaches a successful
+refund within 1,200 calls, whereas our valid-task library supplies that history.
+All three seed labels produce identical normalized search streams for each
+RESTler treatment/variant, so these are deterministic repetitions, not three
+independent stochastic samples. Native checkers are disabled and the business
+oracle supplies discrepancy detection. These setup observations do not establish
+general superiority over RESTler.
+
+The most material remaining evaluation is a stronger external-tool configuration
+with validated workflow reachability, and an independently authored service or
+independent policy/oracle review. The
 concrete protocol gates are documented in docs/external-baseline-protocol.md.
 Existing stateful generators and security checkers are close antecedents and
 cannot be replaced in such a comparison by our append-only internal baseline.
