@@ -24,3 +24,12 @@
 - Replay all 150 historical witnesses against the original subset; validate 21 checks and 120 campaigns/14,400 calls on each fixed assembly.
 - Verify rollback and synchronized concurrent HTTP cancellation with independent SQL sessions.
 - Add public artifact integrity checks and 94 portable tests; keep historical experiments frozen.
+
+## v0.9 research phase: exact reach probabilities
+
+- Record exact transition tables of the salon HTTP/SQL backend; replay all 2,740 v0.5/v0.6/v0.8 campaigns field for field, with a corrupted-table negative control and 8,750 path-based fidelity checks.
+- Compute exact per-generator detection distributions; pin the mutation enumeration against every choice path of the real mutator.
+- Add exact McNemar, Vargha-Delaney A12 and Holm tests for the planned v0.6/v0.8 contrasts, and a 1,000-seed surrogate replication on the tables.
+- Generate 18 guard-disjunct mutants by AST; freeze specification-derived predictions for 14 new mutants before running 1,260 real campaigns (26/26 orderings; 3 bounded-equivalent mutants with 0/270). Document and fix a harness defect from the first execution.
+- Run the HTTP/SQL contract tests in CI with the pinned salon dependencies.
+- Rewrite the manuscript around exact reach probabilities with explicit evidence tiers.
