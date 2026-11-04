@@ -7,7 +7,7 @@ from dataclasses import replace
 from fractions import Fraction
 
 from integrations.salon.model import ACTORS, OPERATIONS, RESOURCES
-from .table import ACTIONS, INDEX
+from .table import ACTIONS
 
 FIELDS = {"operation": OPERATIONS, "actor": ACTORS, "resource": RESOURCES}
 
@@ -15,12 +15,14 @@ def matches(target, violations):
     return bool(violations) if target == "ANY" else target in violations
 
 class Table:
-    def __init__(self, raw):
+    def __init__(self, raw, actions=ACTIONS):
         self.edges = {int(k): [(row[0], tuple(row[2])) for row in v] for k, v in raw["edges"].items()}
         self.states = raw["states"]
+        self.actions = tuple(actions)
+        self.index = {action: i for i, action in enumerate(self.actions)}
 
     def step(self, state, action):
-        return self.edges[state][INDEX[action]]
+        return self.edges[state][self.index[action]]
 
 def shortest_witness(table, target):
     """Breadth-first shortest action sequence whose last call violates `target`.
@@ -40,7 +42,7 @@ def shortest_witness(table, target):
                     if matches(target, violations):
                         hits += paths
                         if witness is None:
-                            witness = _path(parents, state) + [ACTIONS[index]]
+                            witness = _path(table, parents, state) + [table.actions[index]]
                     continue
                 if successor not in parents:
                     parents[successor] = (state, index)
@@ -52,11 +54,11 @@ def shortest_witness(table, target):
         level = {s: n for s, n in following.items() if s in table.edges}
     return None, None, 0
 
-def _path(parents, state):
+def _path(table, parents, state):
     path = []
     while parents[state] is not None:
         state, index = parents[state]
-        path.append(ACTIONS[index])
+        path.append(table.actions[index])
     return path[::-1]
 
 def run_program(table, program, target):
@@ -85,7 +87,7 @@ class Episode:
 def random_episode(table, target, depth=8):
     """Program length uniform on 1..depth, each action uniform on the finite domain."""
     episode = Episode(depth)
-    uniform = Fraction(1, len(ACTIONS))
+    uniform = Fraction(1, len(table.actions))
     for length in range(1, depth + 1):
         mass = {0: Fraction(1, depth)}
         for call in range(1, length + 1):
@@ -118,7 +120,7 @@ def _extend(table, target, prefix, length, weight, episode):
         if violations:
             (episode.detect if matches(target, violations) else episode.stop)[calls] += weight
             return
-    mass, uniform = {state: weight}, Fraction(1, len(ACTIONS))
+    mass, uniform = {state: weight}, Fraction(1, len(table.actions))
     for call in range(len(prefix) + 1, len(prefix) + length + 1):
         following = {}
         for s, p in mass.items():
@@ -131,21 +133,21 @@ def _extend(table, target, prefix, length, weight, episode):
         mass = following
     episode.stop[len(prefix) + length] += sum(mass.values())
 
-def mutations(source, donor, depth=8):
-    """Exact output distribution of integrations.salon.generator.Mutator.mutate."""
+def mutations(source, donor, depth=8, fields=FIELDS, actions=ACTIONS):
+    """Exact output distribution of the generic Mutator.mutate over a finite domain."""
     out = []
     n = len(source)
     for index in range(n):
         base = Fraction(1, 6 * n)
-        for field, domain in FIELDS.items():
+        for field, domain in fields.items():
             for value in domain:
                 seq = list(source)
                 seq[index] = replace(seq[index], **{field: value})
-                out.append((seq, base / (3 * len(domain))))
-        for action in ACTIONS:
+                out.append((seq, base / (len(fields) * len(domain))))
+        for action in actions:
             seq = list(source)
             seq.insert(index, action)
-            out.append((seq, base / len(ACTIONS)))
+            out.append((seq, base / len(actions)))
         sizes = range(1, min(3, n - index) + 1)
         for size in sizes:
             seq = list(source)
@@ -167,13 +169,13 @@ def mutations(source, donor, depth=8):
                 out.append((seq, base / (len(donor) * len(sizes))))
     return [(seq[:depth], p) for seq, p in out]
 
-def mutation_episode(table, target, programs, depth=8):
+def mutation_episode(table, target, programs, depth=8, fields=FIELDS):
     """Uniform source and donor from the bank, then one generic mutation."""
     episode = Episode(depth)
     pair = Fraction(1, len(programs) ** 2)
     for source in programs:
         for donor in programs:
-            for program, p in mutations(source, donor, depth):
+            for program, p in mutations(source, donor, depth, fields, table.actions):
                 episode.add_program(table, program, target, pair * p)
     return episode
 

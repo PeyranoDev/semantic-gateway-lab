@@ -47,6 +47,23 @@ only. They have not had external review.
 - Reset between programs restores the fixture users' credit and removes their orders
   and applied coupons, using direct SQL on the disposable local database.
 
+## Campaign semantics
+
+crAPI has several defects at once. An episode therefore stops only at a violation of
+the campaign's target property; other violations are recorded and the episode
+continues. The exact model is computed per target under the same rule
+(`integrations/crapi/reach.py`). With the salon rule (stop at any violation),
+`REFUND_EXCEEDS_PAYMENT` would be unreachable, because changing the quantity is
+itself a tampering violation.
+
+Under the documented-defect hypothesis, the shortest witnesses are:
+- `ORDER_PRIVACY`: 1 call;
+- `ORDER_TAMPERING`: 2 calls;
+- `REFUND_WITHOUT_RETURN`: 2 calls;
+- `REFUND_EXCEEDS_PAYMENT`: 3 calls (buy, change quantity, mark returned).
+
+`RETURN_RULES` has no violating program, so it is a negative control.
+
 ## Analysis plan (to be frozen with the predictions)
 
 The plan mirrors `docs/prospective-protocol.md`:
