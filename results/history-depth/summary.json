@@ -10177,8 +10177,8 @@
    "integrations/salon/model.py": "4cbd26373016283838d93d08a8e847cb2084ac69b9f555f157abdc1ebe09f9ab",
    "integrations/salon/oracle.py": "b308a1e9ed91bfba27c331dc39dd76783cb29f0e522668d455a8938deb0adae4",
    "integrations/salon_ablation/programs.py": "926c2846347c9439171a0e7c7a525c5a9ef1dd81f596d32f63b6149fe6919cd4",
-   "integrations/salon_depth/model.py": "e4b140ea216aeee4f42aa0afe312be91f32e3f77bb532fb090d69ae54c8fb9ae",
-   "integrations/salon_depth/table.py": "1106778b9f75c6f6a895f618ed9aef5592911a3eff3b078d1e697f3d59ba7df6"
+   "integrations/salon_depth/model.py": "919a08b26b8feddac4e27f9404de4e5f9a8f8e6429c1f118eb4a3960bcff5c51",
+   "integrations/salon_depth/table.py": "628c60099c909d61a8a8e1d9e7175ebc61cb2c258689404386b5e19d351945a5"
   },
   "status": "exploratory post hoc analysis of existing campaigns",
   "table_sha256": {

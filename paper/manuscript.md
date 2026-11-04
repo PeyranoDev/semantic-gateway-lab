@@ -41,8 +41,9 @@ orderings separated by at least 0.1 in probability. Exhaustive analysis shows th
 three mutants have no violating program within the bounded domain; they yield
 0 detections in 270 campaigns.
 
-The corrected service has no oracle violation in any program of up to eight actions
-over the domain. All systems and defects share project authorship.
+On the recorded table, the corrected service has no oracle violation in any program of
+up to eight actions over the domain, under the assumption that behavior depends only on
+the observable snapshot. All systems and defects share project authorship.
 
 ## 1. Introduction
 
@@ -366,6 +367,24 @@ intervals include zero (−2.0 ± 3.5, −1.0 ± 2.3 and +1.5 ± 2.4 points).
 With 30 seeds, the overbooking contrast had raw p = 0.0063 and Holm-adjusted
 p = 0.063. That failure was a matter of power, not evidence of no effect.
 
+**Bank sensitivity.** The valid-bank advantage is not a property of "valid tasks" in
+the abstract; it is a property of whether the bank contains a task whose prefix reaches
+the witness. Recomputing the exact 120-call order with one task template removed
+(`results/history-depth/bank-sensitivity.json`) makes this precise:
+
+| Defect | Full bank | Mutation after removing the enabling template |
+|---|---|---|
+| Cross-scope read | random wins (stable under every removal) | — |
+| Overbooking | mutation 0.80 | drop the rebook task → 0.03; prefix extension wins |
+| Unpaid confirmation | mutation 0.71 | drop the confirm task → 0.01; prefix extension wins |
+| Repeated refund | mutation 0.42 | drop the refund task → 0.00 |
+
+The depth-1 scope read is bank-independent. For each history defect, removing the single
+template that supplies the witness prefix collapses mutation's detection and flips the
+winner. The reach model predicts this: mutation only wins when a bank task sits one
+operator from the witness. This both exposes the dependence on a hand-chosen bank and
+shows the model explains it rather than assuming it.
+
 ### 7.3 Budget and portfolio (exploratory)
 
 At 120 calls, the balanced portfolio lies between its components on every defect:
@@ -379,6 +398,15 @@ At 120 calls, the balanced portfolio lies between its components on every defect
 
 At 480 calls it reaches 94–100% on the first three defects and 72.2% on refund, against
 92.5% for mutation alone.
+
+The exact model gives the whole detection curve, not only two budgets (Figure 1). The
+observed 1,000-seed fractions fall on the predicted curves, and for these defects the
+generator ranking does not change with the budget: random dominates the depth-1 scope
+read at every budget, and valid-bank mutation dominates the history-dependent defects at
+every budget. A practitioner choosing a generator does not need to guess the budget at
+which the ranking flips, because here it does not flip after the first few calls.
+
+![Figure 1. Exact detection probability versus call budget (lines) with 1,000-seed observed fractions (points) for the three main generators on the four reviewed defects. The dotted line marks the 120-call budget.](figures/reach-curves.svg)
 
 These values also explain an apparent inconsistency between phases. Valid-bank
 mutation detected cross-scope reads in 8/30 campaigns in v0.6 and in 14/30 in v0.8,
@@ -432,7 +460,7 @@ the exception class, which turned every rejection into an HTTP 500. That executi
 preserved and documented. The fix changed neither the predictions nor the analysis
 plan, and the injection is now checked against the four known tables before any run.
 
-Results of the second execution (Figure 1):
+Results of the second execution (Figure 2):
 - **Generator order.** All 26 pairs whose frozen probabilities differ by at least 0.1
   were ordered correctly by the observed detection counts.
   - A depth-only rule (depth 1 → random beats workflow generators; depth ≥ 2 → workflow
@@ -455,25 +483,24 @@ Results of the second execution (Figure 1):
     property of the fixture, not of the code.
 
   These mutants produced 0 detections in 270 campaigns.
-- **Calibration.** Of the 20 informative cells, 3 deviate at p < 0.05.
-  - For the deviating mutants, implementation and specification graphs are identical,
-    and all 360 recorded campaigns replay exactly on the implementation tables.
-  - We re-ran the deviating cells with the unchanged campaign code and fresh seeds
-    (`results/prospective/model-check.json`). With 3,000 seeds, the estimates were:
+- **Calibration.** The frozen metric is the number of cells with p < 0.05 over all
+  cells: 4 of 42 (`51:0` and `54:0` prefix extension, `66:0` prefix extension, `66:1`
+  mutation). About 2 are expected by chance at this threshold, so 4 is within sampling
+  variation. Restricting to the 20 cells with a non-degenerate prediction
+  (0.02 < p < 0.98), a declared secondary view, leaves 3.
+  - The four deviating sites were diagnosed, not assumed to be noise. Their
+    implementation and specification graphs are identical
+    (`results/prospective/diagnosis.json`), and all recorded campaigns on them replay
+    exactly on the implementation tables.
+  - We re-ran each deviating cell with the unchanged campaign code and fresh seeds
+    (`results/prospective/model-check.json`). The 3,000-seed estimates match the frozen
+    probabilities: `51:0` 0.996 vs 0.996, `54:0` 0.894 vs 0.889, `66:0` prefix
+    extension 0.567 vs 0.586, `66:0` random 0.930 vs 0.933. For `66:1` mutation the
+    pooled 12,000-seed estimate is 0.496 vs the predicted 0.489.
+  - We found no model error. Every deviation is a low-probability draw at n = 30, not a
+    miscalibrated prediction.
 
-    | Cell | Simulated | Predicted |
-    |---|---:|---:|
-    | `66:0` prefix extension | 0.567 | 0.586 (about 2.1 SE) |
-    | `54:0` prefix extension | 0.894 | 0.889 |
-    | `51:0` prefix extension | 0.996 | 0.996 |
-    | `66:0` random | 0.930 | 0.933 |
-
-  - For `66:1` mutation, 3,000 seeds gave 0.515 (about 2.9 SE from 0.489). 9,000
-    further seeds gave 0.489, and the pooled 12,000-seed estimate is 0.496.
-  - We found no model error. The deviations are consistent with sampling variation at
-    n = 30.
-
-![Figure 1. Exact predicted detection probability versus observed fraction with Wilson 95% intervals. Left: recorded campaigns on the four reviewed defects (pipeline validation). Right: frozen specification-derived predictions for 14 systematic mutants (prospective).](figures/reach-calibration.svg)
+![Figure 2. Exact predicted detection probability versus observed fraction with Wilson 95% intervals. Left: recorded campaigns on the four reviewed defects (pipeline validation). Right: frozen specification-derived predictions for 14 systematic mutants (prospective).](figures/reach-calibration.svg)
 
 ### 7.6 Bounded exhaustive check of the corrected service
 
@@ -482,8 +509,10 @@ the 175-action domain. No transition from any reachable clean state produces an 
 violation, so no such program violates the oracle.
 
 This replaces the earlier statement that finite control campaigns observed no
-violation. Its scope is exact: this fixture, no resource creation, at most eight
-actions, and only properties observable by the oracle.
+violation. Its scope is: this fixture, no resource creation, at most eight actions, and
+only properties observable by the oracle. It is exact with respect to the recorded
+table, and the table equals the backend under the assumption that behavior depends only
+on the observable snapshot (Section 9), checked on a 50-state path-fidelity sample.
 
 ### 7.7 Earlier phases
 
@@ -534,16 +563,33 @@ required beyond that.
 specification and the implementation share an author. Their identical state graphs on
 the known variants show agreement, not independent correctness.
 
+The prospective predictions come from the specification model, and the specification
+mutants are mapped to implementation mutants by a hand-written table
+(`integrations/salon_prospective/spec.py`) written with both in view. Graph identity was
+verified for 12 of the variants (5 pre-freeze checks and the 7 diagnosed mutants), not
+for the other 7 prospective mutants. Where the graphs coincide, the prospective test
+measures the fidelity of that mapping as much as a prediction crossing the
+specification/implementation boundary. An independently authored service, where no such
+mapping is possible, is the real test; crAPI is a step toward it.
+
 Reach probabilities are defined for the campaign domain. Arguments outside it, such as
 new resources and free-form payloads, are not modeled.
 
 **Internal.** The tables assume that behavior depends only on the observable business
-snapshot. Path-based fidelity checks support this on 50 sampled states. The fixture's
-deterministic identifiers and single-threaded execution make the assumption plausible
-here, not in general.
+snapshot, because a state is reached by restoring that snapshot with SQL. Path-based
+fidelity checks support this on 50 sampled states, not exhaustively. The assumption
+holds here because booking identifiers are fixed, no resources are created, and
+execution is single-threaded. It would break under concurrency, state kept outside the
+database (sessions or tokens), timestamps, or identifiers whose value changes behavior.
+In crAPI the risk is higher: sequences are not reset between the service's own calls and
+authentication carries state, so the symbolic order binding is sound only while behavior
+does not depend on the concrete order id, which must be checked and stated there.
 
 The four reviewed defects shaped the method. Only the 14 systematic mutants are
-prospective.
+prospective. The valid-task bank is eight hand-written programs; because the reserve,
+pay, cancel, refund template is exactly the repeated-refund witness prefix, mutation is
+one insertion from that witness. A bank-sensitivity analysis (Section 7.2) recomputes
+the generator order with templates removed or added.
 
 **External.** Every system is authored within this project and is small. The mutant
 operator family (guard-disjunct removal) is narrow, and real defects may be distributed
