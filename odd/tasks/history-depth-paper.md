@@ -21,9 +21,9 @@ Assumption: frozen measured source files (hash-pinned in `results/*/manifest.jso
 | ID | Specs | Route | Status | Evidence |
 |---|---|---|---|---|
 | T1 | S2 | inline | done | 139 tests, 0 skipped with lockfile (local 3.12) |
-| T2 | S3 | inline | pending | |
+| T2 | S3, S5 | inline | in progress | model + 8 unit tests green; tables exploring |
 | T3 | S4, S5 | inline | pending | |
-| T4 | S6 | inline | pending | |
+| T4 | S6 | inline | in progress | refs 19-26 added (metadata/abstract level) |
 | T5 | S7 | inline | pending | |
 | T6 | S8 | inline | pending | |
 
@@ -33,3 +33,5 @@ Assumption: frozen measured source files (hash-pinned in `results/*/manifest.jso
 - L2 (2026-11-04, user): "arranca con lo que te parezca, hay que hacer un paper solido y novedoso"
 - L3: Minimal witness length is constant per defect. Salon: read 1, capacity 2, unpaid 2, refund 5. Aoristo: read 1, invitation 1, cancel 2. Documents: depth 1 random >= mutation; depth >= 3 mutation 10/10 vs random 0-2/10; depth 2 mixed (wrong_recipient random 8/10 vs sequence_uniform 4/10). Depth alone is insufficient, so add edit distance (S3).
 - L4: `datetime.utcnow` in the Aoristo adapters is left unchanged because the adapters are hash-pinned measured source.
+- L5: Closest prior work found: Sahin, Zhang, Arcuri, arXiv 2604.00702 (EvoMaster access-policy oracles, multi-call sequences, 52 APIs). The paper must position against it. Bug-depth antecedent: PCT (ASPLOS 2010).
+- L6: Design: exact transition tables recorded from the real backend; the table must reproduce every recorded v0.5/v0.6/v0.8 campaign field-for-field (replay) before any prediction is trusted. Predictions are exploratory and post hoc; the prospective test is T5.

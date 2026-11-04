@@ -75,3 +75,33 @@ No external tool implementation is included in the measured treatment matrices.
     https://arxiv.org/abs/2201.10833
     https://doi.org/10.21681/2311-3456-2022-1-49-65
     Review scope this round: author metadata and abstract only.
+
+19. Omur Sahin, Man Zhang and Andrea Arcuri. *Enhancing REST API Fuzzing with
+    Access Policy Violation Checks and Injection Attacks.* arXiv:2604.00702v1, 2026.
+    https://arxiv.org/abs/2604.00702
+    Extension of an earlier conference paper whose venue was not verified this round.
+    Review scope this round: abstract and the first sections of the HTML full text.
+20. Sebastian Burckhardt, Pravesh Kothari, Madanlal Musuvathi and Santosh Nagarakatte.
+    *A Randomized Scheduler with Probabilistic Guarantees of Finding Bugs.*
+    ASPLOS 2010, pp. 167–178. https://people.cs.rutgers.edu/~sn349/papers/asplos2010.pdf
+21. Andrea Arcuri, Muhammad Zohaib Iqbal and Lionel Briand. *Random Testing:
+    Theoretical Results and Practical Implications.* IEEE Transactions on Software
+    Engineering 38(2), pp. 258–277, 2012. https://doi.org/10.1109/TSE.2011.121
+22. Marcel Böhme and Soumya Paul. *A Probabilistic Analysis of the Efficiency of
+    Automated Software Testing.* IEEE Transactions on Software Engineering 42(4),
+    pp. 345–360, 2016. https://doi.org/10.1109/TSE.2015.2487274
+23. Andrea Arcuri and Lionel C. Briand. *A Hitchhiker's Guide to Statistical Tests
+    for Assessing Randomized Algorithms in Software Engineering.* Software Testing,
+    Verification and Reliability 24(3), pp. 219–250, 2014. https://doi.org/10.1002/stvr.1486
+24. Andrea Arcuri. *RESTful API Automated Test Case Generation with EvoMaster.*
+    ACM Transactions on Software Engineering and Methodology, 2019.
+    Preprint: https://arxiv.org/abs/1901.01538 (volume/issue to verify in ACM DL).
+25. Zac Hatfield-Dodds and Dmitry Dygalo. *Deriving Semantics-Aware Fuzzers from
+    Web API Schemas.* arXiv:2112.10328, 2021. https://arxiv.org/abs/2112.10328
+    Published venue to verify.
+26. D. Richard Kuhn, James M. Higdon, James F. Lawrence, Raghu N. Kacker and Yu Lei.
+    *Combinatorial Methods for Event Sequence Testing.* ICST 2012 Workshops (CT 2012),
+    pp. 601–609. https://doi.org/10.1109/ICST.2012.147
+
+Review scope for 19–26: bibliographic metadata and abstracts verified through
+search results; full texts are still to be read before relying on specific claims.
