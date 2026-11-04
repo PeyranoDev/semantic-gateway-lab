@@ -1,0 +1,13 @@
+{
+ "status": "post hoc check of the frozen exact model on the four deviating cells",
+ "method": "unchanged v0.6 campaign code on the specification table of each mutant (implementation graph identical, see diagnosis.json); fresh seeds",
+ "cells": [
+  {"site": "transition:66:0", "mode": "seed_extend", "seeds": "50000-52999", "simulated": 0.567, "predicted": 0.586},
+  {"site": "transition:54:0", "mode": "seed_extend", "seeds": "50000-52999", "simulated": 0.894, "predicted": 0.889},
+  {"site": "transition:51:0", "mode": "seed_extend", "seeds": "50000-52999", "simulated": 0.996, "predicted": 0.996},
+  {"site": "transition:66:1", "mode": "sequence_uniform", "seeds": "50000-52999", "simulated": 0.515, "predicted": 0.489},
+  {"site": "transition:66:1", "mode": "sequence_uniform", "seeds": "60000-68999", "simulated": 0.489, "predicted": 0.489},
+  {"site": "transition:66:0", "mode": "random", "seeds": "50000-52999", "simulated": 0.930, "predicted": 0.933}
+ ],
+ "conclusion": "No model error detected; the n=30 deviations are consistent with sampling variation."
+}

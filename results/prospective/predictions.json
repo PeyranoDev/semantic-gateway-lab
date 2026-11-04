@@ -1,0 +1,558 @@
+{
+ "budget": 120,
+ "modes": [
+  "random",
+  "seed_extend",
+  "sequence_uniform"
+ ],
+ "oracle_sha256": "b308a1e9ed91bfba27c331dc39dd76783cb29f0e522668d455a8938deb0adae4",
+ "predictions": [
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 41.021,
+     "p_detect": 0.937631,
+     "p_episode": 0.0975552760659797
+    },
+    "seed_extend": {
+     "mean_capped_calls": 83.481,
+     "p_detect": 0.663108,
+     "p_episode": 0.06647673729144775
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 113.444,
+     "p_detect": 0.134127,
+     "p_episode": 0.005198412698412699
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": 1,
+   "shortest_witnesses": 4,
+   "site": "read:31:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "read_booking",
+     "resource": "missing"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 8.75,
+     "p_detect": 1.0,
+     "p_episode": 0.39816115146102704
+    },
+    "seed_extend": {
+     "mean_capped_calls": 42.887,
+     "p_detect": 0.996426,
+     "p_episode": 0.2941514722607077
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 91.17,
+     "p_detect": 0.535851,
+     "p_episode": 0.02738095238095238
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": 1,
+   "shortest_witnesses": 20,
+   "site": "transition:51:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "missing"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 4.375,
+     "p_detect": 1.0,
+     "p_episode": 0.631036436040807
+    },
+    "seed_extend": {
+     "mean_capped_calls": 34.286,
+     "p_detect": 0.999993,
+     "p_episode": 0.507481997875035
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 65.089,
+     "p_detect": 0.870735,
+     "p_episode": 0.07142857142857142
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": 1,
+   "shortest_witnesses": 40,
+   "site": "transition:51:1",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "b"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 21.795,
+     "p_detect": 0.996357,
+     "p_episode": 0.1852093531683016
+    },
+    "seed_extend": {
+     "mean_capped_calls": 64.299,
+     "p_detect": 0.888602,
+     "p_episode": 0.12891536122837308
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 95.137,
+     "p_detect": 0.470664,
+     "p_episode": 0.02279761904761905
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": 1,
+   "shortest_witnesses": 8,
+   "site": "transition:54:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "confirm",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 119.865,
+     "p_detect": 0.002314,
+     "p_episode": 8.881929261414044e-05
+    },
+    "seed_extend": {
+     "mean_capped_calls": 114.84,
+     "p_detect": 0.109282,
+     "p_episode": 0.007377952483038643
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 104.446,
+     "p_detect": 0.311403,
+     "p_episode": 0.0135149360670194
+    }
+   },
+   "predicted_order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "shortest_depth": 3,
+   "shortest_witnesses": 32,
+   "site": "transition:57:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "cancel",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    },
+    "seed_extend": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": null,
+   "shortest_witnesses": 0,
+   "site": "transition:64:0",
+   "witness": null
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    },
+    "seed_extend": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": null,
+   "shortest_witnesses": 0,
+   "site": "transition:64:1",
+   "witness": null
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 41.867,
+     "p_detect": 0.932959,
+     "p_episode": 0.09518447517130862
+    },
+    "seed_extend": {
+     "mean_capped_calls": 88.604,
+     "p_detect": 0.586068,
+     "p_episode": 0.05427344610532804
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 50.485,
+     "p_detect": 0.97061,
+     "p_episode": 0.12033399470899471
+    }
+   },
+   "predicted_order": [
+    "sequence_uniform",
+    "random",
+    "seed_extend"
+   ],
+   "shortest_depth": 1,
+   "shortest_witnesses": 4,
+   "site": "transition:66:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "pay",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 119.967,
+     "p_detect": 0.000576,
+     "p_episode": 2.2075179581366008e-05
+    },
+    "seed_extend": {
+     "mean_capped_calls": 119.975,
+     "p_detect": 0.000547,
+     "p_episode": 3.521979310325913e-05
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 94.414,
+     "p_detect": 0.489456,
+     "p_episode": 0.024187196869488538
+    }
+   },
+   "predicted_order": [
+    "sequence_uniform",
+    "random",
+    "seed_extend"
+   ],
+   "shortest_depth": 3,
+   "shortest_witnesses": 8,
+   "site": "transition:66:1",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "pay",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "pay",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    },
+    "seed_extend": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 120.0,
+     "p_detect": 0.0,
+     "p_episode": 0.0
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "shortest_depth": null,
+   "shortest_witnesses": 0,
+   "site": "transition:69:0",
+   "witness": null
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 119.999,
+     "p_detect": 1e-05,
+     "p_episode": 3.864486798710428e-07
+    },
+    "seed_extend": {
+     "mean_capped_calls": 114.509,
+     "p_detect": 0.115662,
+     "p_episode": 0.007804723341768413
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 89.436,
+     "p_detect": 0.576665,
+     "p_episode": 0.031199707892416224
+    }
+   },
+   "predicted_order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "shortest_depth": 4,
+   "shortest_witnesses": 24,
+   "site": "transition:76:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "pay",
+     "resource": "a"
+    },
+    {
+     "actor": "staff_a",
+     "operation": "confirm",
+     "resource": "a"
+    },
+    {
+     "actor": "staff_a",
+     "operation": "confirm",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 22.339,
+     "p_detect": 0.995758,
+     "p_episode": 0.18090048824357605
+    },
+    "seed_extend": {
+     "mean_capped_calls": 68.393,
+     "p_detect": 0.849433,
+     "p_episode": 0.11240742284786183
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 44.017,
+     "p_detect": 0.992988,
+     "p_episode": 0.1618493716931217
+    }
+   },
+   "predicted_order": [
+    "random",
+    "sequence_uniform",
+    "seed_extend"
+   ],
+   "shortest_depth": 1,
+   "shortest_witnesses": 8,
+   "site": "transition:81:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "cancel",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 119.966,
+     "p_detect": 0.000579,
+     "p_episode": 2.2202515846373855e-05
+    },
+    "seed_extend": {
+     "mean_capped_calls": 116.959,
+     "p_detect": 0.06443,
+     "p_episode": 0.0042243676923371725
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 93.83,
+     "p_detect": 0.498556,
+     "p_episode": 0.02502211474867725
+    }
+   },
+   "predicted_order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "shortest_depth": 3,
+   "shortest_witnesses": 8,
+   "site": "transition:86:0",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "pay",
+     "resource": "a"
+    },
+    {
+     "actor": "staff_a",
+     "operation": "refund",
+     "resource": "a"
+    }
+   ]
+  },
+  {
+   "modes": {
+    "random": {
+     "mean_capped_calls": 119.932,
+     "p_detect": 0.001171,
+     "p_episode": 4.492016019275757e-05
+    },
+    "seed_extend": {
+     "mean_capped_calls": 116.891,
+     "p_detect": 0.06588,
+     "p_episode": 0.004323690374958371
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 88.368,
+     "p_detect": 0.588253,
+     "p_episode": 0.03213148974867725
+    }
+   },
+   "predicted_order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "shortest_depth": 3,
+   "shortest_witnesses": 16,
+   "site": "transition:86:1",
+   "witness": [
+    {
+     "actor": "alice",
+     "operation": "reserve",
+     "resource": "a"
+    },
+    {
+     "actor": "alice",
+     "operation": "cancel",
+     "resource": "a"
+    },
+    {
+     "actor": "staff_a",
+     "operation": "refund",
+     "resource": "a"
+    }
+   ]
+  }
+ ],
+ "seeds": [
+  900,
+  901,
+  902,
+  903,
+  904,
+  905,
+  906,
+  907,
+  908,
+  909,
+  910,
+  911,
+  912,
+  913,
+  914,
+  915,
+  916,
+  917,
+  918,
+  919,
+  920,
+  921,
+  922,
+  923,
+  924,
+  925,
+  926,
+  927,
+  928,
+  929
+ ],
+ "status": "frozen specification-derived predictions; no implementation mutant executed",
+ "target": "ANY"
+}

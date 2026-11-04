@@ -1,0 +1,27 @@
+{
+  "confirm_unpaid": {
+    "mismatched": 0,
+    "states": 10,
+    "transitions": 1750
+  },
+  "fixed": {
+    "mismatched": 0,
+    "states": 10,
+    "transitions": 1750
+  },
+  "read_scope": {
+    "mismatched": 0,
+    "states": 10,
+    "transitions": 1750
+  },
+  "refund_replay": {
+    "mismatched": 0,
+    "states": 10,
+    "transitions": 1750
+  },
+  "slot_capacity": {
+    "mismatched": 0,
+    "states": 10,
+    "transitions": 1750
+  }
+}

@@ -1,0 +1,346 @@
+{
+ "cells": [
+  {
+   "binomial_p": 0.7109,
+   "mode": "random",
+   "n": 30,
+   "observed": 28,
+   "predicted": 28.13,
+   "site": "read:31:0"
+  },
+  {
+   "binomial_p": 0.4472,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 18,
+   "predicted": 19.89,
+   "site": "read:31:0"
+  },
+  {
+   "binomial_p": 0.2819,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 6,
+   "predicted": 4.02,
+   "site": "read:31:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 30,
+   "predicted": 30.0,
+   "site": "transition:51:0"
+  },
+  {
+   "binomial_p": 0.0052,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 28,
+   "predicted": 29.89,
+   "site": "transition:51:0"
+  },
+  {
+   "binomial_p": 0.1464,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 12,
+   "predicted": 16.08,
+   "site": "transition:51:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 30,
+   "predicted": 30.0,
+   "site": "transition:51:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 30,
+   "predicted": 30.0,
+   "site": "transition:51:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 26,
+   "predicted": 26.12,
+   "site": "transition:51:1"
+  },
+  {
+   "binomial_p": 0.1037,
+   "mode": "random",
+   "n": 30,
+   "observed": 29,
+   "predicted": 29.89,
+   "site": "transition:54:0"
+  },
+  {
+   "binomial_p": 0.0146,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 22,
+   "predicted": 26.66,
+   "site": "transition:54:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 14,
+   "predicted": 14.12,
+   "site": "transition:54:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.07,
+   "site": "transition:57:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 3,
+   "predicted": 3.28,
+   "site": "transition:57:0"
+  },
+  {
+   "binomial_p": 0.5551,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 11,
+   "predicted": 9.34,
+   "site": "transition:57:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:64:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:64:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:64:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:64:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:64:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:64:1"
+  },
+  {
+   "binomial_p": 0.7199,
+   "mode": "random",
+   "n": 30,
+   "observed": 29,
+   "predicted": 27.99,
+   "site": "transition:66:0"
+  },
+  {
+   "binomial_p": 0.0163,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 24,
+   "predicted": 17.58,
+   "site": "transition:66:0"
+  },
+  {
+   "binomial_p": 0.0572,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 27,
+   "predicted": 29.12,
+   "site": "transition:66:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.02,
+   "site": "transition:66:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.02,
+   "site": "transition:66:1"
+  },
+  {
+   "binomial_p": 0.0271,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 21,
+   "predicted": 14.68,
+   "site": "transition:66:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:69:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:69:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:69:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "site": "transition:76:0"
+  },
+  {
+   "binomial_p": 0.7726,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 4,
+   "predicted": 3.47,
+   "site": "transition:76:0"
+  },
+  {
+   "binomial_p": 0.8552,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 18,
+   "predicted": 17.3,
+   "site": "transition:76:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 30,
+   "predicted": 29.87,
+   "site": "transition:81:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 26,
+   "predicted": 25.48,
+   "site": "transition:81:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 30,
+   "predicted": 29.79,
+   "site": "transition:81:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.02,
+   "site": "transition:86:0"
+  },
+  {
+   "binomial_p": 0.4401,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 3,
+   "predicted": 1.93,
+   "site": "transition:86:0"
+  },
+  {
+   "binomial_p": 0.7194,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 16,
+   "predicted": 14.96,
+   "site": "transition:86:0"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.04,
+   "site": "transition:86:1"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 2,
+   "predicted": 1.98,
+   "site": "transition:86:1"
+  },
+  {
+   "binomial_p": 0.7123,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 19,
+   "predicted": 17.65,
+   "site": "transition:86:1"
+  }
+ ],
+ "cells_binomial_p_below_0.05": 4,
+ "pairwise_order_agreement": [
+  26,
+  26
+ ],
+ "predictions_sha256": "2138cab59dea4f3bbe8d12072922f7598d567e5207fa299a01acdbb633116c2a"
+}

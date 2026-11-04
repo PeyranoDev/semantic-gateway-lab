@@ -263,3 +263,28 @@ ya está preservado en Git, con hash verificado.
 python -m scripts.verify_salon_portfolio results/salon-v08 --replay
 python -m scripts.check_portfolio_recovery
 ```
+
+## Probabilidades exactas de alcance y prueba prospectiva (v0.9)
+
+Se registraron tablas de transición exactas del backend HTTP/SQL de salones sobre
+el dominio de 175 acciones. Con el código de campaña sin cambios, las tablas
+reproducen campo por campo las 2.740 campañas de v0.5, v0.6 y v0.8. A partir de
+ellas se calcula exactamente la probabilidad de que cada generador detecte un
+defecto dentro de un presupuesto.
+
+- Con 1.000 semillas por condición, las tareas válidas mutadas suben la detección
+  con historia de 0–13% a 43–79%; la guía por corpus queda 12–33 puntos por debajo
+  de la mutación uniforme a 120 llamadas.
+- Prueba prospectiva: 14 mutantes generados sistemáticamente; predicciones
+  derivadas de la especificación y congeladas por hash ordenaron correctamente 26/26
+  pares de generadores. Tres mutantes son equivalentes en el dominio acotado: 0/270.
+- El servicio corregido no viola el oráculo en ningún programa de hasta 8 acciones.
+
+[Protocolo prospectivo](docs/prospective-protocol.md) ·
+[Afirmaciones y límites](paper/claims-and-evidence.md)
+
+```bash
+python -m pip install -r backends/salon/requirements.lock
+TMPDIR=/dev/shm python scripts/analyze_history_depth.py replay
+TMPDIR=/dev/shm python scripts/prospective_salon.py compare
+```
