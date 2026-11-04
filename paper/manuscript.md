@@ -102,9 +102,18 @@ system, or generalization to independently authored services.
 **Stateful REST testing.**
 - RESTler infers producer-consumer dependencies and uses execution feedback [9]. Its
   security checkers test namespace, hierarchy and use-after-free style rules [11].
-- EvoMaster generates REST tests with evolutionary search [24]. Sahin, Zhang and Arcuri
-  extend it with automated oracles for access-policy violations, built from multi-call
-  sequences and evaluated on 52 APIs [19]. This is the closest work to our setting.
+- EvoMaster generates REST tests with evolutionary search [24].
+- Sahin, Zhang and Arcuri [19] extend EvoMaster, building on [27], and are the closest
+  work to our setting.
+  - They add seven authentication and access-control oracles. Some are multi-call:
+    for example, one user creates a resource and another probes it with other verbs.
+  - These oracles run in a post-processing phase over the tests the search produced.
+  - They evaluate one generator on 52 APIs, including crAPI, with 10 repetitions.
+    They do not compare generators and do not model how likely a generator is to
+    reach a violation.
+  - Their oracles do not cover violations of business workflows that depend on
+    history, such as repeated refunds, confirmation before payment or capacity.
+    Those violations are our focus.
 - RESTTESTGEN [12], mass-assignment testing [13], specification-based access-control
   detection [18] and Schemathesis [25] add nominal/error scenarios, vulnerability-specific
   oracles and schema-derived property checks.
@@ -113,15 +122,18 @@ Our generators and oracles have these antecedents. Our contribution is to explai
 predict *which* generator detects a given history-dependent defect.
 
 **Probabilistic analyses of testing.**
-- Arcuri, Iqbal and Briand derive expected times and predictability for random
-  testing [21].
-- Böhme and Paul model random and systematic testing and their efficiency over time [22].
+- Arcuri, Iqbal and Briand analyze the time random testing needs to reach targets
+  and how predictable it is [21]. We have reviewed only its abstract.
+- Böhme and Paul model testing as sampling from abstract error-based input partitions.
+  They derive bounds on the cost per test beyond which random testing is more
+  efficient than systematic partition testing on average [22].
 - Probabilistic Concurrency Testing defines bug depth and gives detection bounds in
   terms of depth [20]. Our use of minimal witness depth follows that tradition.
 - Sequence covering arrays target t-way event orders [26].
 
-Our analysis computes exact per-generator detection distributions over a transition
-table recorded from a stateful implementation. It also contrasts
+Those analyses work with abstract partitions and parameters. Ours computes exact
+per-generator detection distributions over a transition table recorded from a
+concrete stateful implementation. It also contrasts
 random generation with workflow-seeded mutation and corpus guidance under a shared
 budget.
 
@@ -597,6 +609,5 @@ search only, while the runtime and the oracle inspect full state.
 
 ## References
 
-See `references.md` ([1]–[26]). For references 19–26, bibliographic metadata and
-abstracts have been verified, and the full texts are still to be read before
-submission.
+See `references.md` ([1]–[27]). The full texts of [19] and [22] have been read. For
+[20], [21] and [23]–[27], only bibliographic metadata and abstracts have been verified.

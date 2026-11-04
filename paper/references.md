@@ -79,8 +79,8 @@ No external tool implementation is included in the measured treatment matrices.
 19. Omur Sahin, Man Zhang and Andrea Arcuri. *Enhancing REST API Fuzzing with
     Access Policy Violation Checks and Injection Attacks.* arXiv:2604.00702v1, 2026.
     https://arxiv.org/abs/2604.00702
-    Extension of an earlier conference paper whose venue was not verified this round.
-    Review scope this round: abstract and the first sections of the HTML full text.
+    Extends [27]. Review scope: full HTML text (sections 1-6); per-API result tables
+    were not legible in the HTML conversion.
 20. Sebastian Burckhardt, Pravesh Kothari, Madanlal Musuvathi and Santosh Nagarakatte.
     *A Randomized Scheduler with Probabilistic Guarantees of Finding Bugs.*
     ASPLOS 2010, pp. 167–178. https://people.cs.rutgers.edu/~sn349/papers/asplos2010.pdf
@@ -103,5 +103,9 @@ No external tool implementation is included in the measured treatment matrices.
     *Combinatorial Methods for Event Sequence Testing.* ICST 2012 Workshops (CT 2012),
     pp. 601–609. https://doi.org/10.1109/ICST.2012.147
 
-Review scope for 19–26: bibliographic metadata and abstracts verified through
-search results; full texts are still to be read before relying on specific claims.
+27. Andrea Arcuri, Omur Sahin and Man Zhang. *Fuzzing for Detecting Access Policy
+    Violations in REST APIs.* IEEE International Symposium on Software Reliability
+    Engineering (ISSRE), 2025. Cited from the bibliography of [19]; pages and DOI not verified.
+
+Review scope: full texts were read for [19] and [22]. For [20], [21] and [23]–[27],
+only bibliographic metadata and abstracts were verified.
