@@ -380,6 +380,15 @@ At 120 calls, the balanced portfolio lies between its components on every defect
 At 480 calls it reaches 94–100% on the first three defects and 72.2% on refund, against
 92.5% for mutation alone.
 
+The exact model gives the whole detection curve, not only two budgets (Figure 1). The
+observed 1,000-seed fractions fall on the predicted curves, and for these defects the
+generator ranking does not change with the budget: random dominates the depth-1 scope
+read at every budget, and valid-bank mutation dominates the history-dependent defects at
+every budget. A practitioner choosing a generator does not need to guess the budget at
+which the ranking flips, because here it does not flip after the first few calls.
+
+![Figure 1. Exact detection probability versus call budget (lines) with 1,000-seed observed fractions (points) for the three main generators on the four reviewed defects. The dotted line marks the 120-call budget.](figures/reach-curves.svg)
+
 These values also explain an apparent inconsistency between phases. Valid-bank
 mutation detected cross-scope reads in 8/30 campaigns in v0.6 and in 14/30 in v0.8,
 under identical settings. The exact probability is 0.30, so the v0.8 result was a
@@ -432,7 +441,7 @@ the exception class, which turned every rejection into an HTTP 500. That executi
 preserved and documented. The fix changed neither the predictions nor the analysis
 plan, and the injection is now checked against the four known tables before any run.
 
-Results of the second execution (Figure 1):
+Results of the second execution (Figure 2):
 - **Generator order.** All 26 pairs whose frozen probabilities differ by at least 0.1
   were ordered correctly by the observed detection counts.
   - A depth-only rule (depth 1 → random beats workflow generators; depth ≥ 2 → workflow
@@ -473,7 +482,7 @@ Results of the second execution (Figure 1):
   - We found no model error. The deviations are consistent with sampling variation at
     n = 30.
 
-![Figure 1. Exact predicted detection probability versus observed fraction with Wilson 95% intervals. Left: recorded campaigns on the four reviewed defects (pipeline validation). Right: frozen specification-derived predictions for 14 systematic mutants (prospective).](figures/reach-calibration.svg)
+![Figure 2. Exact predicted detection probability versus observed fraction with Wilson 95% intervals. Left: recorded campaigns on the four reviewed defects (pipeline validation). Right: frozen specification-derived predictions for 14 systematic mutants (prospective).](figures/reach-calibration.svg)
 
 ### 7.6 Bounded exhaustive check of the corrected service
 
