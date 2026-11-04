@@ -74,6 +74,60 @@ def explore(adapter, levels=7):
             "responses": responses, "edges": {str(k): v for k, v in edges.items()},
             "levels": levels}
 
+_WORKER = {}
+
+def _start_worker(variant):
+    from integrations.salon.adapter import Adapter
+    _WORKER["adapter"] = Adapter(variant)
+
+def _expand(state):
+    adapter, row = _WORKER["adapter"], []
+    for action in ACTIONS:
+        restore(adapter.database, state)
+        before = adapter.snapshot()
+        if before != state:
+            raise AssertionError("state restoration is not exact")
+        response = adapter.execute(action)
+        after = adapter.snapshot()
+        row.append((after, response, check(before, action, response, after)))
+    return row
+
+def explore_parallel(variant, levels=7, workers=8):
+    """Same table as `explore`, expanding each breadth-first level across processes."""
+    from multiprocessing import get_context
+    from integrations.salon.adapter import Adapter
+    adapter = Adapter(variant)
+    adapter.reset()
+    initial = adapter.snapshot()
+    adapter.close()
+    states, responses = [initial], []
+    ids, response_ids = {state_key(initial): 0}, {}
+    edges, frontier, queued = {}, [0], {0}
+    with get_context("fork").Pool(workers, _start_worker, (variant,)) as pool:
+        for _ in range(levels + 1):
+            following = []
+            rows = pool.map(_expand, [states[sid] for sid in frontier], chunksize=1)
+            for sid, observed in zip(frontier, rows):
+                row = []
+                for after, response, violations in observed:
+                    key = state_key(after)
+                    if key not in ids:
+                        ids[key] = len(states)
+                        states.append(after)
+                    if not violations and ids[key] not in queued:
+                        queued.add(ids[key])
+                        following.append(ids[key])
+                    rkey = json.dumps(response, sort_keys=True, separators=(",", ":"))
+                    if rkey not in response_ids:
+                        response_ids[rkey] = len(responses)
+                        responses.append(response)
+                    row.append([ids[key], response_ids[rkey], violations])
+                edges[sid] = row
+            frontier = following
+    return {"actions": [asdict(a) for a in ACTIONS], "states": states,
+            "responses": responses, "edges": {str(k): v for k, v in edges.items()},
+            "levels": levels}
+
 class TableAdapter:
     """Adapter-compatible replay of a recorded table; unknown steps fall back to the backend."""
 

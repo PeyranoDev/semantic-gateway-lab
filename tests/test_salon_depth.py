@@ -123,3 +123,29 @@ class PairedStatsTest(unittest.TestCase):
         from integrations.salon_depth.stats import holm
         self.assertEqual(holm([0.01, 0.04, 0.03]), [0.03, 0.06, 0.06])
         self.assertEqual(holm([0.5, 0.9]), [1.0, 1.0])
+
+try:
+    import fastapi, httpx  # noqa: F401
+    HAS_HTTP = True
+except ImportError:
+    HAS_HTTP = False
+
+@unittest.skipUnless(HAS_HTTP, "install backends/salon/requirements.lock")
+class RecordedTableTest(unittest.TestCase):
+    def test_parallel_exploration_equals_sequential_and_replays(self):
+        from integrations.salon.adapter import Adapter
+        from integrations.salon_depth.table import TableAdapter, explore, explore_parallel
+        adapter = Adapter("refund_replay")
+        try:
+            sequential = explore(adapter, levels=1)
+        finally:
+            adapter.close()
+        self.assertEqual(explore_parallel("refund_replay", levels=1, workers=2), sequential)
+        replay = TableAdapter(sequential)
+        replay.reset()
+        for action in legitimate_seeds()[1][:2]:  # reserve, pay: within two levels
+            replay.execute(action)
+        booking = replay.snapshot()["bookings"]["a"]
+        self.assertEqual((booking["status"], booking["paid"]), ("reserved", 1000))
+        with self.assertRaises(KeyError):
+            replay.execute(legitimate_seeds()[1][2])

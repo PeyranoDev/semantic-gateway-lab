@@ -1,0 +1,68 @@
+{
+  "v0.5": {
+    "confirm_unpaid": {
+      "campaigns": 80,
+      "mismatched": 0
+    },
+    "fixed": {
+      "campaigns": 320,
+      "mismatched": 0
+    },
+    "read_scope": {
+      "campaigns": 80,
+      "mismatched": 0
+    },
+    "refund_replay": {
+      "campaigns": 80,
+      "mismatched": 0
+    },
+    "slot_capacity": {
+      "campaigns": 80,
+      "mismatched": 0
+    }
+  },
+  "v0.6": {
+    "confirm_unpaid": {
+      "campaigns": 240,
+      "mismatched": 0
+    },
+    "fixed": {
+      "campaigns": 240,
+      "mismatched": 0
+    },
+    "read_scope": {
+      "campaigns": 240,
+      "mismatched": 0
+    },
+    "refund_replay": {
+      "campaigns": 240,
+      "mismatched": 0
+    },
+    "slot_capacity": {
+      "campaigns": 240,
+      "mismatched": 0
+    }
+  },
+  "v0.8": {
+    "confirm_unpaid": {
+      "campaigns": 180,
+      "mismatched": 0
+    },
+    "fixed": {
+      "campaigns": 180,
+      "mismatched": 0
+    },
+    "read_scope": {
+      "campaigns": 180,
+      "mismatched": 0
+    },
+    "refund_replay": {
+      "campaigns": 180,
+      "mismatched": 0
+    },
+    "slot_capacity": {
+      "campaigns": 180,
+      "mismatched": 0
+    }
+  }
+}

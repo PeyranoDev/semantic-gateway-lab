@@ -48,18 +48,17 @@ def rows(study):
     return [json.loads(line) for line in gzip.open(ROOT / "results" / STUDIES[study] / "raw.jsonl.gz")]
 
 def build():
-    from integrations.salon.adapter import Adapter
-    from integrations.salon_depth.table import explore
+    import os
+    import time
+    from integrations.salon_depth.table import explore_parallel
     (OUT / "tables").mkdir(parents=True, exist_ok=True)
     for variant in VARIANTS:
-        adapter = Adapter(variant)
-        try:
-            table = explore(adapter, levels=7)
-        finally:
-            adapter.close()
+        started = time.time()
+        table = explore_parallel(variant, levels=7, workers=os.cpu_count() or 4)
         payload = json.dumps(table, sort_keys=True, separators=(",", ":")).encode()
         table_path(variant).write_bytes(gzip.compress(payload, mtime=0))
-        print(variant, "states", len(table["states"]), "expanded", len(table["edges"]), flush=True)
+        print(variant, "states", len(table["states"]), "expanded", len(table["edges"]),
+              "seconds", round(time.time() - started), flush=True)
 
 class CopyingTableAdapter:
     """TableAdapter that returns copies, so campaigns cannot alter recorded states."""
