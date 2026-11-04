@@ -22,9 +22,9 @@ Assumption: frozen measured source files (hash-pinned in `results/*/manifest.jso
 |---|---|---|---|---|
 | T1 | S2 | inline | done | 139 tests, 0 skipped with lockfile (local 3.12) |
 | T2 | S3, S5 | inline | done | 1fb92f1, cb16400: tables replay 2,740 campaigns exactly; fidelity 8,750/8,750; 48/48 cells consistent |
-| T3 | S4, S5 | inline | in progress | 7d60d4f paired tests; surrogate n=1000/cell running |
+| T3 | S4, S5 | inline | in progress | 7d60d4f paired tests; 508a90e surrogate n=1000/cell; 480-budget corpus run pending |
 | T4 | S6 | inline | in progress | refs 19-26 added (metadata/abstract level) |
-| T5 | S7 | inline | pending | |
+| T5 | S7 | inline | done (diagnosis pending) | 44ea0ab frozen; edb845c 26/26 orders, 3 of 20 informative cells p<0.05 |
 | T6 | S8 | inline | pending | |
 
 ## Log
@@ -38,3 +38,5 @@ Assumption: frozen measured source files (hash-pinned in `results/*/manifest.jso
 - L7: Advisor correction: 48/48 agreement validates the pipeline (exact model over a verified replica), it is not independent predictive evidence. A failed Holm test at n=30 is low power, not absence of a feedback effect; the surrogate with 1000 seeds per cell settles effect sizes.
 - L8: Document benchmark (Monte Carlo, 10,000 episodes per defect): per-episode reach probability orders the observed random-vs-mutation winner for all 11 defects, including wrong_recipient (depth 2; p_random 0.0083 > p_mutation 0.0017). Thesis: the winner follows each generator's reach probability for the shortest witnesses; depth is only a proxy.
 - L9: T5 redesign (advisor option A): derive predictions from the specification (oracle `expected()` with the same guard removed), commit their hash, then run campaigns on new guard-removal implementation mutants.
+- L10: Prospective scoring: the depth rule gets 15/15 orderable random-vs-mutation pairs. Reach also orders 11 seed_extend pairs correctly (26/26 total). The one depth/reach disagreement (transition:66:0, gap below 0.1) went against reach (29 vs 27). Claim: reach is quantitative across generators; depth is a categorical proxy that fails post hoc (wrong_recipient). Corrected the earlier "11/11 document defects" statement: only the large-gap cases are confirmable at n=10.
+- L11: The surrogate shows the corpus engines (80% selection from a 64-entry FIFO corpus, rare-key scheduler) lose 12-33 points to uniform seed mutation on history defects at 120 calls; the 480-call check is pending before any title wording. Enriched vs coarse: +20.7 +- 3.6 points on slot_capacity only.

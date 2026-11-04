@@ -160,5 +160,36 @@ def compare():
     print("pairwise order agreement", order_hits, "/", order_total,
           "| cells with p<0.05:", result["cells_binomial_p_below_0.05"], "of", len(cells))
 
+def diagnose(*site_ids):
+    """Post hoc: implementation tables versus specification tables; replay recorded rows."""
+    import os
+    from integrations.salon_ablation.experiment import campaign
+    from integrations.salon_depth.table import TableAdapter, explore, explore_parallel
+    from integrations.salon_prospective.spec import SpecAdapter, mutant_expected
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from analyze_history_depth import CopyingTableAdapter
+    rows = [json.loads(l) for l in gzip.decompress((OUT / "raw.jsonl.gz").read_bytes()).splitlines()]
+    report_path = OUT / "diagnosis.json"
+    report = json.loads(report_path.read_text()) if report_path.exists() else {}
+    for site_id in site_ids or new_sites():
+        impl = explore_parallel("fixed", levels=7, workers=os.cpu_count() or 4, site=site_id)
+        spec = explore(SpecAdapter(mutant_expected(site_id), _initial()), levels=7)
+        key = lambda t: sorted((json.dumps(t["states"][int(k)], sort_keys=True), i,
+                                json.dumps(t["states"][e[0]], sort_keys=True), e[2])
+                               for k, row in t["edges"].items() for i, e in enumerate(row))
+        a, b = key(impl), key(spec)
+        differing = len(set(map(json.dumps, a)) ^ set(map(json.dumps, b)))
+        mismatched = 0
+        site_rows = [r for r in rows if r["site"] == site_id]
+        for row in site_rows:
+            got = campaign(CopyingTableAdapter(TableAdapter(impl)), row["mode"], TARGET, row["seed"], BUDGET)
+            mismatched += any(got[k] != row[k] for k in set(got) & set(row) - {"elapsed_s", "site"})
+        report[site_id] = {"implementation_states": len(impl["states"]), "spec_states": len(spec["states"]),
+                           "transition_differences": differing,
+                           "replayed_rows": len(site_rows), "replay_mismatches": mismatched}
+        print(site_id, report[site_id], flush=True)
+        report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+
 if __name__ == "__main__":
-    {"predict": predict, "run": run, "compare": compare}[sys.argv[1]]()
+    {"predict": predict, "run": run, "compare": compare,
+     "diagnose": diagnose}[sys.argv[1]](*sys.argv[2:])

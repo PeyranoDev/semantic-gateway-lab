@@ -82,9 +82,16 @@ def explore(adapter, levels=7):
 
 _WORKER = {}
 
-def _start_worker(variant):
+def _make_adapter(variant, site=None):
     from integrations.salon.adapter import Adapter
-    _WORKER["adapter"] = Adapter(variant)
+    if site is None:
+        return Adapter(variant)
+    from integrations.salon_prospective.mutants import injected
+    with injected(site):
+        return Adapter(variant)
+
+def _start_worker(variant, site=None):
+    _WORKER["adapter"] = _make_adapter(variant, site)
 
 def _expand(state):
     adapter, row = _WORKER["adapter"], []
@@ -98,18 +105,17 @@ def _expand(state):
         row.append((after, response, check(before, action, response, after)))
     return row
 
-def explore_parallel(variant, levels=7, workers=8):
+def explore_parallel(variant, levels=7, workers=8, site=None):
     """Same table as `explore`, expanding each breadth-first level across processes."""
     from multiprocessing import get_context
-    from integrations.salon.adapter import Adapter
-    adapter = Adapter(variant)
+    adapter = _make_adapter(variant, site)
     adapter.reset()
     initial = adapter.snapshot()
     adapter.close()
     states, responses = [initial], []
     ids, response_ids = {state_key(initial): 0}, {}
     edges, frontier, queued = {}, [0], {0}
-    with get_context("fork").Pool(workers, _start_worker, (variant,)) as pool:
+    with get_context("fork").Pool(workers, _start_worker, (variant, site)) as pool:
         for _ in range(levels + 1):
             following = []
             rows = pool.map(_expand, [states[sid] for sid in frontier], chunksize=1)
