@@ -1,0 +1,12 @@
+{
+  "phase": "v0.6 prospective component ablation; frozen before full execution",
+  "modes": ["random", "random_bootstrap", "seed_replay", "seed_extend", "mutation_unseeded", "sequence_uniform", "sequence_enabled", "sequence_enriched"],
+  "variants": ["fixed", "read_scope", "slot_capacity", "confirm_unpaid", "refund_replay"],
+  "seeds": [600, 601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629],
+  "budget": 120,
+  "depth": 8,
+  "corpus_capacity": 64,
+  "bootstrap_samples": 5000,
+  "expected_runs": 1200,
+  "status": "follow-up informed by v0.5; fresh seeds, not held-out defects or preregistered externally"
+}

@@ -1,0 +1,19 @@
+{
+  "campaigns_verified": 60,
+  "costs_all_server_events": {
+    "budget_gate:search": 28,
+    "control:replay": 159,
+    "control:search": 4254,
+    "control:validation": 66,
+    "http:authentication": 20,
+    "http:replay": 270,
+    "http:search": 44808,
+    "http:validation": 273,
+    "reset:search": 13794,
+    "reset:validation": 103,
+    "setup:setup": 5
+  },
+  "oracle_steps_verified": 45351,
+  "search_calls_verified": 44808,
+  "witness_pairs_verified": 31
+}

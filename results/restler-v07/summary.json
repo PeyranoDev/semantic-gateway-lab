@@ -1,0 +1,345 @@
+{
+  "campaigns": 60,
+  "groups": [
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "restler_bfs",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "fixed"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "restler_bfs_cheap",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "fixed"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "random",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "fixed"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "sequence_uniform",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "refund",
+        "reserve"
+      ],
+      "variant": "fixed"
+    },
+    {
+      "calls": 36,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "restler_bfs",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking"
+      ],
+      "variant": "read_scope"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "restler_bfs_cheap",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "read_scope"
+    },
+    {
+      "calls": 58,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "random",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "read_scope"
+    },
+    {
+      "calls": 1024,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "sequence_uniform",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "refund",
+        "reserve"
+      ],
+      "variant": "read_scope"
+    },
+    {
+      "calls": 3570,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "restler_bfs",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "slot_capacity"
+    },
+    {
+      "calls": 393,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "restler_bfs_cheap",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "slot_capacity"
+    },
+    {
+      "calls": 2020,
+      "campaigns": 3,
+      "detected": 2,
+      "mode": "random",
+      "stops": {
+        "budget": 1,
+        "oracle_violation": 2
+      },
+      "successful_operations": [
+        "cancel",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "slot_capacity"
+    },
+    {
+      "calls": 290,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "sequence_uniform",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "refund",
+        "reserve"
+      ],
+      "variant": "slot_capacity"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "restler_bfs",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "confirm_unpaid"
+    },
+    {
+      "calls": 2256,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "restler_bfs_cheap",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "confirm_unpaid"
+    },
+    {
+      "calls": 1919,
+      "campaigns": 3,
+      "detected": 2,
+      "mode": "random",
+      "stops": {
+        "budget": 1,
+        "oracle_violation": 2
+      },
+      "successful_operations": [
+        "cancel",
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "confirm_unpaid"
+    },
+    {
+      "calls": 140,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "sequence_uniform",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "refund",
+        "reserve"
+      ],
+      "variant": "confirm_unpaid"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "restler_bfs",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "refund_replay"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "restler_bfs_cheap",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "refund_replay"
+    },
+    {
+      "calls": 3600,
+      "campaigns": 3,
+      "detected": 0,
+      "mode": "random",
+      "stops": {
+        "budget": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "reserve"
+      ],
+      "variant": "refund_replay"
+    },
+    {
+      "calls": 702,
+      "campaigns": 3,
+      "detected": 3,
+      "mode": "sequence_uniform",
+      "stops": {
+        "oracle_violation": 3
+      },
+      "successful_operations": [
+        "cancel",
+        "confirm",
+        "list_bookings",
+        "pay",
+        "read_booking",
+        "refund",
+        "reserve"
+      ],
+      "variant": "refund_replay"
+    }
+  ],
+  "outside_domain_calls": 0,
+  "revalidated_witnesses": 31,
+  "search_calls": 44808,
+  "setup_limitations": [],
+  "stage": "v0.7-setup-pilot"
+}

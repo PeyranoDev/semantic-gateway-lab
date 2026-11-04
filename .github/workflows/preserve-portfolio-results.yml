@@ -1,0 +1,39 @@
+name: Preserve complete portfolio results
+on:
+  push:
+    branches: [research/portfolio-v08]
+    paths: ['.github/workflows/preserve-portfolio-results.yml']
+permissions:
+  actions: read
+  contents: write
+jobs:
+  preserve:
+    if: github.ref == 'refs/heads/research/portfolio-v08'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backends/salon/requirements.lock
+      - name: Materialize exact complete observations
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/PeyranoDev/semantic-gateway-lab/actions/artifacts/11982625921/zip > /tmp/salon-v08.zip
+          echo '135c6f5cf08ccdbce1eb9c8d6e972ff15e052b988eaa1abaef5837f8ddcf2a8b  /tmp/salon-v08.zip' | sha256sum --check --strict
+          python -m zipfile -e /tmp/salon-v08.zip results/salon-v08
+          cp /tmp/salon-v08.zip results/salon-v08/archive.zip
+      - name: Audit all outcomes and unchanged interrupted observations
+        run: |
+          python -m scripts.verify_salon_portfolio results/salon-v08
+          python -m scripts.check_portfolio_recovery > results/salon-v08/recovery-verification.json
+      - name: Preserve reviewed results on the research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/salon-v08
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Preserve all 900 measured portfolio campaigns and recovery audit'
+          git push origin HEAD:refs/heads/research/portfolio-v08

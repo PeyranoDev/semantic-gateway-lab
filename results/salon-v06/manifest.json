@@ -1,0 +1,4463 @@
+{
+  "config": {
+    "bootstrap_samples": 5000,
+    "budget": 120,
+    "corpus_capacity": 64,
+    "depth": 8,
+    "expected_runs": 1200,
+    "modes": [
+      "random",
+      "random_bootstrap",
+      "seed_replay",
+      "seed_extend",
+      "mutation_unseeded",
+      "sequence_uniform",
+      "sequence_enabled",
+      "sequence_enriched"
+    ],
+    "phase": "v0.6 prospective component ablation; frozen before full execution",
+    "seeds": [
+      600,
+      601,
+      602,
+      603,
+      604,
+      605,
+      606,
+      607,
+      608,
+      609,
+      610,
+      611,
+      612,
+      613,
+      614,
+      615,
+      616,
+      617,
+      618,
+      619,
+      620,
+      621,
+      622,
+      623,
+      624,
+      625,
+      626,
+      627,
+      628,
+      629
+    ],
+    "status": "follow-up informed by v0.5; fresh seeds, not held-out defects or preregistered externally",
+    "variants": [
+      "fixed",
+      "read_scope",
+      "slot_capacity",
+      "confirm_unpaid",
+      "refund_replay"
+    ]
+  },
+  "config_sha256": "2294a82ca0d039bed2cf68732b140afeca0d49d6d1943c9a828fa9314aa99e92",
+  "control": "fixed runs ANY to monitor all oracle properties once per mode/seed",
+  "costs": {
+    "confirm_unpaid": {
+      "all_http_calls": 26312,
+      "authentication_calls": 4,
+      "campaign_calls": 25506,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 116,
+      "shrink_calls": 364,
+      "validation_calls": 288,
+      "verified_witness_replays": 116
+    },
+    "fixed": {
+      "all_http_calls": 28838,
+      "authentication_calls": 4,
+      "campaign_calls": 28800,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 0,
+      "shrink_calls": 0,
+      "validation_calls": 0,
+      "verified_witness_replays": 0
+    },
+    "read_scope": {
+      "all_http_calls": 20031,
+      "authentication_calls": 4,
+      "campaign_calls": 18653,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 134,
+      "shrink_calls": 654,
+      "validation_calls": 552,
+      "verified_witness_replays": 268
+    },
+    "refund_replay": {
+      "all_http_calls": 28666,
+      "authentication_calls": 4,
+      "campaign_calls": 27020,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 160,
+      "shrink_calls": 1110,
+      "validation_calls": 338,
+      "verified_witness_replays": 64
+    },
+    "slot_capacity": {
+      "all_http_calls": 25952,
+      "authentication_calls": 4,
+      "campaign_calls": 25082,
+      "control_calls": 34,
+      "post_shrink_replay_calls": 136,
+      "shrink_calls": 369,
+      "validation_calls": 327,
+      "verified_witness_replays": 136
+    }
+  },
+  "independence": "fresh search seeds on the same reviewed backend and mutants; not held-out systems",
+  "phase": "v0.6 prospective component ablation",
+  "planned_contrasts": [
+    [
+      "mutation_unseeded",
+      "sequence_uniform",
+      "valid initial bank under matched mutation"
+    ],
+    [
+      "seed_extend",
+      "sequence_uniform",
+      "whole-program mutation versus append-only extension"
+    ],
+    [
+      "seed_replay",
+      "sequence_uniform",
+      "perturbation versus valid-workflow replay sanity control"
+    ],
+    [
+      "random",
+      "random_bootstrap",
+      "charged valid warmup without retaining its state"
+    ],
+    [
+      "random_bootstrap",
+      "sequence_uniform",
+      "workflow reuse plus mutation after matched warmup"
+    ],
+    [
+      "sequence_enabled",
+      "sequence_enriched",
+      "feedback projection replication"
+    ]
+  ],
+  "python": "3.12.14",
+  "random_initial_banks": {
+    "600": [
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "601": [
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ]
+    ],
+    "602": [
+      [
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        }
+      ]
+    ],
+    "603": [
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "604": [
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ]
+    ],
+    "605": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ]
+    ],
+    "606": [
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "missing"
+        }
+      ]
+    ],
+    "607": [
+      [
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ]
+    ],
+    "608": [
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a"
+        }
+      ]
+    ],
+    "609": [
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "610": [
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "611": [
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a"
+        }
+      ]
+    ],
+    "612": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b"
+        }
+      ]
+    ],
+    "613": [
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ]
+    ],
+    "614": [
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "615": [
+      [
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "616": [
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ]
+    ],
+    "617": [
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ]
+    ],
+    "618": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ]
+    ],
+    "619": [
+      [
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ]
+    ],
+    "620": [
+      [
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "621": [
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ]
+    ],
+    "622": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ]
+    ],
+    "623": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a"
+        }
+      ]
+    ],
+    "624": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a"
+        }
+      ]
+    ],
+    "625": [
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ]
+    ],
+    "626": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ]
+    ],
+    "627": [
+      [
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "bob",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "a"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "list_bookings",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ]
+    ],
+    "628": [
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "refund",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "bob",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "cancel",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "confirm",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "cancel",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "refund",
+          "resource": "missing"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "cancel",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b2"
+        }
+      ]
+    ],
+    "629": [
+      [
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "b"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "confirm",
+          "resource": "b2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "read_booking",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "pay",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "pay",
+          "resource": "a2"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "b2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "read_booking",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "b"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a2"
+        }
+      ],
+      [
+        {
+          "actor": "staff_b",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "bob",
+          "operation": "reserve",
+          "resource": "a"
+        },
+        {
+          "actor": "bob",
+          "operation": "list_bookings",
+          "resource": "a"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "reserve",
+          "resource": "b2"
+        },
+        {
+          "actor": "alice",
+          "operation": "pay",
+          "resource": "b"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "list_bookings",
+          "resource": "missing"
+        },
+        {
+          "actor": "anonymous",
+          "operation": "list_bookings",
+          "resource": "missing"
+        }
+      ],
+      [
+        {
+          "actor": "alice",
+          "operation": "refund",
+          "resource": "a"
+        },
+        {
+          "actor": "alice",
+          "operation": "reserve",
+          "resource": "a2"
+        },
+        {
+          "actor": "staff_a",
+          "operation": "reserve",
+          "resource": "b"
+        }
+      ],
+      [
+        {
+          "actor": "anonymous",
+          "operation": "pay",
+          "resource": "a"
+        },
+        {
+          "actor": "staff_b",
+          "operation": "confirm",
+          "resource": "a2"
+        }
+      ]
+    ]
+  },
+  "raw_sha256": "fdb0b94608359844810464a72cb2f42cb04a49653d28b87a025d12aff4d7ccfa",
+  "runs": 1200,
+  "source_sha256": {
+    "backends/salon/__init__.py": "63e3d94596e924460bef06eec62913def7d5361daf347fb4a789279ab1a1b57a",
+    "backends/salon/__main__.py": "8c4c913e7a41554899493a38bfd16edb7a2f75076d7b69294402894215089675",
+    "backends/salon/app.py": "7ddbd543448d00f075191e2a7dcacaf1fc63cce63e0b00642f0b29cc0493e111",
+    "backends/salon/auth.py": "d9d6a911dc5ceb7daa322070fedaaa69fb4bd9951a544e0c881addfcaf0c09d6",
+    "backends/salon/db.py": "f261376fca5b133e667f5dbfa3ab779c7207282b57c642f43402fd074505ab90",
+    "backends/salon/requirements.lock": "e5046dcde63f4c33281d97f3c5b602c399f1fef37fea2671e00267a4580ca01d",
+    "backends/salon/service.py": "0dae119a4ef7d23ef5a48c5737a3b4b2eae4e54f916ad98c1e59ca8aedb2733d",
+    "docs/salon-ablation-protocol.md": "5bb81ce3d220c69ba9d7ffffab517c0fa20dcaac9fd1edc231e68322fbf8dc9e",
+    "docs/salon-protocol.md": "910077b0b3166e2ed444fa5d727bb3d94c7880b3beb556160f49bf17627553bb",
+    "fuzzlab/feedback.py": "0242f015efa155d291689fde9a244bb382e88fb0d802e7266a9bb64a8bf2468a",
+    "integrations/salon/__init__.py": "40885c6c3f2e7a091add4fa6d9b99b4defa0da6b01a6b21becf1782b2d92ca22",
+    "integrations/salon/adapter.py": "b9c4be0d1575564e138661e8473862169883d9ba02e55942921aebf6764d3a77",
+    "integrations/salon/checks.py": "eeb1fa3f26964a7640991f63dc23f8aff611571bd7d645f1d3bb4a0bab8203ae",
+    "integrations/salon/experiment.py": "adf98149459439324fd04f88cb8670b8b227f9f8a8eb6ddb67265b800c2eb420",
+    "integrations/salon/feedback.py": "ac46b3676f6da861370e2b1a07209d2141e2b04d381ccb81f4cc7ad3f7decb41",
+    "integrations/salon/generator.py": "a94cda54fadc968a48de2bbbd2fcd3b129a08e115da044bf529c127101f3a22a",
+    "integrations/salon/model.py": "4cbd26373016283838d93d08a8e847cb2084ac69b9f555f157abdc1ebe09f9ab",
+    "integrations/salon/oracle.py": "b308a1e9ed91bfba27c331dc39dd76783cb29f0e522668d455a8938deb0adae4",
+    "integrations/salon/run.py": "4e2cee11ae9ba6b4476fbd79d2576d193a86d73e89337e680cec90c93e04cd49",
+    "integrations/salon_ablation/__init__.py": "990f1bf2c6d406f317967caa8eb8051bb3994d38cfb9c304eb500ac39ab88e4f",
+    "integrations/salon_ablation/analysis.py": "bde31f697ef12d6d25f1be679076ddb60da654a3c71de1aafd9b359fa29e2417",
+    "integrations/salon_ablation/experiment.py": "f8caa80767ef707f571415d288f987a97c2712c5908c81a5872443a471c4fc7f",
+    "integrations/salon_ablation/programs.py": "926c2846347c9439171a0e7c7a525c5a9ef1dd81f596d32f63b6149fe6919cd4",
+    "integrations/salon_ablation/run.py": "4b2802d88991f309d1bab7d898050a588c30b8395f675cba5946f3cde8fa3017",
+    "scripts/analyze_salon.py": "932a432d41d940097f4a8bc22d0096076689495c970732f98490dcb43c038dd4",
+    "scripts/analyze_salon_ablation.py": "07ada28a3216b479d2cdffdafe8bfe461cb022ccfb5d2a6891400899352e40af",
+    "scripts/salon_http_smoke.py": "305ce44437245ae13e2ff45928c4a2483da029ca13b4b24f707500d6d9e16d09",
+    "tests/test_salon.py": "72ff05f860875adc280258329db65710b938418bc5ad8357eb5a87fd45bb58d4",
+    "tests/test_salon_ablation.py": "2c4e50a7735bbf3c21e7210eb39b1f92040d3ee2b0ff07d9119f33eba047ea2f"
+  },
+  "sqlite": "3.53.1",
+  "valid_initial_bank": [
+    [
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "pay",
+        "resource": "a"
+      },
+      {
+        "actor": "staff_a",
+        "operation": "confirm",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "pay",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "cancel",
+        "resource": "a"
+      },
+      {
+        "actor": "staff_a",
+        "operation": "refund",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "cancel",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "reserve",
+        "resource": "a2"
+      }
+    ],
+    [
+      {
+        "actor": "alice",
+        "operation": "list_bookings",
+        "resource": "a"
+      },
+      {
+        "actor": "alice",
+        "operation": "read_booking",
+        "resource": "a"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "pay",
+        "resource": "b"
+      },
+      {
+        "actor": "staff_b",
+        "operation": "confirm",
+        "resource": "b"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "pay",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "cancel",
+        "resource": "b"
+      },
+      {
+        "actor": "staff_b",
+        "operation": "refund",
+        "resource": "b"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "cancel",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "reserve",
+        "resource": "b2"
+      }
+    ],
+    [
+      {
+        "actor": "bob",
+        "operation": "list_bookings",
+        "resource": "b"
+      },
+      {
+        "actor": "bob",
+        "operation": "read_booking",
+        "resource": "b"
+      }
+    ]
+  ]
+}

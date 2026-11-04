@@ -1,0 +1,51 @@
+name: Official RESTler setup pilot
+on:
+  push:
+    branches: [research/restler-v07]
+    paths:
+      - 'integrations/restler/**'
+      - 'configs/restler-pilot.json'
+      - 'tests/test_restler.py'
+      - '.github/workflows/restler-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      RESTLER_TELEMETRY_OPTOUT: '1'
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: python -m pip install -r backends/salon/requirements.lock applicationinsights==0.11.10
+      - name: Verify the observation harness and all existing contracts
+        run: python -m unittest discover -s tests -v
+      - name: Fetch official immutable RESTler source
+        uses: actions/checkout@v4
+        with:
+          repository: microsoft/restler-fuzzer
+          ref: 6d984deedbc54aad957fa3da0c7e9e5df23a2aee
+          path: .restler-upstream
+      - name: Build official compiler, driver and Python engine
+        run: python .restler-upstream/build-restler.py --dest_dir "$RUNNER_TEMP/restler-bin"
+      - name: Run the TCP pilot with common oracle and hard request budget
+        run: >-
+          python -m integrations.restler.run
+          --restler "$RUNNER_TEMP/restler-bin/restler/Restler"
+          --upstream .restler-upstream
+          --out "$RUNNER_TEMP/restler-pilot"
+      - name: Preserve successes and partial infrastructure failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: restler-pilot-${{ github.sha }}
+          path: ${{ runner.temp }}/restler-pilot
+          if-no-files-found: warn
