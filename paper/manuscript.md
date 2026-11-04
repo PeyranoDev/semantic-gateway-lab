@@ -81,7 +81,7 @@ RESTler [9] generates request sequences using producer-consumer dependencies
 and execution feedback. AFLNet [10] mutates protocol message sequences and uses
 observed response information for guidance. These establish relevant prior work
 for stateful generation and mutation. RESTler was executed in the scoped v0.7
-setup pilot described in Section 9; AFLNet remains unexecuted.
+setup pilot described in Section 7.6; AFLNet remains unexecuted.
 
 The closest security antecedent is RESTler's active-checker work [11], which
 tests user namespaces, resource hierarchy, access after deletion and effects
