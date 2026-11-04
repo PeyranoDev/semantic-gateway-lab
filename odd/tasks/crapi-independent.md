@@ -16,7 +16,7 @@ Branch: `paper/crapi-independent` (stacked on PR #5). Delivery: ask-on-risk. Tes
 
 | ID | Specs | Route | Status | Evidence |
 |---|---|---|---|---|
-| T1 | S2 | inline | blocked | starting the containers was denied by the permission classifier (external code); needs user authorization |
+| T1 | S2 | inline | in progress | configs/crapi/compose.pinned.yml pins all images by digest; waiting on the user to start the containers |
 | T2 | S3, S4 | inline | pending | |
 | T3 | S5 | inline | pending | |
 | T4 | S6 | inline | pending | |
@@ -27,3 +27,4 @@ Branch: `paper/crapi-independent` (stacked on PR #5). Delivery: ask-on-risk. Tes
 - L2: PR #5 opened, and CI is green (including http-contracts). Related work now positions against the full texts of Sahin et al. [19] (post-processing oracles, one generator, no reach model, no history-dependent business oracles, crAPI among its APIs) and Böhme & Paul [22].
 - L3: crAPI shop views read: `OrderControlView.get` has no ownership check; `put` lets the owner set any valid status, and setting `returned` credits quantity x price; `quantity` can be changed after purchase. These are history-dependent and in scope for the method.
 - L4: `docker compose up` of the pinned crAPI images was denied by the auto-mode classifier ([Code from External]). The user must decide whether to allow it.
+- L5 (2026-11-04, user decision): pin by "Digest + matching commit". No 1.1.5 images are published. The main images were built 2025-09-22 15:03-18:27 UTC, right after 700f03d (14:58 UTC), which is still upstream HEAD, so the pin is unchanged. Workshop app files in image d4d2d94d are byte-identical to the source (diff -r: 0). All seven images are now pinned by digest in configs/crapi/compose.pinned.yml.
