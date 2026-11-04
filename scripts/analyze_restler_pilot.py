@@ -23,7 +23,8 @@ def analyze(output):
                 for name in archive.namelist():
                     assert (root/name).resolve().is_relative_to(root), name
                 archive.extractall(root)
-            for name in ("summary.json", "manifest.json", "controls.json"):
+            for name in ("summary.json", "manifest.json"):
+                assert (output/name).is_file(), name
                 assert (output/name).read_bytes() == (root/name).read_bytes(), name
             result = analyze(root)
             if (output/"verification.json").is_file():

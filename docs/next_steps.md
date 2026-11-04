@@ -1,4 +1,4 @@
-# Próximo trabajo después de v0.6
+# Próximo trabajo después de v0.8
 
 ## Completado
 
@@ -10,6 +10,9 @@
 - Revisión bibliográfica focalizada y reorganización del manuscrito alrededor
   de una contribución empírica delimitada. Ver paper/claims-and-evidence.md.
 
+- Evaluación v0.8: 900 campañas, dos presupuestos, resultado mixto del portfolio,
+  892 replays, 810 pares de recuperación idénticos y archivo RESTler preservado.
+
 ## Prioridades para fortalecer el paper
 
 1. **Comparación externa principal.** El piloto oficial v0.7 ya se ejecutó:
@@ -17,9 +20,11 @@
    paper/restler-pilot-results.md. Validar ahora una configuración con dependencias
    de workflows y más estrategias, con alcance del ciclo legítimo comprobado,
    antes de congelar una matriz mayor. seed_extend sigue siendo sólo interno.
-2. **Independencia.** Evaluar un backend de otro autor con licencia revisada y
-   política de negocio definida antes de medir; o conseguir revisión externa
-   del contrato/oráculo. Los servicios actuales siguen siendo del mismo proyecto.
+2. **Independencia.** OWASP crAPI quedó identificado y versionado como candidato;
+   ver docs/independent-backend-candidate.md. Falta construirlo, validar fixtures,
+   fijar imágenes/dependencias y revisar su contrato/oráculo antes de medir.
+   Sus desafíos son públicos: sería independencia de implementación, no de defectos
+   desconocidos. Los sistemas efectivamente medidos siguen siendo del proyecto.
 3. **Literatura cercana completa.** Obtener y leer el artículo completo de
    Enabledness-based Testing of Object Protocols y los antecedentes de criterios
    de cobertura con EPA. La auditoría distingue fuentes completas y resúmenes.
@@ -31,8 +36,9 @@
 
 - Exploración con presupuesto completo, sin parada en primera falla, para comparar
   cobertura y fragmentación de corpus de forma interpretable.
-- Estrategia híbrida que combine exploración amplia y tareas con historia;
-  no ajustar ni anunciar un ganador usando las matrices ya observadas.
+- La combinación fija de exploración y tareas con historia tiene protocolo v0.8.
+  Cualquier cambio posterior de proporciones debe llevar nuevo protocolo y datos;
+  no seleccionar retrospectivamente una proporción ganadora.
 - Aprobaciones ligadas a generación/versionado, cambios de política y revocación.
 - Esquema Alembic real y carreras adicionales del backend original. Las pruebas
   concretas de rollback/cancelación no demuestran durabilidad o seguridad general.

@@ -1,0 +1,29 @@
+name: Execute frozen authorization portfolio
+on:
+  push:
+    branches: [research/portfolio-v08]
+    paths: ['.github/workflows/portfolio-execution.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backends/salon/requirements.lock
+      - run: python -m unittest discover -s tests -v
+      - name: Complete unchanged frozen matrix
+        run: python -m integrations.salon_portfolio.run --out /tmp/salon-v08
+      - name: Offline audit and independent witness replay
+        run: python -m scripts.verify_salon_portfolio /tmp/salon-v08 --replay | tee /tmp/salon-v08/verification.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: salon-portfolio-${{ github.sha }}
+          path: /tmp/salon-v08
+          retention-days: 90
