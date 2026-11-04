@@ -21,8 +21,8 @@ Assumption: frozen measured source files (hash-pinned in `results/*/manifest.jso
 | ID | Specs | Route | Status | Evidence |
 |---|---|---|---|---|
 | T1 | S2 | inline | done | 139 tests, 0 skipped with lockfile (local 3.12) |
-| T2 | S3, S5 | inline | in progress | model + 8 unit tests green; tables exploring |
-| T3 | S4, S5 | inline | pending | |
+| T2 | S3, S5 | inline | done | 1fb92f1, cb16400: tables replay 2,740 campaigns exactly; fidelity 8,750/8,750; 48/48 cells consistent |
+| T3 | S4, S5 | inline | in progress | 7d60d4f paired tests; surrogate n=1000/cell running |
 | T4 | S6 | inline | in progress | refs 19-26 added (metadata/abstract level) |
 | T5 | S7 | inline | pending | |
 | T6 | S8 | inline | pending | |
@@ -35,3 +35,6 @@ Assumption: frozen measured source files (hash-pinned in `results/*/manifest.jso
 - L4: `datetime.utcnow` in the Aoristo adapters is left unchanged because the adapters are hash-pinned measured source.
 - L5: Closest prior work found: Sahin, Zhang, Arcuri, arXiv 2604.00702 (EvoMaster access-policy oracles, multi-call sequences, 52 APIs). The paper must position against it. Bug-depth antecedent: PCT (ASPLOS 2010).
 - L6: Design: exact transition tables recorded from the real backend; the table must reproduce every recorded v0.5/v0.6/v0.8 campaign field-for-field (replay) before any prediction is trusted. Predictions are exploratory and post hoc; the prospective test is T5.
+- L7: Advisor correction: 48/48 agreement validates the pipeline (exact model over a verified replica), it is not independent predictive evidence. A failed Holm test at n=30 is low power, not absence of a feedback effect; the surrogate with 1000 seeds per cell settles effect sizes.
+- L8: Document benchmark (Monte Carlo, 10,000 episodes per defect): per-episode reach probability orders the observed random-vs-mutation winner for all 11 defects, including wrong_recipient (depth 2; p_random 0.0083 > p_mutation 0.0017). Thesis: the winner follows each generator's reach probability for the shortest witnesses; depth is only a proxy.
+- L9: T5 redesign (advisor option A): derive predictions from the specification (oracle `expected()` with the same guard removed), commit their hash, then run campaigns on new guard-removal implementation mutants.
