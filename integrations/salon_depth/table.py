@@ -36,6 +36,12 @@ def restore(database, snapshot):
             conn.execute("INSERT INTO ledger(booking,customer,kind,amount) VALUES (?,?,?,?)",
                          (entry["booking"], entry["customer"], entry["kind"], entry["amount"]))
 
+def _restore(adapter, state):
+    if hasattr(adapter, "restore"):
+        adapter.restore(state)
+    else:
+        restore(adapter.database, state)
+
 def explore(adapter, levels=7):
     """Record every action from each clean state reachable within `levels` actions."""
     adapter.reset()
@@ -49,7 +55,7 @@ def explore(adapter, levels=7):
         for sid in frontier:
             row = []
             for action in ACTIONS:
-                restore(adapter.database, states[sid])
+                _restore(adapter, states[sid])
                 before = adapter.snapshot()
                 if before != states[sid]:
                     raise AssertionError("state restoration is not exact")

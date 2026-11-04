@@ -184,3 +184,34 @@ class RecordedTableTest(unittest.TestCase):
         self.assertEqual((booking["status"], booking["paid"]), ("reserved", 1000))
         with self.assertRaises(KeyError):
             replay.execute(legitimate_seeds()[1][2])
+
+class ProspectiveMutantTest(unittest.TestCase):
+    def test_systematic_sites_cover_existing_variants_and_spec_mapping(self):
+        from integrations.salon_prospective.mutants import EXISTING, sites
+        from integrations.salon_prospective.spec import MAPPING
+        ids = [s["id"] for s in sites()]
+        self.assertEqual(len(ids), 18)
+        self.assertEqual(set(ids), set(MAPPING))
+        self.assertTrue(set(EXISTING) <= set(ids))
+
+    def test_spec_mutant_removes_only_the_mapped_guard(self):
+        from integrations.salon.oracle import expected
+        from integrations.salon_prospective.spec import mutant_expected
+        state = synthetic_state()
+        foreign = Action("read_booking", "alice", "b")
+        self.assertEqual(expected(state, foreign)[0], 404)
+        self.assertEqual(mutant_expected("read:31:1")(state, foreign)[0], 200)
+        # The read-scoped removal leaves transitions guarded.
+        self.assertEqual(mutant_expected("read:31:1")(state, Action("reserve", "alice", "b"))[0], 404)
+        self.assertEqual(mutant_expected("transition:51:1")(state, Action("reserve", "alice", "b"))[0], 200)
+
+def synthetic_state():
+    users = {"alice": {"tenant": "a", "role": "customer", "balance": 5000},
+             "bob": {"tenant": "b", "role": "customer", "balance": 5000},
+             "staff_a": {"tenant": "a", "role": "staff", "balance": 0},
+             "staff_b": {"tenant": "b", "role": "staff", "balance": 0}}
+    slots = {k: {"tenant": k, "service": "haircut", "price": p, "capacity": 1, "occupied": 0}
+             for k, p in (("a", 1000), ("b", 1500))}
+    bookings = {k: {"tenant": t, "customer": c, "slot": t, "status": "draft", "paid": 0, "refunded": 0}
+                for k, t, c in (("a", "a", "alice"), ("a2", "a", "alice"), ("b", "b", "bob"), ("b2", "b", "bob"))}
+    return {"users": users, "slots": slots, "bookings": bookings, "ledger": []}
