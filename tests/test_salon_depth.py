@@ -215,3 +215,10 @@ def synthetic_state():
     bookings = {k: {"tenant": t, "customer": c, "slot": t, "status": "draft", "paid": 0, "refunded": 0}
                 for k, t, c in (("a", "a", "alice"), ("a2", "a", "alice"), ("b", "b", "bob"), ("b2", "b", "bob"))}
     return {"users": users, "slots": slots, "bookings": bookings, "ledger": []}
+
+class InjectedMutantTest(unittest.TestCase):
+    def test_mutant_raises_the_application_exception_class(self):
+        import backends.salon.service as service
+        from integrations.salon_prospective.mutants import mutant_class
+        cls = mutant_class("transition:57:0")
+        self.assertIs(cls.transition.__globals__["Rejected"], service.Rejected)

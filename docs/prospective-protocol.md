@@ -58,3 +58,21 @@ The specification and implementation share an author. The mutants are generated
 systematically but come from one service and one operator family (guard-disjunct
 removal). This tests prediction across the specification/implementation boundary
 for new defects in a known system. It is not evidence about independent systems.
+
+## Execution log (appended after freezing)
+
+1. **Harness defect, first execution.** The mutant module was compiled with its own
+   copy of `Rejected`. The application maps only the original class to HTTP errors,
+   so every legitimate rejection became a 500, and all 1,260 campaigns "detected" a
+   `SERVER_ERROR`, including on the three mutants predicted to be equivalent. The
+   artifact is preserved in `results/prospective/harness-defect/raw.jsonl.gz`.
+
+   The fix rebinds the original class, and a unit test now pins this. Before any
+   campaign, `run` also requires that the injected mutants of the four known sites
+   reproduce their recorded variant tables. The frozen predictions and the analysis
+   plan were not changed.
+2. **Second execution.** All 1,260 campaigns used the same 30 seeds and settings.
+   Results are in `results/prospective/raw.jsonl.gz` and `comparison.json`:
+   - Pairwise order: 26/26 frozen orderings (probability gap >= 0.1) were reproduced.
+   - Calibration: 4 of 42 cells have binomial p < 0.05.
+   - The three bounded-equivalent mutants produced 0 detections in 270 campaigns.

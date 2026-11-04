@@ -59,6 +59,9 @@ def mutant_class(site_id):
     ast.fix_missing_locations(tree)
     namespace = {"__name__": "backends.salon.service_mutant"}
     exec(compile(tree, f"<mutant {site_id}>", "exec"), namespace)
+    # The application maps the original exception class to HTTP errors; a
+    # recompiled duplicate would turn every legitimate rejection into a 500.
+    namespace["Rejected"] = service_module.Rejected
     return namespace["SalonService"]
 
 @contextmanager

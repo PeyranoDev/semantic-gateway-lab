@@ -89,10 +89,37 @@ def _run_job(job):
     finally:
         adapter.close()
 
+def check_injection(levels=2):
+    """Injected AST mutants of the four known sites must reproduce the recorded variant tables."""
+    from integrations.salon.adapter import Adapter
+    from integrations.salon_depth.table import explore
+    from integrations.salon_prospective.mutants import EXISTING, injected
+    for site_id, variant in EXISTING.items():
+        recorded = json.loads(gzip.decompress(
+            (ROOT / "results/history-depth/tables" / (variant + ".json.gz")).read_bytes()))
+        with injected(site_id):
+            adapter = Adapter("fixed")
+        try:
+            table = explore(adapter, levels)
+        finally:
+            adapter.close()
+        ids = {json.dumps(s, sort_keys=True): i for i, s in enumerate(recorded["states"])}
+        for sid, row in table["edges"].items():
+            state = json.dumps(table["states"][int(sid)], sort_keys=True)
+            expected = recorded["edges"][str(ids[state])]
+            for (successor, response, violations), (r_successor, r_response, r_violations) in zip(row, expected):
+                same = (table["states"][successor] == recorded["states"][r_successor]
+                        and table["responses"][response] == recorded["responses"][r_response]
+                        and violations == r_violations)
+                if not same:
+                    raise SystemExit(f"injected mutant {site_id} differs from recorded {variant}")
+    print("injection check passed for", len(EXISTING), "known sites")
+
 def run():
     from multiprocessing import get_context
     if not (OUT / "predictions.json").exists():
         raise SystemExit("freeze predictions first")
+    check_injection()
     jobs = [(s, m) for s in new_sites() for m in MODES]
     with get_context("fork").Pool() as pool:
         rows = [r for chunk in pool.map(_run_job, jobs) for r in chunk]
