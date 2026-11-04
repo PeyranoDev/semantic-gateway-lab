@@ -5,6 +5,8 @@ Usage:
   python scripts/analyze_history_depth.py replay     # recorded campaigns reproduced on the tables
   python scripts/analyze_history_depth.py analyze    # depth, exact predictions, observed outcomes
   python scripts/analyze_history_depth.py stats      # exact McNemar, A12 and Holm for planned contrasts
+  python scripts/analyze_history_depth.py surrogate N  # real campaign code on the tables, N fresh seeds per cell
+  python scripts/analyze_history_depth.py fidelity   # tables versus executed action paths without restoration
 """
 from copy import deepcopy
 from dataclasses import asdict
@@ -219,5 +221,112 @@ def stats():
     (OUT / "paired-tests.json").write_text(json.dumps(output, indent=1, sort_keys=True) + "\n")
     return output
 
+SURROGATE_SEED = 1_000_000
+_SURROGATE = {}
+
+def _surrogate_job(job):
+    from integrations.salon.adapter import Adapter
+    from integrations.salon_depth.table import TableAdapter
+    from integrations.salon_ablation import experiment as v06
+    from integrations.salon_portfolio import experiment as v08
+    study, mode, variant, target, budget, seeds = job
+    if variant not in _SURROGATE:
+        _SURROGATE[variant] = (load(variant), Adapter(variant))
+    table, fallback = _SURROGATE[variant]
+    out = []
+    for seed in seeds:
+        inner = TableAdapter(table, fallback)
+        adapter = CopyingTableAdapter(inner)
+        if study == "v0.6":
+            row = v06.campaign(adapter, mode, target, seed, budget)
+        else:
+            row = v08.campaign(adapter, mode, seed, budget)
+        out.append((seed, row["detected"], row["calls"], inner.misses))
+    return job[:5], out
+
+def surrogate(n="2000"):
+    """Same campaign implementations and settings as v0.6/v0.8, many fresh seeds."""
+    import os
+    import time
+    from multiprocessing import get_context
+    n = int(n)
+    seeds = list(range(SURROGATE_SEED, SURROGATE_SEED + n))
+    chunks = [seeds[i:i + 250] for i in range(0, n, 250)]
+    jobs = []
+    for variant in VARIANTS[1:]:
+        for mode in ("random", "random_bootstrap", "seed_replay", "seed_extend", "mutation_unseeded",
+                     "sequence_uniform", "sequence_enabled", "sequence_enriched"):
+            jobs += [("v0.6", mode, variant, VARIANT_TARGET[variant], 120, c) for c in chunks]
+        for mode in ("random", "sequence_uniform", "portfolio_balanced"):
+            for budget in (120, 480):
+                jobs += [("v0.8", mode, variant, "ANY", budget, c) for c in chunks]
+    cells, started = {}, time.time()
+    with get_context("fork").Pool(os.cpu_count() or 4) as pool:
+        for done, (key, out) in enumerate(pool.imap_unordered(_surrogate_job, jobs), 1):
+            cells.setdefault(key, []).extend(out)
+            if done % 50 == 0 or done == len(jobs):
+                print(f"{done}/{len(jobs)} jobs, {round(time.time() - started)} s", flush=True)
+    result = []
+    for (study, mode, variant, target, budget), out in sorted(cells.items()):
+        out.sort()
+        result.append({"study": study, "mode": mode, "variant": variant, "target": target,
+                       "budget": budget, "seeds": [out[0][0], out[-1][0]], "n": len(out),
+                       "detected": sum(d for _, d, _, _ in out),
+                       "mean_capped_calls": sum(c for _, _, c, _ in out) / len(out),
+                       "fallback_misses": sum(m for *_, m in out),
+                       "outcomes": [[s, int(d), c] for s, d, c, _ in out]})
+    OUT.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps({"status": "surrogate replication on recorded tables; exploratory",
+                          "table_sha256": {v: sha256(table_path(v)) for v in VARIANTS},
+                          "cells": result}, sort_keys=True, separators=(",", ":")).encode()
+    (OUT / "surrogate.json.gz").write_bytes(gzip.compress(payload, mtime=0))
+    return result
+
+def fidelity(samples="60"):
+    """Reach sampled states by executing real action paths from reset, without restoration."""
+    import random as random_module
+    from integrations.salon.adapter import Adapter
+    from integrations.salon_depth.table import ACTIONS
+    report = {}
+    for variant in VARIANTS:
+        raw = load(variant)
+        edges = {int(k): v for k, v in raw["edges"].items()}
+        # Parent pointers along violation-free transitions from the initial state.
+        parent, order = {0: None}, [0]
+        for state in order:
+            for index, (successor, _, violations) in enumerate(edges.get(state, [])):
+                if not violations and successor not in parent and successor in edges:
+                    parent[successor] = (state, index)
+                    order.append(successor)
+        rng = random_module.Random(f"fidelity:{variant}")
+        chosen = rng.sample(order, min(int(samples), len(order)))
+        adapter = Adapter(variant)
+        compared = mismatched = 0
+        try:
+            for state in chosen:
+                path, cursor = [], state
+                while parent[cursor] is not None:
+                    cursor, index = parent[cursor]
+                    path.append(ACTIONS[index])
+                path.reverse()
+                for index, action in enumerate(ACTIONS):
+                    adapter.reset()
+                    for step in path:
+                        adapter.execute(step)
+                    if adapter.snapshot() != raw["states"][state]:
+                        raise AssertionError("path does not reach the recorded state")
+                    response = adapter.execute(action)
+                    successor, rid, _ = edges[state][index]
+                    compared += 1
+                    mismatched += (response != raw["responses"][rid]
+                                   or adapter.snapshot() != raw["states"][successor])
+        finally:
+            adapter.close()
+        report[variant] = {"states": len(chosen), "transitions": compared, "mismatched": mismatched}
+        print(variant, report[variant], flush=True)
+    (OUT / "fidelity.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    return report
+
 if __name__ == "__main__":
-    {"build": build, "replay": replay, "analyze": analyze, "stats": stats}[sys.argv[1]]()
+    {"build": build, "replay": replay, "analyze": analyze, "stats": stats,
+     "surrogate": surrogate, "fidelity": fidelity}[sys.argv[1]](*sys.argv[2:])

@@ -37,6 +37,42 @@ def two_step(state, action):
         return 2, ("REFUND_REPLAY",)
     return state, ()
 
+class _PathRng:
+    """Deterministic RNG that follows a prefix of choices and records branching factors."""
+
+    def __init__(self, path):
+        self.path, self.position, self.factors = path, 0, []
+
+    def _pick(self, size):
+        self.factors.append(size)
+        value = self.path[self.position] if self.position < len(self.path) else 0
+        self.position += 1
+        return value
+
+    def choice(self, values):
+        return values[self._pick(len(values))]
+
+    def randrange(self, stop):
+        return self._pick(stop)
+
+    def randint(self, low, high):
+        return low + self._pick(high - low + 1)
+
+def _all_choice_paths(source, donor):
+    stack, out = [[]], []
+    while stack:
+        path = stack.pop()
+        rng = _PathRng(path)
+        program, _ = Mutator(rng, 8).mutate(source, donor)
+        if len(rng.factors) > len(path):
+            stack.extend(path + [i] for i in range(rng.factors[len(path)]))
+            continue
+        p = Fraction(1)
+        for size in rng.factors:
+            p /= size
+        out.append((program, p))
+    return out
+
 class DepthModelTest(unittest.TestCase):
     def test_shortest_witness_counts_distinct_shortest_sequences(self):
         depth, witness, count = shortest_witness(synthetic(two_step), "REFUND_REPLAY")
@@ -59,20 +95,19 @@ class DepthModelTest(unittest.TestCase):
                     + Fraction(1, 3) * (n * n + (1 - n) * n * n + n * (1 - n) * n))
         self.assertEqual(episode.probability(), expected)
 
-    def test_mutation_enumeration_matches_the_mutator(self):
-        source, donor = legitimate_seeds()[0], legitimate_seeds()[3]
-        exact = Counter()
-        for program, p in mutations(source, donor):
-            exact[tuple(program)] += p
-        self.assertEqual(sum(exact.values()), 1)
-        rng = random.Random(7)
-        mutator = Mutator(rng, 8)
-        samples = 60000
-        observed = Counter(tuple(mutator.mutate(source, donor)[0]) for _ in range(samples))
-        distance = sum(abs(observed[k] / samples - float(exact[k]))
-                       for k in set(exact) | set(observed)) / 2
-        self.assertLess(distance, 0.04)
-        self.assertTrue(set(observed) <= set(exact))
+    def test_mutation_enumeration_equals_every_mutator_choice_path(self):
+        """Exhaustively drive Mutator.mutate through every random choice path."""
+        for source, donor in ((legitimate_seeds()[0], legitimate_seeds()[3]),
+                              (legitimate_seeds()[1], legitimate_seeds()[2]),
+                              ([Action("pay", "bob", "b")], legitimate_seeds()[1])):
+            exact = Counter()
+            for program, p in mutations(source, donor):
+                exact[tuple(program)] += p
+            walked = Counter()
+            for program, p in _all_choice_paths(source, donor):
+                walked[tuple(program)] += p
+            self.assertEqual(sum(exact.values()), 1)
+            self.assertEqual(walked, exact)
 
     def test_mutation_episode_uses_uniform_source_and_donor(self):
         table = synthetic(two_step)

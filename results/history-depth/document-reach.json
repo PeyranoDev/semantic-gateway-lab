@@ -1,0 +1,137 @@
+{
+ "cells": [
+  {
+   "approx_p_mutation_3000": 1.0,
+   "approx_p_random_3000": 1.0,
+   "mean_mutation_episode_calls": 4.9,
+   "mutant": "cross_department_read",
+   "observed_random": 10,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.1101,
+   "p_random_episode": 0.868,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.6315537922492724,
+   "approx_p_random_3000": 0.713551214654589,
+   "mean_mutation_episode_calls": 5.066,
+   "mutant": "wrong_recipient",
+   "observed_random": 8,
+   "observed_sequence_uniform": 4,
+   "p_mutation_episode": 0.0017,
+   "p_random_episode": 0.0083,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.9999998700166921,
+   "approx_p_random_3000": 0.014888799279872633,
+   "mean_mutation_episode_calls": 4.997,
+   "mutant": "sharing_overwrite",
+   "observed_random": 1,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.0263,
+   "p_random_episode": 0.0001,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.9002490991889853,
+   "approx_p_random_3000": 0.826255722468883,
+   "mean_mutation_episode_calls": 5.04,
+   "mutant": "unauthorized_revoke",
+   "observed_random": 8,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.0039,
+   "p_random_episode": 0.0116,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.5351836357979267,
+   "approx_p_random_3000": 0.4760666189869437,
+   "mean_mutation_episode_calls": 5.048,
+   "mutant": "approval_scope",
+   "observed_random": 4,
+   "observed_sequence_uniform": 6,
+   "p_mutation_episode": 0.0013,
+   "p_random_episode": 0.0043,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.9999997619973694,
+   "approx_p_random_3000": 0.0,
+   "mean_mutation_episode_calls": 5.015,
+   "mutant": "approval_replay",
+   "observed_random": 0,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.0254,
+   "p_random_episode": 0.0,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.999999576110555,
+   "approx_p_random_3000": 0.7537793639415643,
+   "mean_mutation_episode_calls": 5.005,
+   "mutant": "missing_approval",
+   "observed_random": 9,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.0244,
+   "p_random_episode": 0.0093,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 1.0,
+   "approx_p_random_3000": 1.0,
+   "mean_mutation_episode_calls": 3.834,
+   "mutant": "deny_audit",
+   "observed_random": 10,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.538,
+   "p_random_episode": 1.0,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 1.0,
+   "approx_p_random_3000": 1.0,
+   "mean_mutation_episode_calls": 4.454,
+   "mutant": "list_scope",
+   "observed_random": 10,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.1801,
+   "p_random_episode": 0.8803,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.856880989371203,
+   "approx_p_random_3000": 1.0,
+   "mean_mutation_episode_calls": 5.055,
+   "mutant": "unauthorized_update",
+   "observed_random": 10,
+   "observed_sequence_uniform": 6,
+   "p_mutation_episode": 0.0033,
+   "p_random_episode": 0.3479,
+   "runs": 10,
+   "samples": 10000
+  },
+  {
+   "approx_p_mutation_3000": 0.9260185812038375,
+   "approx_p_random_3000": 0.999999996232147,
+   "mean_mutation_episode_calls": 5.035,
+   "mutant": "cross_department_share",
+   "observed_random": 10,
+   "observed_sequence_uniform": 10,
+   "p_mutation_episode": 0.0044,
+   "p_random_episode": 0.1213,
+   "runs": 10,
+   "samples": 10000
+  }
+ ],
+ "status": "exploratory Monte Carlo; legacy random uses its own action sampler"
+}
