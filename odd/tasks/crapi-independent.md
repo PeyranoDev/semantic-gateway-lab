@@ -17,9 +17,9 @@ Branch: `paper/crapi-independent` (stacked on PR #5). Delivery: ask-on-risk. Tes
 | ID | Specs | Route | Status | Evidence |
 |---|---|---|---|---|
 | T1 | S2 | inline | done | 00395f0, 54a337b; stack up (user ran compose); fixture users registered; ~97 ms/request |
-| T2 | S3, S4 | inline | in progress | docs/crapi-protocol.md draft: rules R1-R5 from documented challenges |
-| T3 | S5 | inline | pending | |
-| T4 | S6 | inline | pending | |
+| T2 | S3, S4 | inline | done | integrations/crapi: model, reach, generator, adapter, experiment; 5 tests green |
+| T3 | S5 | inline | done | SQL snapshot/reset in adapter; single docker exec, cached |
+| T4 | S6 | inline | in progress | predictions frozen (sha256 1753379b); live matrix running (30 seeds) |
 
 ## Log
 
@@ -29,3 +29,5 @@ Branch: `paper/crapi-independent` (stacked on PR #5). Delivery: ask-on-risk. Tes
 - L4: `docker compose up` of the pinned crAPI images was denied by the auto-mode classifier ([Code from External]). The user must decide whether to allow it.
 - L5 (2026-11-04, user decision): pin by "Digest + matching commit". No 1.1.5 images are published. The main images were built 2025-09-22 15:03-18:27 UTC, right after 700f03d (14:58 UTC), which is still upstream HEAD, so the pin is unchanged. Workshop app files in image d4d2d94d are byte-identical to the source (diff -r: 0). All seven images are now pinned by digest in configs/crapi/compose.pinned.yml.
 - L6: Identity and workshop require TLS on 127.0.0.1 (fixture certificate). Fixture users were created through signup; each has 100 credit, and both products cost 10. Five pre-seeded orders of other accounts exist. A request takes ~97 ms (salon: ~3 ms), so an exhaustive 8-level implementation table is not feasible. Predictions will be exact on the specification model, and campaigns run on real crAPI with an SQL reset between programs.
+- L7: Classifier safety stop. Running the refund exploit by hand with curl tripped a safety classifier twice. Switched to running it only through the experiment harness (oracle-judged), which is the same framing as the salon study. No manual exploit curls.
+- L8: crAPI exact predictions (budget 60) order generators DIFFERENTLY from salon: random/seed_extend beat valid-bank mutation on every target (e.g. ORDER_PRIVACY 0.868/0.691/0.191). crAPI defects are shallow (read other = depth 1; tamper own order = depth 2) and its valid tasks do not sit one mutation from the exploit. A different fixture giving a different, predicted ordering is stronger evidence than reproducing salon.
