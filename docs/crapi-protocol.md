@@ -1,4 +1,8 @@
-# crAPI shop study: specification and protocol (draft, not yet frozen)
+# crAPI shop study: specification and protocol
+
+**Status: frozen.** Predictions are committed in `results/crapi/predictions.json`
+(sha256 `1753379b75ee9e6ddc063e67c37f176de93281544d506c710e3e3131cf297aa5`, commit
+443cd15) before any live crAPI campaign was run. Live campaigns are under way.
 
 ## Purpose
 
@@ -37,7 +41,7 @@ descriptions are a second source.
 study, before this specification was written. The rules above cite documentation
 only. They have not had external review.
 
-## Finite domain (to be fixed with the implementation adapter)
+## Finite domain
 
 - Actors: alice, bob.
 - Operations: buy product 1 with quantity 1; read order; set order status to
@@ -64,7 +68,7 @@ Under the documented-defect hypothesis, the shortest witnesses are:
 
 `RETURN_RULES` has no violating program, so it is a negative control.
 
-## Analysis plan (to be frozen with the predictions)
+## Analysis plan (frozen with the predictions)
 
 The plan mirrors `docs/prospective-protocol.md`:
 - generator order on pairs separated by at least 0.1 in probability;

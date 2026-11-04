@@ -1,0 +1,254 @@
+{
+ "confirm_unpaid": {
+  "drop_confirm": {
+   "order": [
+    "seed_extend",
+    "random",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.0653,
+    "seed_extend": 0.1011,
+    "sequence_uniform": 0.0054
+   }
+  },
+  "drop_read": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0653,
+    "seed_extend": 0.0921,
+    "sequence_uniform": 0.7971
+   }
+  },
+  "drop_rebook": {
+   "order": [
+    "sequence_uniform",
+    "random",
+    "seed_extend"
+   ],
+   "p": {
+    "random": 0.0653,
+    "seed_extend": 0.0134,
+    "sequence_uniform": 0.8286
+   }
+  },
+  "drop_refund": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0653,
+    "seed_extend": 0.1059,
+    "sequence_uniform": 0.8666
+   }
+  },
+  "full": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0653,
+    "seed_extend": 0.0742,
+    "sequence_uniform": 0.7132
+   }
+  },
+  "winner_stable": false
+ },
+ "read_scope": {
+  "drop_confirm": {
+   "order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.9964,
+    "seed_extend": 0.903,
+    "sequence_uniform": 0.3584
+   }
+  },
+  "drop_read": {
+   "order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.9964,
+    "seed_extend": 0.8775,
+    "sequence_uniform": 0.1811
+   }
+  },
+  "drop_rebook": {
+   "order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.9964,
+    "seed_extend": 0.903,
+    "sequence_uniform": 0.3584
+   }
+  },
+  "drop_refund": {
+   "order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.9964,
+    "seed_extend": 0.9251,
+    "sequence_uniform": 0.3948
+   }
+  },
+  "full": {
+   "order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.9964,
+    "seed_extend": 0.8886,
+    "sequence_uniform": 0.3064
+   }
+  },
+  "winner_stable": true
+ },
+ "refund_replay": {
+  "drop_confirm": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0,
+    "seed_extend": 0.0759,
+    "sequence_uniform": 0.5489
+   }
+  },
+  "drop_read": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0,
+    "seed_extend": 0.0725,
+    "sequence_uniform": 0.5059
+   }
+  },
+  "drop_rebook": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0,
+    "seed_extend": 0.0759,
+    "sequence_uniform": 0.5489
+   }
+  },
+  "drop_refund": {
+   "order": [
+    "seed_extend",
+    "random",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.0,
+    "seed_extend": 0.0,
+    "sequence_uniform": 0.0
+   }
+  },
+  "full": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.0,
+    "seed_extend": 0.0541,
+    "sequence_uniform": 0.4213
+   }
+  },
+  "winner_stable": false
+ },
+ "slot_capacity": {
+  "drop_confirm": {
+   "order": [
+    "sequence_uniform",
+    "random",
+    "seed_extend"
+   ],
+   "p": {
+    "random": 0.1264,
+    "seed_extend": 0.0249,
+    "sequence_uniform": 0.8954
+   }
+  },
+  "drop_read": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.1264,
+    "seed_extend": 0.1747,
+    "sequence_uniform": 0.8795
+   }
+  },
+  "drop_rebook": {
+   "order": [
+    "seed_extend",
+    "random",
+    "sequence_uniform"
+   ],
+   "p": {
+    "random": 0.1264,
+    "seed_extend": 0.1911,
+    "sequence_uniform": 0.0321
+   }
+  },
+  "drop_refund": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.1264,
+    "seed_extend": 0.2012,
+    "sequence_uniform": 0.9262
+   }
+  },
+  "full": {
+   "order": [
+    "sequence_uniform",
+    "seed_extend",
+    "random"
+   ],
+   "p": {
+    "random": 0.1264,
+    "seed_extend": 0.1421,
+    "sequence_uniform": 0.8036
+   }
+  },
+  "winner_stable": false
+ }
+}

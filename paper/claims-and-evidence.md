@@ -14,7 +14,7 @@ Niveles de evidencia: **validación** (el pipeline reproduce lo registrado),
 | La clave enriquecida sólo ayuda en sobreventa | Exploratoria | +20,7 ± 3,6 puntos; las otras tres incluyen cero | Un servicio |
 | La profundidad es un proxy; el alcance por episodio explica `wrong_recipient` | Exploratoria | Monte Carlo de 10.000 episodios por defecto en el benchmark de documentos | n = 10 no confirma la dirección presupuestaria |
 | Predicciones desde la especificación ordenan generadores en defectos nuevos | Prospectiva | 26/26 pares (brecha ≥ 0,1); 3 mutantes equivalentes con 0/270 detecciones | La regla de profundidad también acierta 15/15; el alcance agrega 11 pares con extensión |
-| Calibración por celda compatible con muestreo | Prospectiva + diagnóstico | 3/20 celdas informativas con p < 0,05; grafos especificación/implementación idénticos; 3.000–9.000 semillas reproducen lo congelado | Diagnóstico post hoc |
+| Calibración por celda compatible con muestreo | Prospectiva + diagnóstico | Métrica congelada: 4/42 celdas con p < 0,05 (se esperan ~2 por azar); 3/20 en el subconjunto no degenerado (secundario); grafos impl/espec idénticos en las 4 celdas desviadas; 3.000–12.000 semillas reproducen lo congelado | El mapeo espec→impl está escrito a mano; 7 de 14 mutantes sin comparar grafo |
 | Errores HTTP pueden acompañar escrituras de negocio | Exploratoria | Testigos de invitaciones en Aoristo y parche con rollback | Hecho del caso |
 | Se ejecutó un generador externo oficial | Exploratoria | v0.7: RESTler, 60 campañas, 31 trazas revalidadas | Checkers nativos desactivados; sin alcance del reembolso |
 
