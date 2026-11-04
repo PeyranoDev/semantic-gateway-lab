@@ -1,0 +1,152 @@
+[
+  {
+    "identical": true,
+    "mode": "restler_bfs",
+    "search_stream_sha256": [
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43",
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43",
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "fixed"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs_cheap",
+    "search_stream_sha256": [
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f",
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f",
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "fixed"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs",
+    "search_stream_sha256": [
+      "20fef59d8df4717ce4107beb96efea7b0b25aa9fc60604a246c3ef4f492e9c8d",
+      "20fef59d8df4717ce4107beb96efea7b0b25aa9fc60604a246c3ef4f492e9c8d",
+      "20fef59d8df4717ce4107beb96efea7b0b25aa9fc60604a246c3ef4f492e9c8d"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "read_scope"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs_cheap",
+    "search_stream_sha256": [
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f",
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f",
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "read_scope"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs",
+    "search_stream_sha256": [
+      "8029283d4cf94cd3f8592eb89ab6669639dac627cdeb0ca1806c048b63149138",
+      "8029283d4cf94cd3f8592eb89ab6669639dac627cdeb0ca1806c048b63149138",
+      "8029283d4cf94cd3f8592eb89ab6669639dac627cdeb0ca1806c048b63149138"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "slot_capacity"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs_cheap",
+    "search_stream_sha256": [
+      "42791e63a420f0e4c18c906316ca9a27b048c220e9f93fe1e42b112ceed7eb94",
+      "42791e63a420f0e4c18c906316ca9a27b048c220e9f93fe1e42b112ceed7eb94",
+      "42791e63a420f0e4c18c906316ca9a27b048c220e9f93fe1e42b112ceed7eb94"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "slot_capacity"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs",
+    "search_stream_sha256": [
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43",
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43",
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "confirm_unpaid"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs_cheap",
+    "search_stream_sha256": [
+      "227432f36750970f943df04578fdc2ce2f6c0cefd490128c96dbd53055e13a67",
+      "227432f36750970f943df04578fdc2ce2f6c0cefd490128c96dbd53055e13a67",
+      "227432f36750970f943df04578fdc2ce2f6c0cefd490128c96dbd53055e13a67"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "confirm_unpaid"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs",
+    "search_stream_sha256": [
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43",
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43",
+      "b4fa62f4ab3f5d5ae6aaca714a5cbb6ad0d4df5cb8c55a721b8ddde8c9738a43"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "refund_replay"
+  },
+  {
+    "identical": true,
+    "mode": "restler_bfs_cheap",
+    "search_stream_sha256": [
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f",
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f",
+      "cec168b87b610bb2446d4b8d8e1fde03e98f4cf490d35d2ad097b96b93df1e5f"
+    ],
+    "seeds": [
+      700,
+      701,
+      702
+    ],
+    "variant": "refund_replay"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "artifact_id": 11927202027,
+  "artifact_sha256": "97e6ff731a4f15869af17f247e06fef82669ba7daa7ab16e598fc3f1f0df3dee",
+  "job": 116088449674,
+  "lab_source_commit": "8061df5a24e21eb8ca044bde39e5d0bcdabe6169",
+  "official_restler_commit": "6d984deedbc54aad957fa3da0c7e9e5df23a2aee",
+  "role": "Completed setup pilot; no pooled rerun and no superiority claim.",
+  "workflow_run": 38632820433,
+  "workflow_url": "https://github.com/PeyranoDev/semantic-gateway-lab/actions/runs/38632820433"
+}
