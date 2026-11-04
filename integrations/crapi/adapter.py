@@ -31,17 +31,42 @@ def _request(method, url, body=None, token=None):
     except urllib.error.HTTPError as error:
         return error.code, error.read()
 
-def _psql(*statements):
-    args = ["docker", "exec", "postgresdb", "psql", "-U", "admin", "-d", "crapi", "-At", "-F", "\t"]
-    for sql in statements:
-        args += ["-c", sql]
-    out = subprocess.run(args, capture_output=True, text=True, check=True)
-    return [line.split("\t") for line in out.stdout.splitlines() if line]
+class _Psql:
+    """Persistent `psql` over `docker exec -i`, to avoid per-query container startup."""
+
+    _MARKER = "__sglab_end__"
+
+    def __init__(self):
+        self.process = subprocess.Popen(
+            ["docker", "exec", "-i", "postgresdb", "psql", "-U", "admin", "-d", "crapi",
+             "-At", "-F", "\t", "-q"],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+
+    def __call__(self, *statements):
+        self.process.stdin.write("".join(s.rstrip(";") + ";\n" for s in statements))
+        self.process.stdin.write(f"\\echo {self._MARKER}\n")
+        self.process.stdin.flush()
+        rows = []
+        for line in self.process.stdout:
+            line = line.rstrip("\n")
+            if line == self._MARKER:
+                break
+            if line and not line.startswith("ERROR"):
+                rows.append(line.split("\t"))
+        return rows
+
+    def close(self):
+        try:
+            self.process.stdin.close()
+            self.process.wait(timeout=5)
+        except Exception:  # noqa: BLE001
+            self.process.kill()
 
 class Adapter:
     """One campaign actor-set. Symbolic order targets bind to concrete ids per episode."""
 
     def __init__(self):
+        self._db = _Psql()
         self.tokens = {}
         self.user_id = {}
         for actor, cred in FIXTURE.items():
@@ -53,25 +78,25 @@ class Adapter:
             if status != 200:
                 raise AssertionError("fixture login failed")
             self.tokens[actor] = json.loads(body)["token"]
-        for row in _psql("select id,email from user_login where email like 'sglab-%'"):
+        for row in self._db("select id,email from user_login where email like 'sglab-%'"):
             for actor, cred in FIXTURE.items():
                 if cred["email"] == row[1]:
                     self.user_id[actor] = int(row[0])
         self.created = {a: [] for a in ACTORS}
         self.other_order = None
         self._cache = None
-        self._seller = next(r[0] for r in _psql(
+        self._seller = next(r[0] for r in self._db(
             "select id from user_login where id not in ({}) order by id limit 1".format(
                 ",".join(str(i) for i in self.user_id.values()))))
 
     def reset(self):
         ids = ",".join(str(i) for i in self.user_id.values())
         # One docker exec: clear fixture orders, restore credit, seed one foreign order.
-        _psql(f"delete from \"order\" where user_id in ({ids})",
+        self._db(f"delete from \"order\" where user_id in ({ids})",
               f"update user_details set available_credit=100 where user_id in ({ids})",
               "insert into \"order\"(user_id,product_id,quantity,status,created_on,transaction_id) "
               f"values ({self._seller},1,2,'delivered',now(),gen_random_uuid())")
-        self.other_order = int(_psql(
+        self.other_order = int(self._db(
             f"select max(id) from \"order\" where user_id={self._seller}")[0][0])
         self.created = {a: [] for a in ACTORS}
         self._cache = None
@@ -90,7 +115,7 @@ class Adapter:
         state = {"credit": {}, "count": {a: len(self.created[a]) for a in ACTORS},
                  "orders": {}}
         order_ids = [str(self.other_order)] + [str(i) for a in ACTORS for i in self.created[a]]
-        rows = _psql("select 'c',user_id::text,available_credit::text,'' from user_details "
+        rows = self._db("select 'c',user_id::text,available_credit::text,'' from user_details "
                      f"where user_id in ({','.join(ids)}) "
                      "union all select 'o',id::text,user_id::text,quantity||':'||status from \"order\" "
                      f"where id in ({','.join(order_ids)})")
@@ -122,7 +147,7 @@ class Adapter:
         if op == "buy":
             status, body = _request("POST", WORKSHOP + "/orders", {"product_id": 1, "quantity": 1}, token)
             if status == 200:
-                new = int(_psql(f"select max(id) from \"order\" where user_id={self.user_id[action.actor]}")[0][0])
+                new = int(self._db(f"select max(id) from \"order\" where user_id={self.user_id[action.actor]}")[0][0])
                 if new not in self.created[action.actor]:
                     self.created[action.actor].append(new)
             return {"allowed": status == 200}
