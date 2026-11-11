@@ -49,7 +49,8 @@ from 0--13\% to 43--79\% at 120 calls, while cross-scope reading moves the other
 only from a specification model and frozen by hash reproduce every generator ordering on
 14 systematically generated mutants. On OWASP crAPI, a service authored by others, frozen
 specification-derived predictions reproduce all nine generator orderings against 450 live
-campaigns with no cell deviating at $p<0.05$, and the generator fingerprint differs from
+campaigns (one of fifteen calibration cells deviating at $p<0.05$, within chance), and the
+generator fingerprint differs from
 the authored service exactly as the model predicts. The contribution is a method that
 turns generator choice from trial into computation; it is not a new fuzzing algorithm, a
 security proof, or a claim of superiority over any tool.
@@ -563,19 +564,43 @@ environment change is pointing crAPI's unused external payment gateway at a dead
 order reads do not stall; it never affects the oracle.
 
 The frozen predictions reproduce all nine generator orderings whose probabilities differ
-by at least 0.1, with no cell deviating from its predicted detection at $p<0.05$, and two
-rule families with no reachable violation yield 0 of 30 for every generator, as predicted.
-The generator fingerprint differs from the authored salon service, and the model predicted
-the difference: crAPI's defects are shallow (reading another user's order is depth 1;
-tampering with status or quantity is depth 2), so random and valid-prefix extension beat
-valid-bank mutation on all three detected families --- the reverse of the salon
-history-dependent defects. Order-privacy (depth 1) is won by random (28/30); order
-tampering and refund-without-return (depth 2) by valid-prefix extension (24/30 and 17/30);
-valid-bank mutation is weakest on each (9, 8 and 3 of 30), because crAPI's valid tasks do
-not sit one mutation from these witnesses. This is prediction across the
-specification/implementation boundary on a service of another author; crAPI remains an
-intentionally vulnerable training application with public challenges, so this is
-implementation independence, not discovery of unknown defects.
+by at least 0.1 (Table~\ref{tab:crapi}), and two rule families with no reachable violation
+yield 0 of 30 for every generator, as predicted. One of the fifteen cells deviates from
+its predicted detection at $p<0.05$ (order-privacy under prefix extension, 15/30 observed
+vs.\ 20.7 predicted, $p=0.029$); with fifteen cells about one such deviation is expected
+by chance, and it does not change any ordering. The generator fingerprint differs from the
+authored salon service, and the model predicted the difference: crAPI's defects are
+shallow (reading another user's order is depth 1; tampering with status or quantity is
+depth 2), so random and valid-prefix extension beat valid-bank mutation on all three
+detected families --- the reverse of the salon history-dependent defects. Order-privacy
+(depth 1) is won by random (28/30); order tampering and refund-without-return (depth 2) by
+valid-prefix extension (24/30 and 16/30); valid-bank mutation is weakest on each (9, 8 and
+3 of 30), because crAPI's valid tasks do not sit one mutation from these witnesses. This
+is prediction across the specification/implementation boundary on a service of another
+author; crAPI remains an intentionally vulnerable training application with public
+challenges, so this is implementation independence, not discovery of unknown defects.
+
+\begin{table}[t]
+\caption{crAPI: frozen predicted detection probability vs.\ observed detections out of 30,
+by generator. Episodes stop only at the target property (Section~\ref{sec:dp}). All nine
+separated orderings hold; one of fifteen cells deviates at $p<0.05$ ($\ast$).}
+\label{tab:crapi}
+\centering
+\footnotesize
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+& \multicolumn{2}{c}{Random} & \multicolumn{2}{c}{Prefix ext.} & \multicolumn{2}{c}{Mutation} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Rule family & pred & obs & pred & obs & pred & obs \\
+\midrule
+Order privacy (d1)        & 0.87 & 28 & 0.69 & 15$^\ast$ & 0.19 & 9 \\
+Order tampering (d2)      & 0.42 & 13 & 0.68 & 24 & 0.15 & 8 \\
+Refund w/o return (d2)    & 0.24 & 8  & 0.39 & 16 & 0.08 & 3 \\
+Refund $>$ payment (d3)   & 0.01 & 1  & 0.01 & 0  & 0.00 & 0 \\
+Return rules (control)    & 0.00 & 0  & 0.00 & 0  & 0.00 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Discussion}
 \textbf{A precomputation before fuzzing.} When the action domain is finite and the
