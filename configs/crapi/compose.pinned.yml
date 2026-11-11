@@ -1,0 +1,38 @@
+# Compose override for crAPI at revision 700f03d12a392d9e408260b4beae72ed02a4a1a4.
+# No 1.1.5 images are published. The `main` images were built 2025-09-22, 5-209 minutes
+# after that commit, which is still upstream main HEAD. The workshop application
+# files in the image are byte-identical to the pinned source (diff -r: 0 differences).
+# Use with the upstream file:
+#   docker compose -p crapi-sglab -f <crAPI>/deploy/docker/docker-compose.yml \
+#     -f configs/crapi/compose.pinned.yml up -d --wait crapi-workshop
+# The study calls identity, community and workshop directly on 127.0.0.1. crapi-web
+# (nginx) is not started: its configuration requires the chatbot upstream, and it only
+# routes requests. The chatbot and chromadb stacks are not started.
+services:
+  crapi-identity:
+    image: crapi/crapi-identity@sha256:5d1db5b3ba8e02bc68711ec6fc4e35ed7cd8b87e63785ece9e7ff5b5e36c5260
+    ports:
+      - "127.0.0.1:8080:8080"
+  crapi-community:
+    image: crapi/crapi-community@sha256:8ba0c7eda86ae065a673f1fa554d0109a24f25c5a8d65097ae024e5ee715c54e
+    ports:
+      - "127.0.0.1:8087:8087"
+  crapi-workshop:
+    image: crapi/crapi-workshop@sha256:d4d2d94d35a31e211b04d5a771881f5ae13e358e8fa0804463ae3bace05dd815
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      # GET /shop/orders/{id} calls the external payment gateway (gateway-service,
+      # not started here) with a 5 s timeout, caught and discarded (payment={}). The
+      # gateway is outside the authorization domain under test and never affects the
+      # oracle, which reads status and SQL state only. Point it at a dead local port so
+      # the call is refused instantly instead of hanging 5 s on every order read.
+      - API_GATEWAY_URL=http://127.0.0.1:9
+  crapi-web:
+    image: crapi/crapi-web@sha256:b27d246c646bd33898e7d1d2095b6e7576c0993a7b81a73aa7386929493d7151
+  mailhog:
+    image: crapi/mailhog@sha256:015c23f79d40c9dc1800cd0a458503b89aeda3b585a12c37d53829d6c7d61fdd
+  postgresdb:
+    image: postgres@sha256:a26d06e6878f114ab53aace021fd9c599b498cca4c5ba2c18b34aee472f20148
+  mongodb:
+    image: mongo@sha256:4be76f674fc4b27859816811b8baa3c51830eb1dbf4ca81a51e26b79edd662ef

@@ -1,0 +1,164 @@
+{
+ "budget": 60,
+ "depth": 8,
+ "documented_defects": [
+  "edit_quantity_denied",
+  "edit_status_denied",
+  "read_owner"
+ ],
+ "modes": [
+  "random",
+  "seed_extend",
+  "sequence_uniform"
+ ],
+ "predictions": [
+  {
+   "expanded_states": 2775,
+   "modes": {
+    "random": {
+     "mean_capped_calls": 26.265,
+     "p_detect": 0.868365
+    },
+    "seed_extend": {
+     "mean_capped_calls": 42.915,
+     "p_detect": 0.69072
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 55.777,
+     "p_detect": 0.191067
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "target": "ORDER_PRIVACY"
+  },
+  {
+   "expanded_states": 161,
+   "modes": {
+    "random": {
+     "mean_capped_calls": 46.887,
+     "p_detect": 0.418997
+    },
+    "seed_extend": {
+     "mean_capped_calls": 43.411,
+     "p_detect": 0.675625
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 56.761,
+     "p_detect": 0.147407
+    }
+   },
+   "predicted_order": [
+    "seed_extend",
+    "random",
+    "sequence_uniform"
+   ],
+   "target": "ORDER_TAMPERING"
+  },
+  {
+   "expanded_states": 609,
+   "modes": {
+    "random": {
+     "mean_capped_calls": 52.849,
+     "p_detect": 0.238421
+    },
+    "seed_extend": {
+     "mean_capped_calls": 51.296,
+     "p_detect": 0.389053
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 58.342,
+     "p_detect": 0.076472
+    }
+   },
+   "predicted_order": [
+    "seed_extend",
+    "random",
+    "sequence_uniform"
+   ],
+   "target": "REFUND_WITHOUT_RETURN"
+  },
+  {
+   "expanded_states": 2002,
+   "modes": {
+    "random": {
+     "mean_capped_calls": 59.841,
+     "p_detect": 0.005655
+    },
+    "seed_extend": {
+     "mean_capped_calls": 59.818,
+     "p_detect": 0.009031
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 60.0,
+     "p_detect": 0.0
+    }
+   },
+   "predicted_order": [
+    "seed_extend",
+    "random",
+    "sequence_uniform"
+   ],
+   "target": "REFUND_EXCEEDS_PAYMENT"
+  },
+  {
+   "expanded_states": 2775,
+   "modes": {
+    "random": {
+     "mean_capped_calls": 60.0,
+     "p_detect": 0.0
+    },
+    "seed_extend": {
+     "mean_capped_calls": 60.0,
+     "p_detect": 0.0
+    },
+    "sequence_uniform": {
+     "mean_capped_calls": 60.0,
+     "p_detect": 0.0
+    }
+   },
+   "predicted_order": [
+    "random",
+    "seed_extend",
+    "sequence_uniform"
+   ],
+   "target": "RETURN_RULES"
+  }
+ ],
+ "seeds": [
+  700,
+  701,
+  702,
+  703,
+  704,
+  705,
+  706,
+  707,
+  708,
+  709,
+  710,
+  711,
+  712,
+  713,
+  714,
+  715,
+  716,
+  717,
+  718,
+  719,
+  720,
+  721,
+  722,
+  723,
+  724,
+  725,
+  726,
+  727,
+  728,
+  729
+ ],
+ "status": "frozen specification-derived predictions; no live crAPI executed"
+}

@@ -288,3 +288,19 @@ python -m pip install -r backends/salon/requirements.lock
 TMPDIR=/dev/shm python scripts/analyze_history_depth.py replay
 TMPDIR=/dev/shm python scripts/prospective_salon.py compare
 ```
+
+## Servicio independiente: OWASP crAPI (v0.10)
+
+Primer servicio medido que no fue escrito por este proyecto. Se estudia la tienda de
+crAPI (órdenes, devoluciones, reembolsos) en la revisión fijada `700f03d1`, con todas
+las imágenes fijadas por digest (`configs/crapi/compose.pinned.yml`). La especificación
+se escribió desde los desafíos documentados; las predicciones de alcance se congelaron
+por hash antes de correr nada.
+
+- 450 campañas en vivo (3 generadores × 5 familias de reglas × 30 semillas).
+- Las predicciones congeladas reprodujeron **9/9** órdenes de generadores; **ninguna**
+  celda se desvía a p<0,05; 2 familias de control dieron 0/30.
+- El orden de generadores en crAPI **difiere** del salón (acá gana azar/extensión por
+  defectos poco profundos), y el modelo lo predijo.
+
+[Protocolo](docs/crapi-protocol.md) · resultados en `results/crapi/`.

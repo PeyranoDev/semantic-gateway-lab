@@ -33,3 +33,11 @@
 - Generate 18 guard-disjunct mutants by AST; freeze specification-derived predictions for 14 new mutants before running 1,260 real campaigns (26/26 orderings; 3 bounded-equivalent mutants with 0/270). Document and fix a harness defect from the first execution.
 - Run the HTTP/SQL contract tests in CI with the pinned salon dependencies.
 - Rewrite the manuscript around exact reach probabilities with explicit evidence tiers.
+
+## v0.10 research phase: independent service (OWASP crAPI)
+
+- Run pinned crAPI 1.1.5 (revision 700f03d1) by image digest, shop domain only, without the chatbot/web stacks.
+- Write a specification of crAPI's intended shop behavior from its documented challenges; freeze specification-derived reach predictions by hash before any live campaign.
+- Run 450 live HTTP/SQL campaigns; frozen predictions reproduce all 9 generator orderings with no cell deviating at p<0.05, and both control families are 0/30.
+- Record and fix two harness issues found only by executing against an external service: a credit-unit mismatch in the adapter oracle, and a 5s stall from crAPI's unused payment gateway (pointed at a dead port; behavior unchanged).
+- Add the crAPI independence section to the manuscript and the claims ledger.
