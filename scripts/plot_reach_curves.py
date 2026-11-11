@@ -75,7 +75,7 @@ def main(destination="paper/figures"):
     fig.tight_layout(rect=(0, .08, 1, .96))
     out = ROOT / destination
     out.mkdir(parents=True, exist_ok=True)
-    for suffix in ("svg", "png"):
+    for suffix in ("svg", "png", "pdf"):
         fig.savefig(out / f"reach-curves.{suffix}", dpi=160)
     print("wrote", out / "reach-curves.svg")
 
