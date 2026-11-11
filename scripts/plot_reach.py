@@ -53,7 +53,7 @@ def main(destination="paper/figures"):
     fig.tight_layout(rect=(0, .1, 1, 1))
     out = ROOT / destination
     out.mkdir(parents=True, exist_ok=True)
-    for suffix in ("svg", "png"):
+    for suffix in ("svg", "png", "pdf"):
         fig.savefig(out / f"reach-calibration.{suffix}", dpi=160, metadata={"Date": None} if suffix == "svg" else None)
     print("wrote", out / "reach-calibration.svg")
 
