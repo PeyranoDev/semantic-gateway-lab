@@ -105,7 +105,13 @@ No external tool implementation is included in the measured treatment matrices.
 
 27. Andrea Arcuri, Omur Sahin and Man Zhang. *Fuzzing for Detecting Access Policy
     Violations in REST APIs.* IEEE International Symposium on Software Reliability
-    Engineering (ISSRE), 2025. Cited from the bibliography of [19]; pages and DOI not verified.
+    Engineering (ISSRE), 2025. The conference version of [19]: three access-policy
+    oracles over 3 artificial and 13 real-world APIs (the journal [19] extends these to
+    nine oracles over 52 APIs). Pages and DOI not verified.
 
-Review scope: full texts were read for [19] and [22]. For [20], [21] and [23]–[27],
-only bibliographic metadata and abstracts were verified.
+Review scope: full texts were read for [19], [21], [22], [23] and [27]. For [20], [24],
+[25] and [26], only bibliographic metadata and abstracts were verified. The full texts
+of [21], [23] and [27] were read from author-/publisher-supplied PDFs; the manuscript's
+statistical-method citation to [23] reflects that reading (A12 effect size and reporting
+raw p-values are from [23]; the exact McNemar test and Holm adjustment are our own
+choices for paired binary outcomes, not attributed to [23]).
