@@ -1,4 +1,5 @@
-"""crAPI campaign loop: same three generators and stopping rule as the salon study."""
+"""crAPI campaign loop: the salon study's three generators, but episodes stop only at
+the target property (crAPI has several defects at once), matching the reach model."""
 from dataclasses import asdict
 import random
 
@@ -46,8 +47,10 @@ def campaign(adapter, mode, target, seed, budget, depth=8):
             if target in errors:
                 witness = trace
                 break
-            if errors:
-                break
+            # crAPI holds several defects at once, so an episode stops only at the target
+            # property (per docs/crapi-protocol.md and the reach model); a non-target
+            # violation is recorded and the episode continues. This matches the frozen
+            # predictions, which treat non-target violations as ordinary transitions.
     return {"mode": mode, "target": target, "seed": seed, "budget": budget,
             "calls": calls, "detected": witness is not None,
             "trace": witness or []}
