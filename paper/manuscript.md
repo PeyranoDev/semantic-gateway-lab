@@ -730,6 +730,4 @@ search only, while the runtime and the oracle inspect full state.
 
 ## References
 
-See `references.md` ([1]–[27]). The full texts of [19], [21], [22], [23] and [27] have
-been read; for [20], [24], [25] and [26], only bibliographic metadata and abstracts have
-been verified.
+See `references.md` ([1]–[27]).

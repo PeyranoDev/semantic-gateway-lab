@@ -109,9 +109,11 @@ No external tool implementation is included in the measured treatment matrices.
     oracles over 3 artificial and 13 real-world APIs (the journal [19] extends these to
     nine oracles over 52 APIs). Pages and DOI not verified.
 
-Review scope: full texts were read for [19], [21], [22], [23] and [27]. For [20], [24],
-[25] and [26], only bibliographic metadata and abstracts were verified. The full texts
-of [21], [23] and [27] were read from author-/publisher-supplied PDFs; the manuscript's
-statistical-method citation to [23] reflects that reading (A12 effect size and reporting
-raw p-values are from [23]; the exact McNemar test and Holm adjustment are our own
-choices for paired binary outcomes, not attributed to [23]).
+Review scope: the full texts of the cited related work ([19]–[27]) were read, including
+[20] (PCT: bug-depth definition in Section 2.3 and the per-run bound $\ge 1/nk^{d-1}$),
+[24] (EvoMaster: white-box evolutionary REST test generation), [25] (Schemathesis:
+property-based fuzzers derived from OpenAPI/GraphQL schemas) and [26] (sequence covering
+arrays for $t$-way event orders). The statistical-method citation to [23] reflects that
+reading: the A12 effect size and reporting raw p-values are from [23]; the exact McNemar
+test and Holm adjustment are our own choices for paired binary outcomes, not attributed
+to [23]. For [1]–[18], the review scope is as documented in literature-review.md.
