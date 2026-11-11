@@ -51,8 +51,8 @@ pinned version / conference option). Do not change the class to a non-IEEE one.
 
 ## 6. Open items before submission (TODO)
 
-- [x] **Author**: Ignacio Marcos Peyrano, Universidad Austral
-      (`impeyrano@mail.austral.edu.ar`), ORCID 0009-0007-9616-8201.
+- [x] **Author**: Ignacio Marcos Peyrano, Independent Researcher
+      (`peyranoignacio@gmail.com`), ORCID 0009-0007-9616-8201.
 - [ ] **Blind review**: if the chosen venue is double-blind, anonymize the
       author block, the GitHub URL, and self-citations [1], [2].
 - [ ] **Title note / draft date**: remove the working-draft framing for
