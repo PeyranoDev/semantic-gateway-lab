@@ -654,6 +654,19 @@ They describe search-seed variation, not variation across systems. The 30-seed p
 tests are reported with Holm adjustment. They are the original record, not the basis
 for the effect sizes above.
 
+### 9.1 Future work
+
+Two external-tool comparisons are left as future work. First, a stronger RESTler
+configuration, with a dictionary and authentication tuned until it reaches the
+legitimate payment-and-cancellation workflow, so its detection can be compared under a
+matched budget rather than the setup pilot of Section 7.6. Second, a comparison with
+EvoMaster and its access-policy oracles [19, 27] on the salon and crAPI services, the
+closest antecedent to our setting. Both are infrastructure-heavy and neither would
+license a claim of general superiority: the contribution here is predicting which
+generator detects which defect, not outperforming a particular tool. A held-out service
+with unknown defects, and extension beyond finite action domains (via sampled rather than
+exact reach), are the other open directions.
+
 ## 10. Conclusion
 
 Generator tradeoffs in stateful authorization testing need not be found by trial. For a
