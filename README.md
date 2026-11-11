@@ -253,7 +253,7 @@ se conservan en el [informe completo](paper/portfolio-results.md).
 - [Protocolo previo a ejecución](docs/salon-portfolio-protocol.md).
 - [Matriz y verificación en Actions](https://github.com/PeyranoDev/semantic-gateway-lab/actions/runs/38751685998).
 - [Figura reproducible](paper/figures/salon-portfolio.svg).
-- [Candidato externo OWASP crAPI, todavía no evaluado](docs/independent-backend-candidate.md).
+- [OWASP crAPI, evaluado como servicio independiente](docs/crapi-protocol.md) (ver sección v0.10).
 
 El intento local interrumpido también está publicado: sus 810 filas coinciden con
 el rerun completo, excluyendo solamente el tiempo. El ZIP completo de RESTler v0.7
@@ -298,8 +298,10 @@ se escribió desde los desafíos documentados; las predicciones de alcance se co
 por hash antes de correr nada.
 
 - 450 campañas en vivo (3 generadores × 5 familias de reglas × 30 semillas).
-- Las predicciones congeladas reprodujeron **9/9** órdenes de generadores; **ninguna**
-  celda se desvía a p<0,05; 2 familias de control dieron 0/30.
+- Las predicciones congeladas reprodujeron **9/9** órdenes de generadores; **1/15**
+  celdas se desvía a p<0,05 (dentro de lo esperable por azar); la familia de control
+  Return rules dio 0/30 en los tres generadores (reembolso-excesivo, profundidad 3, cayó
+  1/30 solo con azar). El ejecutor corta solo en el objetivo, igual que el modelo.
 - El orden de generadores en crAPI **difiere** del salón (acá gana azar/extensión por
   defectos poco profundos), y el modelo lo predijo.
 

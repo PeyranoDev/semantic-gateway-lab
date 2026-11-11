@@ -239,20 +239,31 @@ stops at its first target hit; a non-target violation stops the episode in the s
 single-defect setting and is transparent under the crAPI target-only rule
 (Section~\ref{sec:crapi}). Both are instances of the same recurrence.
 
-\textbf{Episode distribution.} For a generator whose program visits states by a known
-per-call action distribution $\pi_s(a)$ (uniform $1/N$ for \emph{random}; the exact
-operator distribution for \emph{mutation}, enumerated over every source/donor pair; the
-deterministic prefix then uniform suffix for \emph{prefix extension}), let $m_c(s)$ be the
-probability of having made $c$ clean calls and being at $s$ (no target hit yet). With
-$m_0$ the start distribution,
+We compute, per generator, the episode pmf $(d_c, r_c)$, where $d_c$ is the probability
+that the episode's first target hit is at call $c$ and $r_c$ the probability that it ends
+(stop or program end) after $c$ calls with no target hit. Each generator produces programs
+differently, so the pmf is computed differently; all three use exact rational arithmetic.
+
+\emph{Random.} Each call is uniform over $\mathcal{A}$ independently of the state, so a
+forward dynamic program over states suffices. Let $m_c(s)$ be the probability of being at
+$s$ after $c$ clean calls (no target hit); with $m_0$ the start distribution,
 \begin{align}
-d_{c+1} &= \sum_{s} m_c(s)\!\!\sum_{a\in\mathcal{A}}\! \pi_s(a)\,T(s,a), \label{eq:detect}\\
-m_{c+1}(s') &= \sum_{s}\ \sum_{\substack{a:\ \delta(s,a)=s'\\ (s,a)\ \text{clean}}}\! m_c(s)\,\pi_s(a), \label{eq:carry}
+d_{c+1} &= \tfrac{1}{N}\sum_{s} m_c(s)\!\!\sum_{a\in\mathcal{A}}\! T(s,a), \label{eq:detect}\\
+m_{c+1}(s') &= \tfrac{1}{N}\sum_{s}\ \bigl|\{a:\ \delta(s,a)=s',\ (s,a)\ \text{clean}\}\bigr|\, m_c(s). \label{eq:carry}
 \end{align}
-where $d_c=P(\text{first target hit at call }c)$ and the residual mass that neither
-detects nor carries is $P(\text{episode ends without detection after }c\text{ calls})$,
-written $r_c$. A unit test drives the real mutator through every random-choice path and
-checks that the enumerated $\pi_s$ reproduces its distribution exactly.
+The uniform program length $1$--$L$ is handled by averaging the truncations.
+
+\emph{Mutation.} The program is not Markov in the backend state: it is drawn as a whole.
+We enumerate the mutation operator's entire output --- over every source/donor pair from
+the bank and every branch of the operator --- as a set of (program, probability) pairs,
+run each program deterministically through the table to its first target hit, and add its
+weight to the corresponding $d_c$ or $r_c$. A unit test drives the real mutator through
+every random-choice path and checks that this enumeration reproduces its distribution
+exactly.
+
+\emph{Prefix extension.} The deterministic valid prefix is run through the table by
+position; the uniform random suffix that follows is then handled by the state dynamic
+program of \eqref{eq:detect}--\eqref{eq:carry} started from the prefix's end state.
 
 \textbf{Budget distribution.} A campaign runs i.i.d.\ episodes after a deterministic
 charged bootstrap of $b$ calls. Let $B_n$ be the probability that a fresh episode begins
@@ -262,10 +273,11 @@ call $t$. For $n+c\le T$,
 F_{n+c}\mathrel{+}= B_n\,d_c, \qquad B_{n+c}\mathrel{+}= B_n\,r_c, \label{eq:budget}
 \end{equation}
 and $P(\text{detect within budget }T)=\sum_{t\le T} F_t$, with expected capped effort
-$\sum_t t\,F_t + T\,\bigl(1-\sum_t F_t\bigr)$. All of \eqref{eq:detect}--\eqref{eq:budget}
-use rational arithmetic and are exact for \emph{random}, \emph{mutation} and \emph{prefix
-extension}; the corpus and portfolio engines, whose episodes are not i.i.d., are measured
-on the tables instead (Section~\ref{sec:design}).
+$\sum_t t\,F_t + T\,\bigl(1-\sum_t F_t\bigr)$. The episode pmfs are exact rationals; the
+budget recurrence \eqref{eq:budget} is evaluated in floating point. This is exact for
+\emph{random}, \emph{mutation} and \emph{prefix extension}; the corpus and portfolio
+engines, whose episodes are not i.i.d., are measured on the tables instead
+(Section~\ref{sec:design}).
 
 \textbf{Worked example.} Take cross-scope read (depth~1) under \emph{random}. From the
 fixture state, $8$ of the $175$ actions are a scope violation, so $d_1=8/175\approx0.046$
@@ -438,11 +450,13 @@ At 120 calls the balanced portfolio lies between its components on every defect
 (Table~\ref{tab:portfolio}); at 480 calls it reaches 94--100\% on the first three defects
 and 72.2\% on refund, against 92.5\% for mutation alone. The exact model gives the whole
 detection curve, not only two budgets (Fig.~\ref{fig:curves}). The observed 1{,}000-seed
-fractions fall on the predicted curves, and for these defects the generator ranking does
-not change with the budget: random dominates the depth-1 scope read at every budget, and
-valid-bank mutation dominates the history-dependent defects at every budget. A
-practitioner choosing a generator need not guess the budget at which the ranking flips,
-because here it does not flip after the first few calls. These values also explain an
+fractions fall on the predicted curves, and the ranking is stable away from the smallest
+budgets: random dominates the depth-1 scope read at every budget, while on the
+history-dependent defects valid-bank mutation overtakes random after an initial bootstrap
+region and then stays ahead --- the crossover is at 26 calls for unpaid confirmation, 27
+for overbooking and 29 for repeated refund, below which random (which needs no bootstrap)
+is ahead. So beyond about 30 calls a practitioner need not guess where the ranking flips;
+within the first $\sim$30 it still matters. These values also explain an
 apparent inconsistency between phases: valid-bank mutation detected cross-scope reads in
 8/30 campaigns in v0.6 and 14/30 in v0.8 under identical settings, and the exact
 probability is 0.30, so the v0.8 result was a favorable draw.
@@ -564,8 +578,10 @@ environment change is pointing crAPI's unused external payment gateway at a dead
 order reads do not stall; it never affects the oracle.
 
 The frozen predictions reproduce all nine generator orderings whose probabilities differ
-by at least 0.1 (Table~\ref{tab:crapi}), and two rule families with no reachable violation
-yield 0 of 30 for every generator, as predicted. One of the fifteen cells deviates from
+by at least 0.1 (Table~\ref{tab:crapi}). The return-rules family has no reachable violation
+within the domain and yields 0 of 30 for every generator, as predicted; refund-beyond-payment
+is reachable only at depth 3 (predicted $\le 0.01$) and was hit once, by random (1/30).
+One of the fifteen cells deviates from
 its predicted detection at $p<0.05$ (order-privacy under prefix extension, 15/30 observed
 vs.\ 20.7 predicted, $p=0.029$); with fifteen cells about one such deviation is expected
 by chance, and it does not change any ordering. The generator fingerprint differs from the
