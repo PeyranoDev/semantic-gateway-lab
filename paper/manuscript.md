@@ -263,10 +263,13 @@ after c calls):
   every random-choice path and checks that the enumerated distribution is identical.
 - **Prefix extension**: the deterministic prefix followed by a random suffix.
 
-A budget dynamic program combines i.i.d. episodes with the deterministic charged
-bootstrap. It gives the distribution of the first-failure call index, from which we
-obtain P(detect within B) and the expected capped effort. This is exact for every
-generator except the corpus and portfolio engines, whose episodes are not i.i.d.
+The episode pmfs are exact rationals; mutation enumerates whole programs (not a per-state
+action distribution) and prefix extension runs a deterministic prefix before the random
+suffix. A budget dynamic program combines i.i.d. episodes with the deterministic charged
+bootstrap, evaluated in floating point. It gives the distribution of the first-failure
+call index, from which we obtain P(detect within B) and the expected capped effort. This
+is exact for every generator except the corpus and portfolio engines, whose episodes are
+not i.i.d.
 
 ### 5.3 Validation (pipeline tier)
 
@@ -412,10 +415,12 @@ At 480 calls it reaches 94–100% on the first three defects and 72.2% on refund
 
 The exact model gives the whole detection curve, not only two budgets (Figure 1). The
 observed 1,000-seed fractions fall on the predicted curves, and for these defects the
-generator ranking does not change with the budget: random dominates the depth-1 scope
-read at every budget, and valid-bank mutation dominates the history-dependent defects at
-every budget. A practitioner choosing a generator does not need to guess the budget at
-which the ranking flips, because here it does not flip after the first few calls.
+ranking is stable away from the smallest budgets: random dominates the depth-1 scope read
+at every budget, while on the history-dependent defects valid-bank mutation overtakes
+random only after the bootstrap region and then stays ahead (crossover at 26 calls for
+unpaid confirmation, 27 for overbooking, 29 for repeated refund; below that random, which
+needs no bootstrap, is ahead). So beyond about 30 calls a practitioner need not guess where
+the ranking flips; within the first ~30 it still matters.
 
 ![Figure 1. Exact detection probability versus call budget (lines) with 1,000-seed observed fractions (points) for the three main generators on the four reviewed defects. The dotted line marks the 120-call budget.](figures/reach-curves.svg)
 
@@ -559,9 +564,11 @@ The frozen predictions reproduce all nine generator orderings whose probabilitie
 by at least 0.1 (`results/crapi/comparison.json`). One of the fifteen cells deviates from
 its predicted detection at p < 0.05 (order-privacy under prefix extension, 15/30 vs 20.7
 predicted, p = 0.029); about one such deviation is expected by chance over fifteen cells,
-and it changes no ordering. Two rule families have no reachable violation within the domain
-and yield 0 of 30 for every generator, as predicted. Episodes stop only at the target
-property, consistent with the reach model (the executor was corrected to this rule).
+and it changes no ordering. The return-rules family has no reachable violation within the
+domain and yields 0 of 30 for every generator, as predicted; refund-beyond-payment is
+reachable only at depth 3 (predicted <= 0.01) and was hit once, by random (1/30). Episodes
+stop only at the target property, consistent with the reach model (the executor was
+corrected to this rule).
 
 The generator fingerprint differs from the authored salon service, and the model
 predicted the difference:
