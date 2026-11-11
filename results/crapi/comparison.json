@@ -1,0 +1,136 @@
+{
+ "cells": [
+  {
+   "binomial_p": 0.4201,
+   "mode": "random",
+   "n": 30,
+   "observed": 28,
+   "predicted": 26.05,
+   "target": "ORDER_PRIVACY"
+  },
+  {
+   "binomial_p": 0.0747,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 16,
+   "predicted": 20.72,
+   "target": "ORDER_PRIVACY"
+  },
+  {
+   "binomial_p": 0.1591,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 9,
+   "predicted": 5.73,
+   "target": "ORDER_PRIVACY"
+  },
+  {
+   "binomial_p": 0.5858,
+   "mode": "random",
+   "n": 30,
+   "observed": 14,
+   "predicted": 12.57,
+   "target": "ORDER_TAMPERING"
+  },
+  {
+   "binomial_p": 0.1741,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 24,
+   "predicted": 20.27,
+   "target": "ORDER_TAMPERING"
+  },
+  {
+   "binomial_p": 0.0725,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 8,
+   "predicted": 4.42,
+   "target": "ORDER_TAMPERING"
+  },
+  {
+   "binomial_p": 0.6723,
+   "mode": "random",
+   "n": 30,
+   "observed": 8,
+   "predicted": 7.15,
+   "target": "REFUND_WITHOUT_RETURN"
+  },
+  {
+   "binomial_p": 0.0597,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 17,
+   "predicted": 11.67,
+   "target": "REFUND_WITHOUT_RETURN"
+  },
+  {
+   "binomial_p": 0.4974,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 3,
+   "predicted": 2.29,
+   "target": "REFUND_WITHOUT_RETURN"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.17,
+   "target": "REFUND_EXCEEDS_PAYMENT"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.27,
+   "target": "REFUND_EXCEEDS_PAYMENT"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "target": "REFUND_EXCEEDS_PAYMENT"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "random",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "target": "RETURN_RULES"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "seed_extend",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "target": "RETURN_RULES"
+  },
+  {
+   "binomial_p": 1.0,
+   "mode": "sequence_uniform",
+   "n": 30,
+   "observed": 0,
+   "predicted": 0.0,
+   "target": "RETURN_RULES"
+  }
+ ],
+ "pairwise_order_agreement": [
+  9,
+  9
+ ],
+ "predictions_sha256": "1753379b75ee9e6ddc063e67c37f176de93281544d506c710e3e3131cf297aa5",
+ "source_sha256": {
+  "integrations/crapi/adapter.py": "f7f2d7e043ea75c3b6c0e118f894adaf4f62e11be061d1c922762a30fe0034d7",
+  "integrations/crapi/experiment.py": "f674e9b6dcd7b603b22742ebb710b5f9330b521f14180602f7a7fe1299e26f68",
+  "integrations/crapi/generator.py": "0b8e621da868a545cceec3919991522895b5c63ab1c8c152636e5be30e0d6215",
+  "integrations/crapi/model.py": "5091326ea52c3a03acf469d27e85788ebf71128c78a99d66f45934ad539bea11",
+  "integrations/crapi/reach.py": "df32d380a1ee9f712a6b204a96980897a132fc4fb633d1f3d384ff131cc7b89c"
+ }
+}

@@ -15,6 +15,8 @@ Niveles de evidencia: **validación** (el pipeline reproduce lo registrado),
 | La profundidad es un proxy; el alcance por episodio explica `wrong_recipient` | Exploratoria | Monte Carlo de 10.000 episodios por defecto en el benchmark de documentos | n = 10 no confirma la dirección presupuestaria |
 | Predicciones desde la especificación ordenan generadores en defectos nuevos | Prospectiva | 26/26 pares (brecha ≥ 0,1); 3 mutantes equivalentes con 0/270 detecciones | La regla de profundidad también acierta 15/15; el alcance agrega 11 pares con extensión |
 | Calibración por celda compatible con muestreo | Prospectiva + diagnóstico | Métrica congelada: 4/42 celdas con p < 0,05 (se esperan ~2 por azar); 3/20 en el subconjunto no degenerado (secundario); grafos impl/espec idénticos en las 4 celdas desviadas; 3.000–12.000 semillas reproducen lo congelado | El mapeo espec→impl está escrito a mano; 7 de 14 mutantes sin comparar grafo |
+| Predicciones desde la especificación ordenan generadores en un servicio de otro autor (crAPI) | Prospectiva + independencia | 9/9 órdenes (brecha ≥ 0,1); 0/15 celdas desviadas a p<0,05; 2 familias control 0/30; 450 campañas en vivo; predicciones congeladas sha256 1753379b | crAPI es de entrenamiento con defectos públicos; su especificación la escribimos nosotros |
+| El fingerprint de generadores difiere entre servicios y el modelo lo predice | Independencia | En crAPI gana azar/extensión (defectos profundidad 1–2); en salón gana mutación (historia) | Dos servicios; dominios finitos |
 | Errores HTTP pueden acompañar escrituras de negocio | Exploratoria | Testigos de invitaciones en Aoristo y parche con rollback | Hecho del caso |
 | Se ejecutó un generador externo oficial | Exploratoria | v0.7: RESTler, 60 campañas, 31 trazas revalidadas | Checkers nativos desactivados; sin alcance del reembolso |
 
@@ -32,7 +34,8 @@ variación de búsqueda, no variación entre sistemas.
 - Que el alcance supere a la profundidad prospectivamente en la comparación
   aleatorio/mutación: ambos acertaron los mismos pares.
 - Que la guía por corpus sea inferior en general: sólo en esta configuración y servicio.
-- Generalización a implementaciones de otros autores o a dominios no finitos.
+- Generalización a dominios no finitos (el método exacto requiere dominio finito y
+  estados tratables; crAPI ya es de otro autor, pero sigue siendo de dominio finito).
 - Seguridad formal fuera del dominio y la profundidad acotados.
 
 ## Cierre antes de enviar

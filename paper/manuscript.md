@@ -43,7 +43,13 @@ three mutants have no violating program within the bounded domain; they yield
 
 On the recorded table, the corrected service has no oracle violation in any program of
 up to eight actions over the domain, under the assumption that behavior depends only on
-the observable snapshot. All systems and defects share project authorship.
+the observable snapshot.
+
+On OWASP crAPI, a service authored by others, specification-derived predictions frozen
+before execution reproduce all nine generator orderings against 450 live campaigns, with
+no cell deviating at p < 0.05, and the generator fingerprint differs from the authored
+service as the model predicts. The authored defects and crAPI's public, documented
+defects are not an unseen-defect holdout.
 
 ## 1. Introduction
 
@@ -526,6 +532,45 @@ The RESTler setup pilot could not reach the legitimate refund workflow within it
 budget. This is consistent with, though not computed as, the near-zero reach of
 generators that cannot assemble the payment and cancellation prefix.
 
+### 7.8 Independent service: OWASP crAPI (prospective)
+
+The strongest test of the method is a service this project did not author. OWASP crAPI
+is an intentionally vulnerable application; we study its shop (orders, returns, refunds)
+at the pinned revision `700f03d1`, with every container pinned by digest. We write a
+specification of its intended behavior from the documented challenges and the OpenAPI
+descriptions (disclosing that the vulnerable view code was read first), and define a
+finite domain of two customers and seven shop operations.
+
+Because crAPI contains several real defects at once, we target five rule families and
+stop each episode only at its target property. The exact reach model is computed per
+target from the specification, and the predictions were frozen by hash
+(`results/crapi/predictions.json`) before any live campaign ran. We then ran 450 live
+HTTP/SQL campaigns (3 generators x 5 targets x 30 seeds, budget 60) against the
+unmodified crAPI shop, with the business oracle judging every transition. The only
+environment change is pointing crAPI's unused external payment gateway at a dead port so
+order reads do not stall; it never affects the oracle (`docs/crapi-protocol.md`).
+
+The frozen predictions reproduce all nine generator orderings whose probabilities differ
+by at least 0.1, and no cell deviates from its predicted detection at p < 0.05
+(`results/crapi/comparison.json`). Two rule families have no reachable violation within
+the domain and yield 0 of 30 for every generator, as predicted.
+
+The generator fingerprint differs from the authored salon service, and the model
+predicted the difference:
+- crAPI's defects are shallow (reading another user's order is depth 1; tampering with
+  an order's status or quantity is depth 2), so random and valid-prefix extension beat
+  valid-bank mutation on all three detected families — the reverse of the salon
+  history-dependent defects.
+- Order-privacy (depth 1) is won by random (28/30), order tampering (depth 2) and
+  refund-without-return (depth 2) by valid-prefix extension (24/30 and 17/30), while
+  valid-bank mutation is weakest on each (9, 8 and 3 of 30), because crAPI's valid tasks
+  do not sit one mutation from these witnesses.
+
+This is prediction across the specification/implementation boundary on a service of
+another author. crAPI remains an intentionally vulnerable training application with
+public challenges, so this is implementation independence, not discovery of unknown
+defects.
+
 ## 8. Discussion
 
 **A precomputation before fuzzing.** When the action domain is finite and the
@@ -591,11 +636,13 @@ pay, cancel, refund template is exactly the repeated-refund witness prefix, muta
 one insertion from that witness. A bank-sensitivity analysis (Section 7.2) recomputes
 the generator order with templates removed or added.
 
-**External.** Every system is authored within this project and is small. The mutant
-operator family (guard-disjunct removal) is narrow, and real defects may be distributed
-differently. The independent service candidate (OWASP crAPI,
-`docs/independent-backend-candidate.md`) has not been measured. A stronger RESTler
-configuration and a comparison with EvoMaster's access-policy oracles [19] remain open.
+**External.** The authored systems are small, and the mutant operator family
+(guard-disjunct removal) is narrow, so real defects may be distributed differently. The
+independent evaluation on OWASP crAPI (Section 7.8) removes the shared-authorship
+objection for the implementation, but crAPI is still an intentionally vulnerable
+training application whose defects are public, not an unseen-defect holdout, and its
+specification was written by us. A stronger RESTler configuration and a comparison with
+EvoMaster's access-policy oracles [19] remain open.
 
 **Conclusion.** Surrogate effect sizes use 1,000 seeds per cell within one service.
 They describe search-seed variation, not variation across systems. The 30-seed planned
