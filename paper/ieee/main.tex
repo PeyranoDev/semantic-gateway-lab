@@ -26,8 +26,8 @@
 Generator Tradeoffs in Stateful Authorization Testing}
 
 \author{\IEEEauthorblockN{Ignacio Marcos Peyrano}
-\IEEEauthorblockA{Universidad Austral\\
-Email: impeyrano@mail.austral.edu.ar\\
+\IEEEauthorblockA{Independent Researcher\\
+Email: peyranoignacio@gmail.com\\
 ORCID: 0009-0007-9616-8201}}
 
 \maketitle
@@ -49,7 +49,8 @@ from 0--13\% to 43--79\% at 120 calls, while cross-scope reading moves the other
 only from a specification model and frozen by hash reproduce every generator ordering on
 14 systematically generated mutants. On OWASP crAPI, a service authored by others, frozen
 specification-derived predictions reproduce all nine generator orderings against 450 live
-campaigns with no cell deviating at $p<0.05$, and the generator fingerprint differs from
+campaigns (one of fifteen calibration cells deviating at $p<0.05$, within chance), and the
+generator fingerprint differs from
 the authored service exactly as the model predicts. The contribution is a method that
 turns generator choice from trial into computation; it is not a new fuzzing algorithm, a
 security proof, or a claim of superiority over any tool.
@@ -197,8 +198,9 @@ are summarized in Appendix~\ref{app:earlier}.
 \section{Generators and Campaigns}
 All generators share one campaign loop. Before each program, the service is reset to the
 fixture. Every executed call is charged against the budget. An episode stops at its first
-oracle violation; the campaign stops at the first matching violation, or when the budget
-is exhausted. The generators are: \textbf{random} (each program has a uniform length from
+oracle violation (for crAPI, which holds several defects at once, only at the target
+property; Section~\ref{sec:crapi}); the campaign stops at the first matching violation,
+or when the budget is exhausted. The generators are: \textbf{random} (each program has a uniform length from
 1 to 8, each action uniform over the 175-action domain); \textbf{valid replay} (one of
 eight legitimate task programs, unchanged); \textbf{valid prefix + random}
 (\texttt{seed\_extend}: a legitimate task followed by a uniform random suffix);
@@ -228,18 +230,49 @@ reaches 723 expandable states and 126{,}525 recorded transitions; exploration ta
 identical tables.
 
 \subsection{Episode and budget distributions}
-Given a table and a target property, the following episode distributions are computed
-exactly with rational arithmetic, as $P(\text{detect at call }c)$ and $P(\text{stop
-without detection after }c\text{ calls})$: \emph{random episodes} by forward dynamic
-programming over states, for each program length; \emph{mutation episodes} as the exact
-output distribution of the mutation operator, enumerated over every source/donor pair (a
-unit test drives the real mutator through every random-choice path and checks the
-enumerated distribution is identical); and \emph{prefix extension} as the deterministic
-prefix followed by a random suffix. A budget dynamic program combines i.i.d.\ episodes
-with the deterministic charged bootstrap, giving the distribution of the first-failure
-call index, from which we obtain $P(\text{detect within }B)$ and the expected capped
-effort. This is exact for every generator except the corpus and portfolio engines, whose
-episodes are not i.i.d.
+\label{sec:dp}
+Let $\mathcal{A}$ be the finite action set ($N=|\mathcal{A}|$, here $175$). The recorded
+table gives, for a state $s$ and action $a$, the successor $\delta(s,a)$ and the oracle
+verdict; write $T(s,a)=1$ when $a$ triggers the target property at $s$, and call $(s,a)$
+\emph{clean} when it produces no stopping violation. An episode executes a program and
+stops at its first target hit; a non-target violation stops the episode in the salon
+single-defect setting and is transparent under the crAPI target-only rule
+(Section~\ref{sec:crapi}). Both are instances of the same recurrence.
+
+\textbf{Episode distribution.} For a generator whose program visits states by a known
+per-call action distribution $\pi_s(a)$ (uniform $1/N$ for \emph{random}; the exact
+operator distribution for \emph{mutation}, enumerated over every source/donor pair; the
+deterministic prefix then uniform suffix for \emph{prefix extension}), let $m_c(s)$ be the
+probability of having made $c$ clean calls and being at $s$ (no target hit yet). With
+$m_0$ the start distribution,
+\begin{align}
+d_{c+1} &= \sum_{s} m_c(s)\!\!\sum_{a\in\mathcal{A}}\! \pi_s(a)\,T(s,a), \label{eq:detect}\\
+m_{c+1}(s') &= \sum_{s}\ \sum_{\substack{a:\ \delta(s,a)=s'\\ (s,a)\ \text{clean}}}\! m_c(s)\,\pi_s(a), \label{eq:carry}
+\end{align}
+where $d_c=P(\text{first target hit at call }c)$ and the residual mass that neither
+detects nor carries is $P(\text{episode ends without detection after }c\text{ calls})$,
+written $r_c$. A unit test drives the real mutator through every random-choice path and
+checks that the enumerated $\pi_s$ reproduces its distribution exactly.
+
+\textbf{Budget distribution.} A campaign runs i.i.d.\ episodes after a deterministic
+charged bootstrap of $b$ calls. Let $B_n$ be the probability that a fresh episode begins
+after $n$ consumed calls ($B_b=1$) and $F_t$ the probability of the first detection at
+call $t$. For $n+c\le T$,
+\begin{equation}
+F_{n+c}\mathrel{+}= B_n\,d_c, \qquad B_{n+c}\mathrel{+}= B_n\,r_c, \label{eq:budget}
+\end{equation}
+and $P(\text{detect within budget }T)=\sum_{t\le T} F_t$, with expected capped effort
+$\sum_t t\,F_t + T\,\bigl(1-\sum_t F_t\bigr)$. All of \eqref{eq:detect}--\eqref{eq:budget}
+use rational arithmetic and are exact for \emph{random}, \emph{mutation} and \emph{prefix
+extension}; the corpus and portfolio engines, whose episodes are not i.i.d., are measured
+on the tables instead (Section~\ref{sec:design}).
+
+\textbf{Worked example.} Take cross-scope read (depth~1) under \emph{random}. From the
+fixture state, $8$ of the $175$ actions are a scope violation, so $d_1=8/175\approx0.046$
+and, over the uniform program length $1$--$8$, the per-episode detection is
+$\approx0.185$. Feeding $d_c,r_c$ into \eqref{eq:budget} with budget $T=120$ gives
+$P(\text{detect})=0.9964$ and expected capped effort $21.8$ calls --- matching the
+observed $99.5\%$ (Table~\ref{tab:detect}) without running a campaign.
 
 \subsection{Validation (pipeline tier)}
 \textbf{Exact replay.} We ran the unchanged v0.5, v0.6 and v0.8 campaign code on the
@@ -285,6 +318,7 @@ does not, by itself, rank generators that share structure with the witness; the 
 quantity is each generator's per-episode reach probability.
 
 \section{Experimental Design}
+\label{sec:design}
 Table~\ref{tab:design} summarizes the data and purpose of each tier. The surrogate runs
 use the original campaign implementations; the table adapter falls back to the real
 backend for any state outside the table, and no fallback occurred (0 misses).
@@ -514,6 +548,7 @@ computed as) the near-zero reach of generators that cannot assemble the payment 
 cancellation prefix.
 
 \subsection{Independent service: OWASP crAPI (prospective)}
+\label{sec:crapi}
 The strongest test of the method is a service this project did not author. OWASP crAPI is
 an intentionally vulnerable application; we study its shop (orders, returns, refunds) at
 pinned revision \texttt{700f03d1}, with every container pinned by digest. We write a
@@ -529,19 +564,43 @@ environment change is pointing crAPI's unused external payment gateway at a dead
 order reads do not stall; it never affects the oracle.
 
 The frozen predictions reproduce all nine generator orderings whose probabilities differ
-by at least 0.1, with no cell deviating from its predicted detection at $p<0.05$, and two
-rule families with no reachable violation yield 0 of 30 for every generator, as predicted.
-The generator fingerprint differs from the authored salon service, and the model predicted
-the difference: crAPI's defects are shallow (reading another user's order is depth 1;
-tampering with status or quantity is depth 2), so random and valid-prefix extension beat
-valid-bank mutation on all three detected families --- the reverse of the salon
-history-dependent defects. Order-privacy (depth 1) is won by random (28/30); order
-tampering and refund-without-return (depth 2) by valid-prefix extension (24/30 and 17/30);
-valid-bank mutation is weakest on each (9, 8 and 3 of 30), because crAPI's valid tasks do
-not sit one mutation from these witnesses. This is prediction across the
-specification/implementation boundary on a service of another author; crAPI remains an
-intentionally vulnerable training application with public challenges, so this is
-implementation independence, not discovery of unknown defects.
+by at least 0.1 (Table~\ref{tab:crapi}), and two rule families with no reachable violation
+yield 0 of 30 for every generator, as predicted. One of the fifteen cells deviates from
+its predicted detection at $p<0.05$ (order-privacy under prefix extension, 15/30 observed
+vs.\ 20.7 predicted, $p=0.029$); with fifteen cells about one such deviation is expected
+by chance, and it does not change any ordering. The generator fingerprint differs from the
+authored salon service, and the model predicted the difference: crAPI's defects are
+shallow (reading another user's order is depth 1; tampering with status or quantity is
+depth 2), so random and valid-prefix extension beat valid-bank mutation on all three
+detected families --- the reverse of the salon history-dependent defects. Order-privacy
+(depth 1) is won by random (28/30); order tampering and refund-without-return (depth 2) by
+valid-prefix extension (24/30 and 16/30); valid-bank mutation is weakest on each (9, 8 and
+3 of 30), because crAPI's valid tasks do not sit one mutation from these witnesses. This
+is prediction across the specification/implementation boundary on a service of another
+author; crAPI remains an intentionally vulnerable training application with public
+challenges, so this is implementation independence, not discovery of unknown defects.
+
+\begin{table}[t]
+\caption{crAPI: frozen predicted detection probability vs.\ observed detections out of 30,
+by generator. Episodes stop only at the target property (Section~\ref{sec:dp}). All nine
+separated orderings hold; one of fifteen cells deviates at $p<0.05$ ($\ast$).}
+\label{tab:crapi}
+\centering
+\footnotesize
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+& \multicolumn{2}{c}{Random} & \multicolumn{2}{c}{Prefix ext.} & \multicolumn{2}{c}{Mutation} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Rule family & pred & obs & pred & obs & pred & obs \\
+\midrule
+Order privacy (d1)        & 0.87 & 28 & 0.69 & 15$^\ast$ & 0.19 & 9 \\
+Order tampering (d2)      & 0.42 & 13 & 0.68 & 24 & 0.15 & 8 \\
+Refund w/o return (d2)    & 0.24 & 8  & 0.39 & 16 & 0.08 & 3 \\
+Refund $>$ payment (d3)   & 0.01 & 1  & 0.01 & 0  & 0.00 & 0 \\
+Return rules (control)    & 0.00 & 0  & 0.00 & 0  & 0.00 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Discussion}
 \textbf{A precomputation before fuzzing.} When the action domain is finite and the

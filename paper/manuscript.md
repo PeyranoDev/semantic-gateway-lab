@@ -46,9 +46,9 @@ up to eight actions over the domain, under the assumption that behavior depends 
 the observable snapshot.
 
 On OWASP crAPI, a service authored by others, specification-derived predictions frozen
-before execution reproduce all nine generator orderings against 450 live campaigns, with
-no cell deviating at p < 0.05, and the generator fingerprint differs from the authored
-service as the model predicts. The authored defects and crAPI's public, documented
+before execution reproduce all nine generator orderings against 450 live campaigns (one
+of fifteen calibration cells deviating at p < 0.05, within chance), and the generator
+fingerprint differs from the authored service as the model predicts. The authored defects and crAPI's public, documented
 defects are not an unseen-defect holdout.
 
 ## 1. Introduction
@@ -556,9 +556,12 @@ environment change is pointing crAPI's unused external payment gateway at a dead
 order reads do not stall; it never affects the oracle (`docs/crapi-protocol.md`).
 
 The frozen predictions reproduce all nine generator orderings whose probabilities differ
-by at least 0.1, and no cell deviates from its predicted detection at p < 0.05
-(`results/crapi/comparison.json`). Two rule families have no reachable violation within
-the domain and yield 0 of 30 for every generator, as predicted.
+by at least 0.1 (`results/crapi/comparison.json`). One of the fifteen cells deviates from
+its predicted detection at p < 0.05 (order-privacy under prefix extension, 15/30 vs 20.7
+predicted, p = 0.029); about one such deviation is expected by chance over fifteen cells,
+and it changes no ordering. Two rule families have no reachable violation within the domain
+and yield 0 of 30 for every generator, as predicted. Episodes stop only at the target
+property, consistent with the reach model (the executor was corrected to this rule).
 
 The generator fingerprint differs from the authored salon service, and the model
 predicted the difference:
@@ -567,7 +570,7 @@ predicted the difference:
   valid-bank mutation on all three detected families — the reverse of the salon
   history-dependent defects.
 - Order-privacy (depth 1) is won by random (28/30), order tampering (depth 2) and
-  refund-without-return (depth 2) by valid-prefix extension (24/30 and 17/30), while
+  refund-without-return (depth 2) by valid-prefix extension (24/30 and 16/30), while
   valid-bank mutation is weakest on each (9, 8 and 3 of 30), because crAPI's valid tasks
   do not sit one mutation from these witnesses.
 
