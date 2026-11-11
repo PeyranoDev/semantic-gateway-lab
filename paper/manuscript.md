@@ -129,8 +129,10 @@ Our generators and oracles have these antecedents. Our contribution is to explai
 predict *which* generator detects a given history-dependent defect.
 
 **Probabilistic analyses of testing.**
-- Arcuri, Iqbal and Briand analyze the time random testing needs to reach targets
-  and how predictable it is [21]. We have reviewed only its abstract.
+- Arcuri, Iqbal and Briand give closed-form results, framed as a coupon-collector
+  problem, for the time random testing needs to reach targets and for how predictable
+  its reruns are [21]. Our random-generation reach probability is the same quantity
+  made exact for one concrete stateful service rather than a closed form over targets.
 - Böhme and Paul model testing as sampling from abstract error-based input partitions.
   They derive bounds on the cost per test beyond which random testing is more
   efficient than systematic partition testing on average [22].
@@ -138,15 +140,18 @@ predict *which* generator detects a given history-dependent defect.
   terms of depth [20]. Our use of minimal witness depth follows that tradition.
 - Sequence covering arrays target t-way event orders [26].
 
-Those analyses work with abstract partitions and parameters. Ours computes exact
-per-generator detection distributions over a transition table recorded from a
+Those analyses work with abstract partitions, targets and parameters. Ours computes
+exact per-generator detection distributions over a transition table recorded from a
 concrete stateful implementation. It also contrasts
 random generation with workflow-seeded mutation and corpus guidance under a shared
 budget.
 
-**Evaluation practice.** We follow guidance on repeated randomized trials, on
-separating detected inputs from distinct defects [17], and on statistical tests and
-effect sizes for randomized algorithms [23].
+**Evaluation practice.** We follow guidance on repeated randomized trials and on
+separating detected inputs from distinct defects [17]. From [23] we adopt the
+Vargha-Delaney A12 effect size and its advice to report raw p-values; our paired
+binary detection counts additionally use an exact McNemar test with Holm-adjusted
+p-values (McNemar suits paired success/failure outcomes, which differ from the
+continuous performance measures [23] centers on).
 
 **Enabledness abstractions.** Enabledness-preserving abstractions [3, 4, 14] support
 contract validation and coverage. Our earlier counterexample [1, 2] shows that one
@@ -702,5 +707,6 @@ search only, while the runtime and the oracle inspect full state.
 
 ## References
 
-See `references.md` ([1]–[27]). The full texts of [19] and [22] have been read. For
-[20], [21] and [23]–[27], only bibliographic metadata and abstracts have been verified.
+See `references.md` ([1]–[27]). The full texts of [19], [21], [22], [23] and [27] have
+been read; for [20], [24], [25] and [26], only bibliographic metadata and abstracts have
+been verified.
