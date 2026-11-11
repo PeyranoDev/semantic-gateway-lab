@@ -51,9 +51,8 @@ pinned version / conference option). Do not change the class to a non-IEEE one.
 
 ## 6. Open items before submission (TODO)
 
-- [ ] **Author affiliation**: `main.tex` has a placeholder (`Independent
-      Researcher`, email `ipeyrano@mav-sa.com.ar`). Confirm the real affiliation
-      and add ORCID.
+- [x] **Author affiliation**: Ignacio Peyrano, Universidad Austral
+      (`impeyrano@mail.austral.edu.ar`). Add ORCID before camera-ready.
 - [ ] **Blind review**: if the chosen venue is double-blind, anonymize the
       author block, the GitHub URL, and self-citations [1], [2].
 - [ ] **Title note / draft date**: remove the working-draft framing for
