@@ -57,8 +57,7 @@ pinned version / conference option). Do not change the class to a non-IEEE one.
       author block, the GitHub URL, and self-citations [1], [2].
 - [ ] **Title note / draft date**: remove the working-draft framing for
       camera-ready.
-- [ ] **Reference completeness**: fill the unverified fields noted in
-      `paper/references.md` ([24] volume/issue; [25] venue; [27] pages/DOI).
+- [x] **Reference completeness**: [24] volume/issue/DOI, [25] venue, [27] pages/DOI filled.
 - [ ] **Artifact evaluation**: the repository supports an artifact badge; prepare
       an artifact-appendix if the venue runs artifact evaluation.
 - [ ] **Scope vs. page limit**: if conference, confirm the content fits; if not,
