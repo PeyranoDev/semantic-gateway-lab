@@ -22,7 +22,7 @@
 
 \begin{document}
 
-\title{Exact Reach Probabilities Explain and Predict\\
+\title{Reach Probabilities Explain and Predict\\
 Generator Tradeoffs in Stateful Authorization Testing}
 
 \author{\IEEEauthorblockN{Ignacio Marcos Peyrano}
@@ -38,8 +38,8 @@ generators that mutate valid workflows. Neither wins in general. Workflow mutati
 defects that need several prior steps, and random programs find shallow scope violations
 faster. We show that this tradeoff can be computed before any campaign runs. For an
 authored appointment/payment service, we record the exact transition table of the real
-HTTP/SQL backend over its 175-action campaign domain; from that table an exact dynamic
-program gives each generator's probability of detecting a defect within a call budget.
+HTTP/SQL backend over its 175-action campaign domain; from that table a dynamic
+program, exact with respect to the recorded table, gives each generator's probability of detecting a defect within a call budget.
 The table is validated three ways: the unchanged campaign code reproduces all 2{,}740
 recorded campaigns field for field; 8{,}750 transitions reached by real action paths
 match the table; and a corrupted table fails 19 of 20 replays. With 1{,}000 seeds per
@@ -48,10 +48,13 @@ from 0--13\% to 43--79\% at 120 calls, while cross-scope reading moves the other
 (99.5\% random vs.\ 30.2\% workflow mutation). In a prospective test, predictions derived
 only from a specification model and frozen by hash reproduce every generator ordering with
 a predicted gap of at least ten points: 26/26 on 14 systematically generated mutants and
-9/9 on OWASP crAPI, a service authored by others, against 450 live campaigns (the nine
+9/9 on OWASP crAPI, a service authored by others, against 450 live campaigns (30 seeds per cell) (the nine
 crAPI pairs come from three rule families and share the same campaigns). Ordering and
 probability are distinct results: one of the fifteen crAPI calibration cells deviates at
-$p<0.05$ (15/30 observed vs.\ 20.7 predicted, within chance), yet its ordering still holds.
+$p<0.05$ uncorrected (15/30 observed vs.\ 20.7 predicted; none after Holm correction), yet
+its ordering still holds, and pooled per generator valid-bank mutation on crAPI is
+under-predicted (20 observed vs.\ 12.4 expected), a specification/implementation gap we
+report.
 The generator fingerprint differs from the authored service exactly as the model predicts. The contribution is a method that
 turns generator choice from trial into computation; it is not a new fuzzing algorithm, a
 security proof, or a claim of superiority over any tool.
@@ -309,7 +312,10 @@ state (no restoration), and compared all 175 transitions against the table: 8{,}
 $\times$ generator $\times$ defect $\times$ budget), observed detections are consistent
 with the exact probabilities: the minimum two-sided binomial $p$ is 0.07, and 31 cells are
 informative ($0.02<p<0.98$). This is expected and confirms the pipeline; it is not
-independent predictive evidence.
+independent predictive evidence. The surrogate runs of Section~\ref{sec:design} are a
+different thing: they execute the unchanged campaign code on the validated tables, which
+reproduce the backend field for field, so they are measurements of generator behavior on
+the service, not predictions.
 
 \subsection{Shortest witnesses and reach}
 For each variant, breadth-first search over clean transitions gives the shortest violating
@@ -399,8 +405,9 @@ Corpus-guided, enriched key & 28.1\% & 66.5\% & 47.3\% & 23.5\% \\
 
 The planned 30-seed contrasts point the same way. After Holm adjustment within each
 study's family (24 in v0.6, 16 in v0.8), all valid-versus-random-bank contrasts remain
-significant (exact McNemar, Holm $p\le0.025$); $A_{12}$ on capped calls ranges from 0.15
-to 0.84.
+significant (exact McNemar, Holm $p\le0.025$); $A_{12}$ on capped calls is 0.15
+(scope read), 0.84 (overbooking), 0.77 (unpaid confirmation) and 0.67 (repeated refund);
+values above 0.5 favour the valid bank.
 
 \subsection{Corpus guidance and feedback keys (exploratory)}
 Table~\ref{tab:corpus} gives paired differences from uniform valid-bank mutation, in
@@ -543,7 +550,10 @@ secondary view, leaves 3. The four deviating sites were diagnosed, not assumed t
 noise: their implementation and specification graphs are identical, all recorded campaigns
 replay exactly on the implementation tables, and re-running each deviating cell with
 3{,}000--12{,}000 fresh seeds matches the frozen probabilities. We found no model error;
-every deviation is a low-probability draw at $n=30$.
+every deviation is a low-probability draw at $n=30$. No cell remains significant after Holm
+correction across the 42 (minimum adjusted $p=0.22$), and pooled per generator the observed
+totals match the frozen expectations: random 176 vs.\ 176.0, prefix extension 160 vs.\
+160.2, valid-bank mutation 200 vs.\ 193.2.
 
 \begin{figure*}[t]
 \centering
@@ -616,6 +626,18 @@ refund-without-return 3/30, below random's 13/30 and 8/30), and it has no criter
 three prefix-extension-versus-mutation pairs. The exact reach model orders all nine. Depth
 sorts the broad random-vs-history contrast; reach is needed for the rest.
 
+\textbf{Calibration on crAPI.} No cell is significant after Holm correction across the
+fifteen (minimum adjusted $p=0.44$). Pooled per generator, random (50 observed vs.\ 45.9
+expected) and prefix extension (55 vs.\ 52.9) are calibrated, but valid-bank mutation is
+under-predicted: 20 detections against 12.4 expected (exact Poisson-binomial
+$P(X\ge20)=0.019$; 0.058 after Holm across the three generators). Running the unchanged
+campaign code on the specification model, 2{,}000 seeds per cell, reproduces the frozen
+probabilities within 0.02 for every cell, so the dynamic program is not at fault: the gap
+lies between the specification and the live implementation for mutated programs. Locating
+it needs the same mutated programs run on both, which we leave as future work; it changes
+no ordering, but it is the clearest evidence in this paper that ordering is predicted more
+robustly than probability.
+
 \begin{table}[t]
 \caption{crAPI: frozen predicted detection probability vs.\ observed detections out of 30,
 by generator. Episodes stop only at the target property (Section~\ref{sec:dp}). All nine
@@ -671,9 +693,13 @@ beyond that.
 specification and implementation share an author; their identical state graphs on the
 known variants show agreement, not independent correctness. The prospective predictions
 come from the specification model, and the specification mutants are mapped to
-implementation mutants by a hand-written table written with both in view. Graph identity
-was verified for 12 variants (5 pre-freeze checks and the 7 diagnosed mutants), not for
-the other 7 prospective mutants; where the graphs coincide, the prospective test measures
+implementation mutants by a hand-written table written with both in view. After the
+run we compared implementation and specification graphs for all 14 prospective mutants
+(plus 5 pre-freeze checks): 13 are identical. For the cancel-status mutant the full
+graphs differ (1{,}972 vs.\ 2{,}716 states), but only beyond the first violation; the
+violation-free subgraph that determines detection is identical, and its three cells
+match the predictions (30/30, 26/30, 30/30 vs.\ 29.9, 25.5, 29.8). Where the graphs
+coincide, the prospective test measures
 the fidelity of that mapping as much as a prediction crossing the
 specification/implementation boundary. An independently authored service, where no such
 mapping is possible, is the real test; crAPI is a step toward it. Reach probabilities are
@@ -688,7 +714,9 @@ single-threaded; it would break under concurrency, state kept outside the databa
 timestamps, or identifiers whose value changes behavior. In crAPI the risk is higher:
 sequences are not reset between the service's own calls and authentication carries state,
 so the symbolic order binding is sound only while behavior does not depend on the concrete
-order id, which is checked and stated there. The four reviewed defects shaped the method;
+order id. We have not verified this directly on crAPI: concrete ids change in every live
+episode, so a dependence on them would surface as unexplained deviation (a candidate cause
+of the mutation gap in Section~\ref{sec:crapi}) rather than be ruled out. The four reviewed defects shaped the method;
 only the 14 systematic mutants are prospective. The valid-task bank is eight hand-written
 programs; because the reserve/pay/cancel/refund template is exactly the repeated-refund
 witness prefix, mutation is one insertion from that witness, and the bank-sensitivity

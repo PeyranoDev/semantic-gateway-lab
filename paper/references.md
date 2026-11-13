@@ -94,11 +94,10 @@ No external tool implementation is included in the measured treatment matrices.
     for Assessing Randomized Algorithms in Software Engineering.* Software Testing,
     Verification and Reliability 24(3), pp. 219–250, 2014. https://doi.org/10.1002/stvr.1486
 24. Andrea Arcuri. *RESTful API Automated Test Case Generation with EvoMaster.*
-    ACM Transactions on Software Engineering and Methodology, 2019.
-    Preprint: https://arxiv.org/abs/1901.01538 (volume/issue to verify in ACM DL).
+    ACM Transactions on Software Engineering and Methodology 28(1), pp. 1–37, 2019.
+    https://doi.org/10.1145/3293455 Preprint: https://arxiv.org/abs/1901.01538
 25. Zac Hatfield-Dodds and Dmitry Dygalo. *Deriving Semantics-Aware Fuzzers from
-    Web API Schemas.* arXiv:2112.10328, 2021. https://arxiv.org/abs/2112.10328
-    Published venue to verify.
+    Web API Schemas.* ICSE 2022 Companion (poster). Preprint: https://arxiv.org/abs/2112.10328
 26. D. Richard Kuhn, James M. Higdon, James F. Lawrence, Raghu N. Kacker and Yu Lei.
     *Combinatorial Methods for Event Sequence Testing.* ICST 2012 Workshops (CT 2012),
     pp. 601–609. https://doi.org/10.1109/ICST.2012.147
@@ -107,7 +106,7 @@ No external tool implementation is included in the measured treatment matrices.
     Violations in REST APIs.* IEEE International Symposium on Software Reliability
     Engineering (ISSRE), 2025. The conference version of [19]: three access-policy
     oracles over 3 artificial and 13 real-world APIs (the journal [19] extends these to
-    nine oracles over 52 APIs). Pages and DOI not verified.
+    nine oracles over 52 APIs). Pages 130–141. https://doi.org/10.1109/ISSRE66568.2025.00025
 
 Review scope: the full texts of the cited related work ([19]–[27]) were read, including
 [20] (PCT: bug-depth definition in Section 2.3 and the per-run bound $\ge 1/nk^{d-1}$),
