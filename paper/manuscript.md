@@ -45,10 +45,13 @@ On the recorded table, the corrected service has no oracle violation in any prog
 up to eight actions over the domain, under the assumption that behavior depends only on
 the observable snapshot.
 
-On OWASP crAPI, a service authored by others, specification-derived predictions frozen
-before execution reproduce all nine generator orderings against 450 live campaigns (one
-of fifteen calibration cells deviating at p < 0.05, within chance), and the generator
-fingerprint differs from the authored service as the model predicts. The authored defects and crAPI's public, documented
+Predictions derived only from a specification model and frozen by hash reproduce every
+generator ordering with a predicted gap of at least ten points: 26/26 on 14 systematic
+mutants and 9/9 on OWASP crAPI (a service authored by others), against 450 live campaigns
+(the nine crAPI pairs come from three rule families sharing the same campaigns). Ordering
+and probability are distinct: one of the fifteen crAPI calibration cells deviates at
+p < 0.05 (15/30 observed vs 20.7 predicted, within chance), yet its ordering holds. The
+generator fingerprint differs from the authored service as the model predicts. The authored defects and crAPI's public, documented
 defects are not an unseen-defect holdout.
 
 ## 1. Introduction
@@ -140,11 +143,14 @@ predict *which* generator detects a given history-dependent defect.
   terms of depth [20]. Our use of minimal witness depth follows that tradition.
 - Sequence covering arrays target t-way event orders [26].
 
-Those analyses work with abstract partitions, targets and parameters. Ours computes
-exact per-generator detection distributions over a transition table recorded from a
-concrete stateful implementation. It also contrasts
-random generation with workflow-seeded mutation and corpus guidance under a shared
-budget.
+Bounded-step probabilistic reachability is itself standard in probabilistic model
+checking; our use of it is not the novel part. Those analyses work with abstract
+partitions, targets and parameters. Our contribution is narrower and empirical: we derive
+the detection-probability distribution of concrete generators (random, mutation and prefix
+extension, including their charged initialization cost) over a transition table recorded
+from a running HTTP/SQL service, and contrast them under a shared budget against live
+campaigns. "Exact" means exact with respect to that recorded table (episode pmfs are
+rationals), not a guarantee about the service beyond the bounded finite domain.
 
 **Evaluation practice.** We follow guidance on repeated randomized trials and on
 separating detected inputs from distinct defects [17]. From [23] we adopt the
@@ -265,8 +271,10 @@ after c calls):
 
 The episode pmfs are exact rationals; mutation enumerates whole programs (not a per-state
 action distribution) and prefix extension runs a deterministic prefix before the random
-suffix. A budget dynamic program combines i.i.d. episodes with the deterministic charged
-bootstrap, evaluated in floating point. It gives the distribution of the first-failure
+suffix. The deterministic charged bootstrap runs first: if a bootstrap program hits the
+target at call t it is a deterministic detection (this is not vacuous — a random bank
+detects cross-scope reads during the bootstrap); otherwise it consumes its calls and the
+i.i.d. budget recurrence begins after it, evaluated in floating point. It gives the distribution of the first-failure
 call index, from which we obtain P(detect within B) and the expected capped effort. This
 is exact for every generator except the corpus and portfolio engines, whose episodes are
 not i.i.d.
@@ -580,6 +588,14 @@ predicted the difference:
   refund-without-return (depth 2) by valid-prefix extension (24/30 and 16/30), while
   valid-bank mutation is weakest on each (9, 8 and 3 of 30), because crAPI's valid tasks
   do not sit one mutation from these witnesses.
+
+crAPI is also the clearest case for computing probabilities rather than using depth. The
+paper's own depth heuristic (random for depth 1, workflow generators for depth >= 2) applied
+to the crAPI table orders 4 of the 6 random-vs-workflow pairs correctly. It errs on both
+random-vs-mutation pairs at depth 2, where valid-bank mutation is unexpectedly weak on
+crAPI's shallow defects (tampering 8/30, refund-without-return 3/30, below random's 13/30
+and 8/30), and has no criterion for the three prefix-extension-vs-mutation pairs. The exact
+reach model orders all nine.
 
 This is prediction across the specification/implementation boundary on a service of
 another author. crAPI remains an intentionally vulnerable training application with
