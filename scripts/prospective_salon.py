@@ -160,6 +160,22 @@ def compare():
     print("pairwise order agreement", order_hits, "/", order_total,
           "| cells with p<0.05:", result["cells_binomial_p_below_0.05"], "of", len(cells))
 
+def _violation_free_edges(table):
+    """Edges reachable from the initial state without crossing a violation; episodes stop at
+    the first violation, so only this subgraph and its exits determine detection."""
+    key = lambda i: json.dumps(table["states"][i], sort_keys=True)
+    seen, frontier, edges = {0}, [0], set()
+    while frontier:
+        following = []
+        for state in frontier:
+            for action, (successor, _response, violations) in enumerate(table["edges"].get(str(state), [])):
+                edges.add((key(state), action, "VIOLATION" if violations else key(successor)))
+                if not violations and successor not in seen:
+                    seen.add(successor)
+                    following.append(successor)
+        frontier = following
+    return edges
+
 def diagnose(*site_ids):
     """Post hoc: implementation tables versus specification tables; replay recorded rows."""
     import os
@@ -179,6 +195,7 @@ def diagnose(*site_ids):
                                for k, row in t["edges"].items() for i, e in enumerate(row))
         a, b = key(impl), key(spec)
         differing = len(set(map(json.dumps, a)) ^ set(map(json.dumps, b)))
+        clean = len(_violation_free_edges(impl) ^ _violation_free_edges(spec))
         mismatched = 0
         site_rows = [r for r in rows if r["site"] == site_id]
         for row in site_rows:
@@ -186,6 +203,7 @@ def diagnose(*site_ids):
             mismatched += any(got[k] != row[k] for k in set(got) & set(row) - {"elapsed_s", "site"})
         report[site_id] = {"implementation_states": len(impl["states"]), "spec_states": len(spec["states"]),
                            "transition_differences": differing,
+                           "violation_free_subgraph_differences": clean,
                            "replayed_rows": len(site_rows), "replay_mismatches": mismatched}
         print(site_id, report[site_id], flush=True)
         report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")

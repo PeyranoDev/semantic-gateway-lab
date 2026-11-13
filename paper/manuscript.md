@@ -661,9 +661,13 @@ the known variants show agreement, not independent correctness.
 
 The prospective predictions come from the specification model, and the specification
 mutants are mapped to implementation mutants by a hand-written table
-(`integrations/salon_prospective/spec.py`) written with both in view. Graph identity was
-verified for 12 of the variants (5 pre-freeze checks and the 7 diagnosed mutants), not
-for the other 7 prospective mutants. Where the graphs coincide, the prospective test
+(`integrations/salon_prospective/spec.py`) written with both in view. After the run we
+compared implementation and specification graphs for all 14 prospective mutants (plus 5
+pre-freeze checks; `results/prospective/diagnosis.json`): 13 are identical. For the
+cancel-status mutant (`transition:81:0`) the full graphs differ (1,972 vs 2,716 states),
+but only beyond the first violation; the violation-free subgraph that determines
+detection is identical, and its three cells match the predictions (30/30, 26/30, 30/30
+vs 29.9, 25.5, 29.8). Where the graphs coincide, the prospective test
 measures the fidelity of that mapping as much as a prediction crossing the
 specification/implementation boundary. An independently authored service, where no such
 mapping is possible, is the real test; crAPI is a step toward it.

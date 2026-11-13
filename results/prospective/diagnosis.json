@@ -1,51 +1,114 @@
 {
+ "read:31:0": {
+  "implementation_states": 1260,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 1260,
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
+ },
  "transition:51:0": {
   "implementation_states": 1260,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 1260,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
+ },
+ "transition:51:1": {
+  "implementation_states": 1260,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 1260,
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  },
  "transition:54:0": {
   "implementation_states": 1260,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 1260,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
+ },
+ "transition:57:0": {
+  "implementation_states": 1400,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 1400,
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  },
  "transition:64:0": {
   "implementation_states": 1260,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 1260,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  },
  "transition:64:1": {
   "implementation_states": 1260,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 1260,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  },
  "transition:66:0": {
   "implementation_states": 2416,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 2416,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  },
  "transition:66:1": {
   "implementation_states": 1620,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 1620,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  },
  "transition:69:0": {
   "implementation_states": 1260,
   "replay_mismatches": 0,
   "replayed_rows": 90,
   "spec_states": 1260,
-  "transition_differences": 0
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
+ },
+ "transition:76:0": {
+  "implementation_states": 1800,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 1800,
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
+ },
+ "transition:81:0": {
+  "implementation_states": 1972,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 2716,
+  "transition_differences": 4336,
+  "violation_free_subgraph_differences": 0
+ },
+ "transition:86:0": {
+  "implementation_states": 1812,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 1812,
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
+ },
+ "transition:86:1": {
+  "implementation_states": 1664,
+  "replay_mismatches": 0,
+  "replayed_rows": 90,
+  "spec_states": 1664,
+  "transition_differences": 0,
+  "violation_free_subgraph_differences": 0
  }
 }
