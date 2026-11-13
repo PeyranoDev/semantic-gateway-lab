@@ -46,12 +46,13 @@ match the table; and a corrupted table fails 19 of 20 replays. With 1{,}000 seed
 condition, valid workflow banks raise detection of capacity, payment and refund defects
 from 0--13\% to 43--79\% at 120 calls, while cross-scope reading moves the other way
 (99.5\% random vs.\ 30.2\% workflow mutation). In a prospective test, predictions derived
-only from a specification model and frozen by hash reproduce every generator ordering on
-14 systematically generated mutants. On OWASP crAPI, a service authored by others, frozen
-specification-derived predictions reproduce all nine generator orderings against 450 live
-campaigns (one of fifteen calibration cells deviating at $p<0.05$, within chance), and the
-generator fingerprint differs from
-the authored service exactly as the model predicts. The contribution is a method that
+only from a specification model and frozen by hash reproduce every generator ordering with
+a predicted gap of at least ten points: 26/26 on 14 systematically generated mutants and
+9/9 on OWASP crAPI, a service authored by others, against 450 live campaigns (the nine
+crAPI pairs come from three rule families and share the same campaigns). Ordering and
+probability are distinct results: one of the fifteen crAPI calibration cells deviates at
+$p<0.05$ (15/30 observed vs.\ 20.7 predicted, within chance), yet its ordering still holds.
+The generator fingerprint differs from the authored service exactly as the model predicts. The contribution is a method that
 turns generator choice from trial into computation; it is not a new fuzzing algorithm, a
 security proof, or a claim of superiority over any tool.
 \end{abstract}
@@ -140,11 +141,16 @@ error-based input partitions and derive bounds on the cost per test beyond which
 testing is more efficient than systematic partition testing on average \cite{r22}.
 Probabilistic Concurrency Testing defines bug depth and gives detection bounds in terms
 of depth \cite{r20}; our use of minimal witness depth follows that tradition. Sequence
-covering arrays target $t$-way event orders \cite{r26}. Those analyses work with abstract
-partitions, targets and parameters; ours computes exact per-generator detection
-distributions over a transition table recorded from a concrete stateful implementation,
-and contrasts random generation with workflow-seeded mutation and corpus guidance under a
-shared budget.
+covering arrays target $t$-way event orders \cite{r26}. Bounded-step probabilistic
+reachability is itself standard in probabilistic model checking; our use of it is not the
+novel part. Those analyses work with abstract partitions, targets and parameters, and
+compute reachability of a property. Our contribution is narrower and empirical: we derive
+the detection-probability distribution of \emph{concrete} test generators (random, mutation
+and prefix extension, including their charged initialization cost), over a transition table
+recorded from a running HTTP/SQL service, and contrast those generators under a shared
+budget against live campaigns. ``Exact'' here means exact with respect to that recorded
+table (the episode pmfs are rationals), not a guarantee about the service beyond the
+bounded, finite domain.
 
 \textbf{Evaluation practice.} We follow guidance on repeated randomized trials and on
 separating detected inputs from distinct defects \cite{r17}. From \cite{r23} we adopt the
@@ -265,10 +271,15 @@ exactly.
 position; the uniform random suffix that follows is then handled by the state dynamic
 program of \eqref{eq:detect}--\eqref{eq:carry} started from the prefix's end state.
 
-\textbf{Budget distribution.} A campaign runs i.i.d.\ episodes after a deterministic
-charged bootstrap of $b$ calls. Let $B_n$ be the probability that a fresh episode begins
-after $n$ consumed calls ($B_b=1$) and $F_t$ the probability of the first detection at
-call $t$. For $n+c\le T$,
+\textbf{Budget distribution.} A campaign first runs its deterministic charged bootstrap
+(every generator but random executes its bank; for the valid bank $b=24$ calls). The
+bootstrap programs are run through the table in order: if one hits the target at
+cumulative call $t$, that is a deterministic detection, $F_t=1$, and the campaign is done;
+otherwise the bootstrap consumes $b$ calls with no detection. This case is not vacuous ---
+a random bank, for instance, detects cross-scope reads during the bootstrap. After a
+non-detecting bootstrap, i.i.d.\ episodes follow. Let $B_n$ be the probability that a fresh
+episode begins after $n$ consumed calls ($B_b=1$) and $F_t$ the probability of the first
+detection at call $t$. For $n+c\le T$,
 \begin{equation}
 F_{n+c}\mathrel{+}= B_n\,d_c, \qquad B_{n+c}\mathrel{+}= B_n\,r_c, \label{eq:budget}
 \end{equation}
@@ -595,6 +606,15 @@ valid-prefix extension (24/30 and 16/30); valid-bank mutation is weakest on each
 is prediction across the specification/implementation boundary on a service of another
 author; crAPI remains an intentionally vulnerable training application with public
 challenges, so this is implementation independence, not discovery of unknown defects.
+
+crAPI is also the clearest case for computing probabilities rather than using depth as a
+rule. Applying the paper's own depth heuristic to Table~\ref{tab:crapi} --- random for
+depth 1, workflow generators for depth $\ge 2$ --- orders 4 of the 6 random-versus-workflow
+pairs correctly. It errs on both random-versus-mutation pairs at depth 2, where valid-bank
+mutation is unexpectedly weak on crAPI's shallow defects (tampering 8/30 and
+refund-without-return 3/30, below random's 13/30 and 8/30), and it has no criterion for the
+three prefix-extension-versus-mutation pairs. The exact reach model orders all nine. Depth
+sorts the broad random-vs-history contrast; reach is needed for the rest.
 
 \begin{table}[t]
 \caption{crAPI: frozen predicted detection probability vs.\ observed detections out of 30,
